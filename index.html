@@ -51,14 +51,115 @@
                 <i class="bi bi-search absolute right-3 cursor-pointer text-white text-sm"></i>
             </div>
 
-            <button
-                class="text-white border border-white rounded-lg px-4 h-[38px] hover:bg-white hover:text-black font-semibold">
-                Login
-            </button>
+            <!-- LOGIN -->
+           <button
+class="open-login text-white border border-white rounded-lg px-4 h-[38px] hover:bg-white hover:text-black font-semibold">
+Login
+</button>
 
-            <button class="text-black bg-white rounded-lg px-4 h-[38px] hover:bg-black hover:text-white font-semibold">
-                Sign up
-            </button>
+            <!-- SIGN UP-->
+           <button class="open-signup text-black bg-white rounded-lg px-4 h-[38px] hover:bg-black hover:text-white font-semibold">
+Sign up
+</button>
+
+
+
+<!-- LOGIN MODAL -->
+<div class="modal login-modal fixed inset-0 bg-black/70 hidden items-center justify-center z-50">
+
+<div class="modal-content bg-[#1c1c1c] text-white w-[380px] p-8 rounded-xl border border-white/20 relative">
+
+<!-- CLOSE -->
+<button class="close-modal absolute right-4 top-4 text-gray-400 hover:text-white">
+<i class="bi bi-x-lg"></i>
+</button>
+
+<h2 class="text-2xl font-semibold mb-6 text-center">Login</h2>
+
+<form class="flex flex-col gap-4">
+
+<div>
+<label class="text-sm">Email</label>
+<input type="email"
+class="w-full mt-1 bg-transparent border border-white/30 rounded-lg px-4 py-2 outline-none">
+</div>
+
+<div class="relative">
+
+<label class="text-sm">Password</label>
+
+<input type="password"
+class="password-input w-full mt-1 bg-transparent border border-white/30 rounded-lg px-4 py-2 outline-none">
+
+<i class="toggle-password bi bi-eye absolute right-3 top-[38px] cursor-pointer text-gray-400"></i>
+
+</div>
+
+<div class="text-right text-sm">
+<a href="#" class="text-gray-400 hover:text-white">
+Forgot password?
+</a>
+</div>
+
+<button class="bg-white text-black py-2 rounded-lg font-semibold hover:bg-gray-300">
+Login
+</button>
+
+</form>
+
+<p class="text-center text-sm mt-6 text-gray-400">
+Don't have an account?
+<a href="#" class="text-white hover:underline">Sign up</a>
+</p>
+
+</div>
+</div>
+
+
+
+<!-- SIGNUP MODAL -->
+<div class="modal signup-modal fixed inset-0 bg-black/70 hidden items-center justify-center z-50">
+
+<div class="modal-content bg-[#1c1c1c] text-white w-[380px] p-8 rounded-xl border border-white/20 relative">
+
+<button class="close-modal absolute right-4 top-4 text-gray-400 hover:text-white">
+<i class="bi bi-x-lg"></i>
+</button>
+
+<h2 class="text-2xl font-semibold mb-6 text-center">Sign Up</h2>
+
+<form class="flex flex-col gap-4">
+
+<input type="text" placeholder="Full name"
+class="bg-transparent border border-white/30 rounded-lg px-4 py-2 outline-none">
+
+<input type="email" placeholder="Email"
+class="bg-transparent border border-white/30 rounded-lg px-4 py-2 outline-none">
+
+<div class="relative">
+
+<input type="password"
+placeholder="Password"
+class="password-input bg-transparent border border-white/30 rounded-lg px-4 py-2 outline-none w-full">
+
+<i class="toggle-password bi bi-eye absolute right-3 top-3 cursor-pointer text-gray-400"></i>
+
+</div>
+
+<button class="bg-white text-black py-2 rounded-lg font-semibold hover:bg-gray-300">
+Create Account
+</button>
+
+</form>
+
+<p class="text-center text-sm mt-6 text-gray-400">
+Already have an account?
+<a href="#" class="text-white hover:underline">Login</a>
+</p>
+
+</div>
+</div>
+
 
         </div>
 
@@ -87,7 +188,7 @@
             </p>
 
             <button
-                class="font flex items-center text-white bg-gray-800 rounded-lg px-4 py-2 h-[38px] w-fit border border-white/70 hover:bg-white hover:text-black font-semibold">
+                class="open-login font flex items-center text-white bg-gray-800 rounded-lg px-4 py-2 h-[38px] w-fit border border-white/70 hover:bg-white hover:text-black font-semibold">
                 How to earn &nbsp;&nbsp;
                 <i class="bi bi-arrow-right text-xl mt-1"></i>
             </button>
@@ -176,20 +277,36 @@
             <div>
                 <h4 class="font-semibold mb-3">Platform</h4>
                 <ul class="text-gray-400 space-y-2 text-sm">
-                    <a href="#"><li>Browse Tasks</li></a>
-                     <a href="#"><li>Categories</li></a>
-                     <a href="#"><li>Leaderboard</li></a>
-                     <a href="#"><li>Rewards</li></a>
+                    <a href="#">
+                        <li>Browse Tasks</li>
+                    </a>
+                    <a href="#">
+                        <li>Categories</li>
+                    </a>
+                    <a href="#">
+                        <li>Leaderboard</li>
+                    </a>
+                    <a href="#">
+                        <li>Rewards</li>
+                    </a>
                 </ul>
             </div>
 
             <div>
                 <h4 class="font-semibold mb-3">Resources</h4>
                 <ul class="text-gray-400 space-y-2 text-sm">
-                    <a href="#"><li>Docs</li></a>
-                     <a href="#"><li>Blog</li></a>
-                     <a href="#"><li>Help Center</li></a>
-                     <a href="#"><li>Community</li></a>
+                    <a href="#">
+                        <li>Docs</li>
+                    </a>
+                    <a href="#">
+                        <li>Blog</li>
+                    </a>
+                    <a href="#">
+                        <li>Help Center</li>
+                    </a>
+                    <a href="#">
+                        <li>Community</li>
+                    </a>
                 </ul>
             </div>
 
@@ -210,7 +327,6 @@
 
     </footer>
 
-
 </body>
-
+<script src="index.js"></script>
 </html>
