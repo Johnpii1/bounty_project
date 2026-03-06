@@ -25,15 +25,15 @@
 <body class="bg-black overflow-x-hidden">
 
 <!-- NAV BAR (Moved outside landing container) -->
-<div class="bg-[#212121DE]/100 h-[55px] rounded-lg m-4 md:m-8 flex items-center justify-between px-4 sticky top-0 z-50">
+<div class="bg-black h-[55px] rounded-lg m-4 md:m-8 flex items-center justify-between px-4 sticky top-0 z-50">
 
     <!-- Logo -->
-    <button class="text-white text-[16px] border border-white rounded-lg px-4 h-[38px]">
-        logo
-    </button>
+    <div class="mt-4">
+        <img class="h-[120px] md:h-[160px] object-contain" src="./image/HappyBounty.png" alt="">
+    </div>
 
     <!-- Desktop Menu -->
-    <div class="hidden md:flex flex-row gap-6 items-center font-semibold">
+    <div class="hidden font md:flex flex-row gap-6 items-center font-semibold">
 
         <button class="text-white border border-white rounded-lg px-4 h-[38px] hover:bg-white hover:text-black">
             Resources
@@ -139,15 +139,25 @@
             <h3 class="text-white text-sm md:text-[18px]">Category tag, eg “Design”</h3>
 
             <div class="relative flex flex-col items-center gap-2 py-1">
-<span class="absolute top-0 right-[8rem] md:right-[10rem] border h-[65px] border-white/50 md:h-[66px]"></span>
-                <h4 class="flex flex-row gap-4 items-center text-white text-sm md:text-[16px]"> <p  class="bg-white rounded-full w-[35px] h-[26px]"></p> Rewards</h4>
+<span class="absolute top-0 right-[8rem] md:right-[10rem] border h-[66px] border-white/50"></span>
+                <h4 class="flex flex-row gap-4 items-center text-white text-xs md:text-[14px]"> <p  class="bg-white rounded-full w-[35px] h-[26px]"></p> Rewards</h4>
                 <p class="text-white text-xs md:text-[16px]">eg: 25 BASE ETH</p>
 
             </div>
 
         </div>
 
+        <!-- BORDER -->
         <div class="border-b border-white/50 w-full mt-2"></div>
+
+<!-- TEXT -->
+<div class="flex flex-col gap-6 m-4">
+<h3 class="text-white text-sm md:text-md">Task Title:</h3>
+<p class="text-white text-xs md:text-sm">Brief description (1–2 lines)</p>
+<h3 class="text-white text-sm md:text-md">Tags: Development, GitHub, UX etc</h3>
+<h3 class="text-white text-sm md:text-md">🗓 Deadline: Apr 10 | Status: Open</h3>
+</div>
+
 
     </div>
 
