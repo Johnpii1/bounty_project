@@ -1,3 +1,14 @@
+//Dropdown for mobile
+
+
+
+
+
+
+
+
+
+
 // Get all buttons that open modals
 const loginButtons = document.querySelectorAll(".open-login");
 const signupButtons = document.querySelectorAll(".open-signup");
