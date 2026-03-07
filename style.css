@@ -10,3 +10,7 @@ Static ;
 input[type="search"]::-webkit-search-cancel-button {
   display: none;
 }
+
+.menu.show {
+    display: flex;
+}
