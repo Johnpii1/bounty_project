@@ -53,9 +53,69 @@
 
             <!-- LOGIN -->
             <button
-                class="open-login text-white border border-white rounded-lg px-4 h-[38px] hover:bg-white hover:text-black font-semibold">
+                class="Modaled3 text-white border border-white rounded-lg px-4 h-[38px] hover:bg-white hover:text-black font-semibold">
                 Login
             </button>
+
+
+
+
+
+             <!--MODULAR FOR DESKTOP 3-->
+        <!-- MODAL OVERLAY 3 -->
+        <div id="modalOverlay3"
+            class="fixed inset-0 bg-black/60 backdrop-blur-sm hidden  items-center justify-center z-100">
+
+            <!-- MODAL BOX -->
+            <div class="bg-[#1c1c1c] text-white w-[380px] p-8 rounded-xl border border-white/20 relative relative">
+
+                <!-- CLOSE BUTTON -->
+                <button id="closeModal3" class="absolute top-3 right-3 text-[#FFFFF] text-lg">
+                    ✕
+                </button>
+
+                <!-- CONTENT -->
+               <h2 class="font text-2xl font-semibold mb-6 text-center">Login</h2>
+
+                <!-- TOKEN SELECTOR -->
+                <form class="flex flex-col gap-4">
+
+                        <div>
+                            <label class="text-sm">Email</label>
+                            <input type="email"
+                                class="w-full mt-1 bg-transparent border border-white/30 rounded-lg px-4 py-2 outline-none">
+                        </div>
+
+                        <div class="relative">
+
+                            <label class="text-sm">Password</label>
+
+                            <input type="password"
+                                class="password-input w-full mt-1 bg-transparent border border-white/30 rounded-lg px-4 py-2 outline-none">
+
+                            <i
+                                class="toggle-password1 bi bi-eye absolute right-3 top-[38px] cursor-pointer text-gray-400"></i>
+
+                        </div>
+
+                        <div class="text-right text-sm">
+                            <a href="#" class="text-gray-400 hover:text-white">
+                                Forgot password?
+                            </a>
+                        </div>
+
+                        <button class="bg-white text-black py-2 rounded-lg font-semibold hover:bg-gray-300">
+                            Login
+                        </button>
+
+                    </form>
+      
+        </div>
+    </div>
+
+
+
+
 
             <!-- SIGN UP-->
             <button
@@ -96,7 +156,7 @@
 
                 <!-- LOGIN / SIGNUP -->
                 <div class="font flex flex-col gap-4 mt-[12rem]">
-                    <button class="open-login border border-black rounded-lg py-2 hover:bg-black hover:text-white">
+                    <button class="Modaled2 border border-black rounded-lg py-2 hover:bg-black hover:text-white">
                         Login
                     </button>
 
@@ -106,6 +166,60 @@
                     </button>
                 </div>
 
+
+
+
+<!--MODULAR FOR MOBILE -->
+        <!-- MODAL OVERLAY 2 -->
+        <div id="modalOverlay2"
+            class="fixed inset-0 bg-black/60 backdrop-blur-sm hidden  items-center justify-center z-100">
+
+            <!-- MODAL BOX -->
+            <div class="bg-[#1c1c1c] text-white w-[380px] p-8 rounded-xl border border-white/20 relative relative">
+
+                <!-- CLOSE BUTTON -->
+                <button id="closeModal2" class="absolute top-3 right-3 text-[#FFFFF] text-lg">
+                    ✕
+                </button>
+
+                <!-- CONTENT -->
+               <h2 class="font text-2xl font-semibold mb-6 text-center">Login</h2>
+
+                <!-- TOKEN SELECTOR -->
+                <form class="flex flex-col gap-4">
+
+                        <div>
+                            <label class="text-sm">Email</label>
+                            <input type="email"
+                                class="w-full mt-1 bg-transparent border border-white/30 rounded-lg px-4 py-2 outline-none">
+                        </div>
+
+                        <div class="relative">
+
+                            <label class="text-sm">Password</label>
+
+                            <input type="password"
+                                class="password-input w-full mt-1 bg-transparent border border-white/30 rounded-lg px-4 py-2 outline-none">
+
+                            <i
+                                class="toggle-password bi bi-eye absolute right-3 top-[38px] cursor-pointer text-gray-400"></i>
+
+                        </div>
+
+                        <div class="text-right text-sm">
+                            <a href="#" class="text-gray-400 hover:text-white">
+                                Forgot password?
+                            </a>
+                        </div>
+
+                        <button class="bg-white text-black py-2 rounded-lg font-semibold hover:bg-gray-300">
+                            Login
+                        </button>
+
+                    </form>
+            </div>
+        </div>
+    </div>
             </div>
         </div>
 
