@@ -14,7 +14,7 @@ close.addEventListener("click", () => {
 
 
 //FOR MOBILE
-const openBtn2 = document.querySelectorAll(".Modaled2");
+const openBtn2 = document.querySelectorAll(".login2");
 const closeBnt2 = document.getElementById("closeModal2");
 const modals2 = document.getElementById("modalOverlay2");
 
@@ -58,8 +58,8 @@ document.querySelectorAll(".toggle-password").forEach((icon) => {
 
 
 //FOR DESKTOP
-//FOR MODULAR3
-const openBtn3 = document.querySelectorAll(".Modaled3");
+//FOR MODULAR LOGIN
+const openBtn3 = document.querySelectorAll(".login3");
 const closeBnt3 = document.getElementById("closeModal3");
 const modals3 = document.getElementById("modalOverlay3");
 
@@ -67,8 +67,6 @@ openBtn3.forEach((bnt) => {
   bnt.addEventListener("click", () => {
     modals3.classList.remove("hidden");
     modals3.classList.add("flex");
-    liquidation.classList.add("hidden");
-    liquidation.classList.remove("flex");
   });
 });
 
@@ -96,8 +94,6 @@ document.querySelectorAll(".toggle-password1").forEach((icon) => {
       icon.classList.replace("bi-eye-slash", "bi-eye");
     }
   });
-
-
 });
 
 
