@@ -121,6 +121,40 @@ close1.addEventListener("click", () => {
 });
 
 
+//MODAL OVERLAY FOR MOBILE
+const walletModal = document.querySelector(".wallet")
+const openWallet = document.querySelector(".sign")
+const closeWallet = document.querySelector(".close-wallet")
+
+openWallet.addEventListener("click", () => {
+
+    walletModal.classList.remove("hidden")
+
+})
+
+closeWallet.addEventListener("click", () => {
+    walletModal.classList.add("hidden");
+});
+
+
+//MODAL OVERLAY FOR MOBILE
+const walletModal1 = document.querySelector(".wallet1")
+const openWallet1 = document.querySelector(".sign1")
+const closeWallet1 = document.querySelector(".close-wallet1")
+
+openWallet1.addEventListener("click", () => {
+    walletModal1.classList.remove("hidden")
+
+});
+
+closeWallet1.addEventListener("click", () => {
+    walletModal1.classList.add("hidden");
+});
+
+
+
+
+
 
 
 

@@ -98,10 +98,57 @@
                     <h2 class="font text-2xl font-semibold mb-6">Welcome to Happy Bounty</h2>
                     <p class="text-white text-sm mb-4">Welcome back!</p>
 
-                    <!-- SIGN IN WITH WALLET -->
-                    <button class="bg-white text-black py-2 rounded-lg font-semibold hover:bg-gray-300 w-full mt-4">
+                    <!-- SIGN IN WITH WALLET BUTTON -->
+                    <button
+                        class="sign1 bg-white text-black py-2 rounded-lg font-semibold hover:bg-gray-300 w-full mt-4">
                         Sign in with wallet
                     </button>
+
+
+                    <!-- WALLET MODAL -->
+                    <div class="wallet1 fixed inset-0 bg-black/60 hidden z-50 flex items-center justify-center">
+
+                        <!-- MODAL CARD -->
+                        <div class="w-[700px] max-w-full bg-white h-screen rounded-[2rem] shadow-2xl p-6 px-4">
+
+                            <div class="flex justify-between items-center mb-6">
+                                <h2 class="text-xl font-bold text-black">Connect Wallet</h2>
+
+                                <button class="close-wallet1 text-gray-600 hover:text-black text-lg">
+                                    ✕
+                                </button>
+                            </div>
+
+                            <!-- WALLET OPTIONS -->
+                            <div class="flex flex-wrap gap-3">
+
+                                <button class="flex items-center gap-2 px-4 py-2 border rounded-full hover:bg-gray-100">
+                                    <i class="fab fa-ethereum"></i>
+                                    MetaMask
+                                </button>
+
+                                <button class="flex items-center gap-2 px-4 py-2 border rounded-full hover:bg-gray-100">
+                                    <i class="fas fa-qrcode"></i>
+                                    WalletConnect
+                                </button>
+
+                                <button class="flex items-center gap-2 px-4 py-2 border rounded-full hover:bg-gray-100">
+                                    <i class="fas fa-database"></i>
+                                    Base Account
+                                </button>
+
+                                <button class="flex items-center gap-2 px-4 py-2 border rounded-full hover:bg-gray-100">
+                                    <i class="fas fa-rainbow"></i>
+                                    Rainbow
+                                </button>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+
 
                     <!-- BORDER -->
                     <div class="font flex flex-row items-center justify-center gap-2 mt-4">
@@ -110,15 +157,17 @@
                         <div class="border border-white/40 w-full"></div>
                     </div>
 
+
                     <form class="font flex flex-col gap-4">
 
                         <div>
                             <label class="text-sm">Email</label>
+
                             <input type="email" placeholder="COMING SOON"
                                 class="w-full mt-1 bg-transparent border border-white/30 rounded-lg px-4 py-2 outline-none text-center placeholder:text-red-700">
+
                         </div>
 
-                        <!-- COMING SOON -->
                         <button class="bg-white text-black py-2 rounded-lg font-semibold hover:bg-gray-300">
                             Send code
                         </button>
@@ -152,7 +201,7 @@
                 </button>
 
                 <!-- NAV LINKS -->
-                <div class="font flex flex-col gap-6 mt-8 text-lg font-semibold">
+                <div class="font flex flex-col gap-6 mt-8 text-md font-sm text-black">
                     <a href="./index.html"
                         class="hover:text-gray-600 border-b border-gray-500 cursor-pointer w-full hover:bg-gray-300 rounded-lg px-4">Home</a>
 
@@ -228,29 +277,59 @@
                         <h2 class="font text-2xl font-semibold mb-6">Welcome to Happy Bounty</h2>
                         <p class="text-white text-sm mb-4">Welcome back!</p>
 
-                        <!-- SIGN IN WITH WALLET -->
-                        <button class="bg-white text-black py-2 rounded-lg font-semibold hover:bg-gray-300 w-full mt-4">
+                        <!-- SIGN IN WITH WALLET BUTTON -->
+                        <button
+                            class="sign bg-white text-black py-2 rounded-lg font-semibold hover:bg-gray-300 w-full mt-4">
                             Sign in with wallet
                         </button>
 
 
-<!-- SIGN UP MODAL  -->
- <div class="min-h-screen flex items-center justify-center p-6 bg-gradient-to-br from-[#f3f5f9] to-[#eef0f5]">
+                        <!-- WALLET MODAL -->
+                        <div class="wallet fixed inset-0 bg-black/60 hidden z-50 flex items-center justify-center">
 
-<div class="max-w-[760px] w-full bg-white/90 backdrop-blur-lg rounded-[2.5rem] shadow-2xl overflow-hidden">
+                            <!-- MODAL CARD -->
+                            <div class=" max-w-[760px] bg-white h-[400px] rounded-[2rem] shadow-2xl p-6 px-4">
 
-</div>
+                                <div class="flex justify-between items-center mb-6">
+                                    <h2 class="text-xl font-bold text-black">Connect Wallet</h2>
 
+                                    <button class="close-wallet text-gray-600 hover:text-black text-lg">
+                                        ✕
+                                    </button>
+                                </div>
 
+                                <!-- WALLET OPTIONS -->
+                                <div class="flex flex-wrap gap-3">
 
- </div>
+                                    <button
+                                        class="flex items-center gap-2 px-4 py-2 border rounded-full hover:bg-gray-100">
+                                        <i class="fab fa-ethereum"></i>
+                                        MetaMask
+                                    </button>
 
+                                    <button
+                                        class="flex items-center gap-2 px-4 py-2 border rounded-full hover:bg-gray-100">
+                                        <i class="fas fa-qrcode"></i>
+                                        WalletConnect
+                                    </button>
 
+                                    <button
+                                        class="flex items-center gap-2 px-4 py-2 border rounded-full hover:bg-gray-100">
+                                        <i class="fas fa-database"></i>
+                                        Base Account
+                                    </button>
 
+                                    <button
+                                        class="flex items-center gap-2 px-4 py-2 border rounded-full hover:bg-gray-100">
+                                        <i class="fas fa-rainbow"></i>
+                                        Rainbow
+                                    </button>
 
+                                </div>
 
+                            </div>
 
-
+                        </div>
 
 
 
@@ -261,20 +340,23 @@
                             <div class="border border-white/40 w-full"></div>
                         </div>
 
+
                         <form class="font flex flex-col gap-4">
 
                             <div>
                                 <label class="text-sm">Email</label>
+
                                 <input type="email" placeholder="COMING SOON"
                                     class="w-full mt-1 bg-transparent border border-white/30 rounded-lg px-4 py-2 outline-none text-center placeholder:text-red-700">
+
                             </div>
 
-                            <!-- COMING SOON -->
                             <button class="bg-white text-black py-2 rounded-lg font-semibold hover:bg-gray-300">
                                 Send code
                             </button>
 
                         </form>
+
                     </div>
                 </div>
             </div>
