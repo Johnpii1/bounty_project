@@ -55,8 +55,6 @@ document.querySelectorAll(".toggle-password").forEach((icon) => {
 
 
 
-
-
 //FOR DESKTOP
 //FOR MODULAR LOGIN
 const openBtn3 = document.querySelectorAll(".login3");
@@ -95,6 +93,23 @@ document.querySelectorAll(".toggle-password1").forEach((icon) => {
     }
   });
 });
+
+
+const dropdown = document.querySelector(".dropdown");
+const menu2 = document.querySelector(".Categories");
+
+dropdown.addEventListener("mouseenter", () => {
+  menu2.classList.remove("hidden");
+});
+
+dropdown.addEventListener("mouseleave", () => {
+  menu2.classList.add("hidden");
+});
+
+
+
+
+
 
 
 
