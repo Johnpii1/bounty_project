@@ -94,7 +94,7 @@ document.querySelectorAll(".toggle-password1").forEach((icon) => {
   });
 });
 
-
+//FOR CATEGORIES FOR DESKTOP 
 const dropdown = document.querySelector(".dropdown");
 const menu2 = document.querySelector(".Categories");
 
@@ -105,6 +105,22 @@ dropdown.addEventListener("mouseenter", () => {
 dropdown.addEventListener("mouseleave", () => {
   menu2.classList.add("hidden");
 });
+
+
+//FOR CATEGORIES FOR DESKTOP
+const dropdown1 = document.querySelector(".dropdown1");
+const menu3 = document.querySelector(".Categories1");
+const close1 = document.getElementById("close1");
+
+dropdown1.addEventListener("click", () => {
+  menu3.classList.remove("hidden");
+});
+
+close1.addEventListener("click", () => {
+  menu3.classList.add("hidden");
+});
+
+
 
 
 
