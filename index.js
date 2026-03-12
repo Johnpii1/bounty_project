@@ -23,8 +23,8 @@ if (close && menu) {
 // MOBILE LOGIN MODAL
 // ==========================
 const openBtn2 = document.querySelectorAll(".login2");
-const closeBtn2 = document.getElementById("closeModal2");
 const modal2 = document.getElementById("modalOverlay2");
+const closeBtn2 = document.getElementById("closeModal2");
 
 openBtn2.forEach((btn) => {
   btn.addEventListener("click", () => {
@@ -58,9 +58,8 @@ if (modal2) {
 // DESKTOP LOGIN MODAL
 // ==========================
 const openBtn3 = document.querySelectorAll(".login3");
-const closeBtn3 = document.getElementById("closeModal3");
 const modal3 = document.getElementById("modalOverlay3");
-
+const closeBtn3 = document.getElementById("closeModal3");
 openBtn3.forEach((btn) => {
   btn.addEventListener("click", () => {
     if (modal3) {
@@ -93,22 +92,21 @@ if (modal3) {
 const dropdown = document.querySelector(".dropdown");
 const menu2 = document.querySelector(".Categories");
 
-if (dropdown && menu2) {
-  dropdown.addEventListener("mouseenter", () => {
-    menu2.classList.remove("hidden");
-  });
+dropdown.addEventListener("mouseenter", () => {
+  menu2.classList.remove("hidden");
+});
 
-  dropdown.addEventListener("mouseleave", () => {
-    menu2.classList.add("hidden");
-  });
-}
+dropdown.addEventListener("mouseleave", () => {
+  menu2.classList.add("hidden");
+});
+
 
 
 
 // ==========================
 // MOBILE CATEGORY DROPDOWN
 // ==========================
-const dropdown1 = document.querySelector(".dropdown1");
+const dropdown1 = document.getElementById("dropdown1");
 const menu3 = document.querySelector(".Categories1");
 const close1 = document.getElementById("close1");
 
@@ -127,9 +125,9 @@ if (close1 && menu3) {
 
 
 // ==========================
-// WALLET MODAL (MOBILE)
+// WALLET MODAL (DESKTOP)
 // ==========================
-const walletModal = document.querySelector(".wallet");
+const walletModal = document.querySelector(".wallet1");
 const openWallet = document.querySelector(".sign");
 const closeWallet = document.querySelector(".close-wallet");
 
@@ -148,11 +146,11 @@ if (closeWallet && walletModal) {
 
 
 // ==========================
-// WALLET MODAL (DESKTOP)
+// WALLET MODAL (MOBILE)
 // ==========================
-const walletModal1 = document.querySelector(".wallet1");
-const openWallet1 = document.querySelector(".sign1");
-const closeWallet1 = document.querySelector(".close-wallet1");
+const walletModal1 = document.querySelectorAll(".login3");
+const openWallet1 = document.getElementById("modalOverlay3");
+const closeWallet1 = document.getElementById("closeModal3");
 
 if (openWallet1 && walletModal1) {
   openWallet1.addEventListener("click", () => {
