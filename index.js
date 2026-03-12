@@ -128,7 +128,7 @@ if (close1 && menu3) {
 // WALLET MODAL (DESKTOP)
 // ==========================
 const walletModal = document.querySelector(".wallet1");
-const openWallet = document.querySelector(".sign");
+const openWallet = document.querySelector(".sign1");
 const closeWallet = document.querySelector(".close-wallet");
 
 if (openWallet && walletModal) {
@@ -148,9 +148,9 @@ if (closeWallet && walletModal) {
 // ==========================
 // WALLET MODAL (MOBILE)
 // ==========================
-const walletModal1 = document.querySelectorAll(".login3");
-const openWallet1 = document.getElementById("modalOverlay3");
-const closeWallet1 = document.getElementById("closeModal3");
+const openWallet1 = document.querySelector(".sign");
+const walletModal1 = document.querySelector(".wallet2");
+const closeWallet1 = document.querySelector(".close-wallet");
 
 if (openWallet1 && walletModal1) {
   openWallet1.addEventListener("click", () => {
