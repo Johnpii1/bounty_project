@@ -129,7 +129,7 @@ if (close1 && menu3) {
 // ==========================
 const walletModal = document.querySelector(".wallet1");
 const openWallet = document.querySelector(".sign1");
-const closeWallet = document.querySelector(".close-wallet");
+const closeWallet = document.querySelector(".close-wallet1");
 
 if (openWallet && walletModal) {
   openWallet.addEventListener("click", () => {

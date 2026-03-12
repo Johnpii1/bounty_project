@@ -25,7 +25,8 @@
 <body class="bg-black overflow-x-hidden font">
 
     <!-- NAVBAR -->
-    <div class="max-w-screen-2xl mx-auto bg-black h-[55px] rounded-lg m-4 md:m-6 flex items-center justify-between sticky top-0 z-50">
+    <div
+        class="max-w-screen-2xl mx-auto bg-black h-[55px] rounded-lg m-4 md:m-6 flex items-center justify-between sticky top-0 z-50">
 
         <!-- LOGO -->
         <div class="mt-4">
@@ -47,10 +48,14 @@
 
                 <div class="Categories hidden absolute top-[2.4rem] left-0 w-[300px] bg-black text-white rounded-md">
                     <div class="flex flex-col gap-4 py-2 px-4 cursor-pointer">
-                        <a class="border-b border-white hover:bg-gray-300 hover:text-black rounded-lg px-4 py-1">Development</a>
-                        <a class="border-b border-white hover:bg-gray-300 hover:text-black rounded-lg px-4 py-1">Design</a>
-                        <a class="border-b border-white hover:bg-gray-300 hover:text-black rounded-lg px-4 py-1">Marketing / Referrals</a>
-                        <a class="border-b border-white hover:bg-gray-300 hover:text-black rounded-lg px-4 py-1">Other</a>
+                        <a
+                            class="border-b border-white hover:bg-gray-300 hover:text-black rounded-lg px-4 py-1">Development</a>
+                        <a
+                            class="border-b border-white hover:bg-gray-300 hover:text-black rounded-lg px-4 py-1">Design</a>
+                        <a class="border-b border-white hover:bg-gray-300 hover:text-black rounded-lg px-4 py-1">Marketing
+                            / Referrals</a>
+                        <a
+                            class="border-b border-white hover:bg-gray-300 hover:text-black rounded-lg px-4 py-1">Other</a>
                     </div>
                 </div>
             </div>
@@ -66,8 +71,11 @@
                 Sign up
             </button>
 
+            <a class="text-white" href="./user_dashboard.html">user ashbodr</a>
+
             <!-- DESKTOP SIGNUP/WALLET MODAL -->
-            <div id="modalOverlay3" class="fixed inset-0 bg-black/60 backdrop-blur-sm hidden flex items-center justify-center z-50">
+            <div id="modalOverlay3"
+                class="fixed inset-0 bg-black/60 backdrop-blur-sm hidden flex items-center justify-center z-50 transform translate-y-5 opacity-0 transition-all duration-300 hover:translate-y-0 hover:opacity-100">
                 <div class="bg-[#1c1c1c] text-white w-[380px] p-8 rounded-xl border border-white/20 relative">
                     <!-- CLOSE -->
                     <button id="closeModal3" class="absolute top-3 right-3 text-white text-lg">✕</button>
@@ -77,20 +85,115 @@
                     <p class="text-sm mb-4">Welcome back!</p>
 
                     <!-- SIGN IN WITH WALLET -->
-                    <button class="sign1 bg-white text-black py-2 rounded-lg font-semibold hover:bg-gray-300 w-full mt-4">Sign in with wallet</button>
+                    <button
+                        class="sign1 bg-white text-black py-2 rounded-lg font-semibold hover:bg-gray-300 w-full mt-4">Sign
+                        in with wallet</button>
 
                     <!-- WALLET MODAL DESKTOP -->
-                    <div class="wallet1 fixed inset-0 bg-black/60 hidden z-50 flex items-center justify-center">
-                        <div class="max-w-[760px] bg-white h-[400px] rounded-2xl shadow-2xl p-6 px-4">
+                    <div
+                        class="wallet1 fixed inset-0 bg-black/60 hidden z-50 flex items-center justify-center transform translate-y-5 opacity-0 transition-all duration-300 hover:translate-y-0 hover:opacity-100">
+                        <div class="w-[55%] bg-white h-auto rounded-2xl shadow-2xl p-6 px-4">
                             <div class="flex justify-between items-center mb-6">
                                 <h2 class="text-xl font-bold text-black">Connect Wallet</h2>
-                                <button class="close-wallet1 text-gray-600 hover:text-black text-lg">✕</button>
+
+                                <!-- CLOSE BUTTON -->
+                                <button
+                                    class="close-wallet1 flex items-center text-black gap-4 px-4 py-3 rounded-full  hover:bg-gray-200 transition-colors duration-200">✕</button>
                             </div>
-                            <div class="flex flex-wrap gap-3">
-                                <button class="flex items-center gap-2 px-4 py-2 border rounded-full hover:bg-gray-100">MetaMask</button>
-                                <button class="flex items-center gap-2 px-4 py-2 border rounded-full hover:bg-gray-100">WalletConnect</button>
-                                <button class="flex items-center gap-2 px-4 py-2 border rounded-full hover:bg-gray-100">Base Account</button>
-                                <button class="flex items-center gap-2 px-4 py-2 border rounded-full hover:bg-gray-100">Rainbow</button>
+                            <div class="flex flex-row gap-[30%]">
+
+                                <!-- FIRST DIV -->
+                                <div class="flex flex-col flex-wrap">
+                                    <h3 class="text-blue-700 text-sm">Installed</h3>
+
+                                    <!-- CONNETED WALLET -->
+                                    <div class="flex items-center gap-4 px-4 py-3 rounded-2xl cursor-pointer
+                                    hover:bg-gray-200 transition-colors duration-200">
+
+                                        <img src="./image/metalmask.png" class="w-8">
+                                        <p class="text-md font-semibold text-black">
+                                            MetaMask
+                                        </p>
+                                    </div>
+
+                                    <button
+                                        class="flex items-center gap-4 px-4 py-3 rounded-xl w-[150%] hover:bg-gray-200 transition-colors duration-200">
+                                        <img src="./image/bitget.png" class="w-8 rounded-lg">
+                                        <p class="text-md font-semibold text-black">Bitget Wallet</p>
+                                    </button>
+
+
+
+                                    <!-- POPULAR -->
+                                    <h2 class="text-gray-500 text-sm mt-2">Popular</h2>
+
+
+                                    <!-- POPULAR WALLET -->
+                                    <button
+                                        class="flex items-center gap-4 px-4 py-3 rounded-xl w-[150%] hover:bg-gray-200 transition-colors duration-200">
+                                        <img src="./image/rainbow.jpg" class="w-8 rounded-lg">
+                                        <p class="text-md font-semibold text-black">Rainbow</p>
+                                    </button>
+
+                                    <button
+                                        class="flex items-center gap-4 px-4 py-3 rounded-xl w-[150%] hover:bg-gray-200 transition-colors duration-200">
+                                        <img src="./image/coinbase.svg" class="w-8 rounded-lg">
+                                        <p class="text-md font-semibold text-black">CoinBase Account</p>
+                                    </button>
+
+
+                                    <button
+                                        class="flex items-center gap-4 px-4 py-3 rounded-xl w-[150%] hover:bg-gray-200 transition-colors duration-200">
+                                        <img src="./image/walletconnect.svg" class="w-8 rounded-lg">
+                                        <p class="text-md font-semibold text-black">WalletConnect</p>
+                                    </button>
+
+                                </div>
+                                <div class="absolute top-0 border-[0.90px] border-black/10 ml-[16rem] h-full "></div>
+
+
+                                <!-- SECOND DIV -->
+                                <div class="flex flex-col ">
+                                    <h3 class="text-black text-center text-lg mr-[4rem]">What is a Wallet?</h3>
+
+                                    <div class="flex flex-col gap-2 mt-10 mr-[1rem]">
+
+                                        <!-- A Home for your Digital Assets  -->
+                                        <div class="flex flex-row gap-3">
+                                            <img class="w-10 object-contain mt-2" src="./image/crypto.jpg" alt="">
+                                            <h5 class="font-semibold text-black text-sm text-start">A Home
+                                                for your Digital Assets
+                                                <p class="text-xs text-gray-500 ">Wallets are used to send, receive,
+                                                    store,
+                                                    and display digital assets like Ethereum and NFTs.</p>
+                                            </h5>
+                                        </div>
+
+                                        <!-- A New Way to Log In -->
+                                        <div class="flex flex-row gap-3 mt-8">
+                                            <img class="w-10 object-contain mt-2" src="./image/wallet.jpg" alt="">
+                                            <h5 class="font-semibold text-black text-sm text-start">A New Way to Log In
+                                                <p class="text-xs text-gray-500 ">Instead of creating new accounts and
+                                                    passwords on every website, just connect your wallet.</p>
+                                            </h5>
+                                        </div>
+
+                                    </div>
+
+                                    <div class="flex flex-col gap-2  items-center justify-center  mt-12">
+                                        <button
+                                            class="text-white text-sm  border border-white rounded-2xl px-2 py-1 bg-gray-800  w-fit">
+                                            Get a Wallet
+                                        </button>
+
+
+                                        <a href="" class="text-black text-sm hover:underline font-bold">
+                                            Learn More
+                                        </a>
+                                    </div>
+
+                                </div>
+
                             </div>
                         </div>
                     </div>
@@ -104,8 +207,10 @@
 
                     <!-- EMAIL FORM -->
                     <form class="flex flex-col gap-4 mt-2">
-                        <input type="email" placeholder="COMING SOON" class="w-full mt-1 bg-transparent border border-white/30 rounded-lg px-4 py-2 outline-none text-center placeholder:text-red-700">
-                        <button class="bg-white text-black py-2 rounded-lg font-semibold hover:bg-gray-300">Send code</button>
+                        <input type="email" placeholder="COMING SOON"
+                            class="w-full mt-1 bg-transparent border border-white/30 rounded-lg px-4 py-2 outline-none text-center placeholder:text-red-700">
+                        <button class="bg-white text-black py-2 rounded-lg font-semibold hover:bg-gray-300">Send
+                            code</button>
                     </form>
                 </div>
             </div>
@@ -117,7 +222,8 @@
 
             <!-- MOBILE SEARCH -->
             <div class="flex md:hidden border border-white rounded-lg px-2 h-[38px] items-center">
-                <input type="search" placeholder="Search project" class="bg-transparent outline-none text-white w-[140px]">
+                <input type="search" placeholder="Search project"
+                    class="bg-transparent outline-none text-white w-[140px]">
                 <i class="bi bi-search text-white"></i>
             </div>
 
@@ -131,14 +237,17 @@
     </div>
 
     <!-- MOBILE MENU -->
-    <div class="menu hidden md:hidden fixed top-[70px] right-4 w-[80%] max-w-[320px] bg-white border border-black rounded-lg p-6 z-[100]">
+    <div
+        class="menu hidden md:hidden fixed top-[70px] right-4 w-[80%] max-w-[320px] bg-white border border-black rounded-lg p-6 z-50">
         <button class="close absolute right-4 top-4 text-gray-600"><i class="bi bi-x-lg"></i></button>
 
         <!-- NAV LINKS -->
         <div class="font flex flex-col gap-6 mt-8 text-black cursor-pointer">
             <a href="./index.html" class="border-b border-gray-400 hover:bg-gray-200 rounded-lg px-4">Home</a>
-            <h3 class="border-b border-gray-400 px-4 hover:bg-gray-200 rounded-lg">Resources <span class="text-red-700 text-sm">Coming soon</span></h3>
-            <h3 id="dropdown1" class="border-b border-gray-400 px-4 cursor-pointer hover:bg-gray-200 rounded-lg">Categories</h3>
+            <h3 class="border-b border-gray-400 px-4 hover:bg-gray-200 rounded-lg">Resources <span
+                    class="text-red-700 text-sm">Coming soon</span></h3>
+            <h3 id="dropdown1" class="border-b border-gray-400 px-4 cursor-pointer hover:bg-gray-200 rounded-lg">
+                Categories</h3>
         </div>
 
         <!-- MOBILE CATEGORIES DROPDOWN -->
@@ -147,7 +256,8 @@
             <div class="font flex flex-col py-10 px-4 cursor-pointer text-sm">
                 <a class="border-b border-white hover:bg-gray-300 rounded-lg hover:text-black px-4 py-1">Development</a>
                 <a class="border-b border-white hover:bg-gray-300 rounded-lg hover:text-black px-4 py-1">Design</a>
-                <a class="border-b border-white hover:bg-gray-300 rounded-lg hover:text-black px-4 py-1">Marketing / Referrals</a>
+                <a class="border-b border-white hover:bg-gray-300 rounded-lg hover:text-black px-4 py-1">Marketing /
+                    Referrals</a>
                 <a class="border-b border-white hover:bg-gray-300 rounded-lg hover:text-black px-4 py-1">Other</a>
             </div>
         </div>
@@ -158,27 +268,82 @@
         </div>
 
         <!-- MOBILE LOGIN MODAL -->
-        <div id="modalOverlay2" class="font fixed inset-0 bg-black/60 backdrop-blur-sm hidden items-center justify-center z-50">
+        <div id="modalOverlay2"
+            class="font fixed inset-0 bg-black/60 backdrop-blur-sm hidden items-center justify-center z-50 transform translate-y-5 opacity-0 transition-all duration-300 hover:translate-y-0 hover:opacity-100">
             <div class="bg-[#1c1c1c] text-white w-[380px] p-8 rounded-xl border border-white/20 relative">
                 <button id="closeModal2" class="absolute top-3 right-3 text-white text-lg">✕</button>
                 <h2 class="text-2xl font-semibold mb-6">Welcome to Happy Bounty</h2>
                 <p class="text-white text-sm mb-4">Welcome back!</p>
-                <button class="sign bg-white text-black py-2 rounded-lg font-semibold hover:bg-gray-300 w-full mt-4">Sign in with wallet</button>
+                <button
+                    class="sign bg-white text-black py-2 rounded-lg font-semibold hover:bg-gray-300 w-full mt-4">Sign in
+                    with wallet</button>
 
                 <!-- WALLET MODAL MOBILE -->
-                <div class="wallet2 fixed inset-0 bg-black/60 hidden  z-50 flex items-center justify-center">
-                    <div class="max-w-[760px] bg-white h-[400px] rounded-2xl shadow-2xl p-6 px-4">
-                        <div class="flex justify-between items-center mb-6">
-                            <h2 class="text-xl font-bold text-black">Connect Wallet</h2>
-                            <!-- CLOSE BUTTON -->
-                            <button class="close-wallet text-gray-600 hover:text-black text-lg">✕</button>
-                        </div>
-                        <div class="flex flex-wrap gap-3">
-                            <button class="flex items-center gap-2 px-4 py-2 border rounded-full hover:bg-gray-100">MetaMask</button>
-                            <button class="flex items-center gap-2 px-4 py-2 border rounded-full hover:bg-gray-100">WalletConnect</button>
-                            <button class="flex items-center gap-2 px-4 py-2 border rounded-full hover:bg-gray-100">Base Account</button>
-                            <button class="flex items-center gap-2 px-4 py-2 border rounded-full hover:bg-gray-100">Rainbow</button>
-                        </div>
+                <div
+                    class="wallet2 fixed inset-0 bg-black/60 hidden  z-50 flex items-center justify-center transform translate-y-5 opacity-0 transition-all duration-300 hover:translate-y-0 hover:opacity-100">
+                    <div class="h-auto w-[80%]  bg-white  rounded-2xl">
+
+                         <!-- CLOSE BUTTON -->
+                            <button class="close-wallet flex text-gray-600 hover:text-black text-lg ml-[94%] mt-2">✕</button>
+                       
+                            <h2 class="text-xl font-bold text-black text-center mb-4 font-bold">Connect Wallet</h2>
+                            
+                        <!-- FIRST DIV -->
+                                <div class="flex flex-col flex-wrap">
+                                    <h3 class="text-blue-700 text-sm px-2">Installed</h3>
+
+                                    <!-- CONNETED WALLET -->
+                                    <button class="flex items-center gap-4 px-4 py-3 rounded-xl w-full hover:bg-gray-200 transition-colors duration-200">
+                                        <img src="./image/metalmask.png" class="w-8">
+                                        <p class="text-md font-semibold text-black">
+                                            MetaMask
+                                        </p>
+                                    </button>
+
+                                    <button
+                                        class="flex items-center gap-4 px-4 py-3 rounded-xl w-full hover:bg-gray-200 transition-colors duration-200">
+                                        <img src="./image/bitget.png" class="w-8 rounded-lg">
+                                        <p class="text-md font-semibold text-black">Bitget Wallet</p>
+                                    </button>
+
+
+
+                                    <!-- POPULAR -->
+                                    <h2 class="text-gray-500 text-sm mt-2 px-2">Popular</h2>
+
+
+                                    <!-- POPULAR WALLET -->
+                                    <button
+                                        class="flex items-center gap-4 px-4 py-3 rounded-xl w-full hover:bg-gray-200 transition-colors duration-200">
+                                        <img src="./image/rainbow.jpg" class="w-8 rounded-lg">
+                                        <p class="text-md font-semibold text-black">Rainbow</p>
+                                    </button>
+
+                                    <button
+                                        class="flex items-center gap-4 px-4 py-3 rounded-xl w-full hover:bg-gray-200 transition-colors duration-200">
+                                        <img src="./image/coinbase.svg" class="w-8 rounded-lg">
+                                        <p class="text-md font-semibold text-black">CoinBase Account</p>
+                                    </button>
+
+
+                                    <button
+                                        class="flex items-center gap-4 px-4 py-3 rounded-xl w-full hover:bg-gray-200 transition-colors duration-200">
+                                        <img src="./image/walletconnect.svg" class="w-8 rounded-lg">
+                                        <p class="text-md font-semibold text-black">WalletConnect</p>
+                                    </button>
+
+                                </div>
+
+                                <div class="border-[0.95px] border-gray-400 w-full mt-4"></div>
+
+                                <div class="flex justify-between items-center gap-4 p-4"> 
+                                    <p class="text-gray-800 text-sm">New to Ethereum wallets?</p>
+
+  <a href="" class="text-black text-sm font-bold">
+                                            Learn More
+                                        </a>
+                                </div>
+
                     </div>
                 </div>
 
@@ -189,8 +354,10 @@
                 </div>
 
                 <form class="flex flex-col gap-4 mt-2">
-                    <input type="email" placeholder="COMING SOON" class="w-full mt-1 bg-transparent border border-white/30 rounded-lg px-4 py-2 outline-none text-center placeholder:text-red-700">
-                    <button class="bg-white text-black py-2 rounded-lg font-semibold hover:bg-gray-300">Send code</button>
+                    <input type="email" placeholder="COMING SOON"
+                        class="w-full mt-1 bg-transparent border border-white/30 rounded-lg px-4 py-2 outline-none text-center placeholder:text-red-700">
+                    <button class="bg-white text-black py-2 rounded-lg font-semibold hover:bg-gray-300">Send
+                        code</button>
                 </form>
             </div>
         </div>
@@ -206,12 +373,14 @@
             <p class="text-white text-sm md:text-[14px]">
                 Complete quests and earn cryptocurrency, tokens, and digital rewards
             </p>
-            <button class="open-login flex items-center text-white bg-gray-800 rounded-lg px-4 py-2 w-fit border border-white/70 hover:bg-white hover:text-black">
+            <button
+                class="open-login flex items-center text-white bg-gray-800 rounded-lg px-4 py-2 w-fit border border-white/70 hover:bg-white hover:text-black">
                 How to earn
-                <i class="bi bi-arrow-right text-xl ml-2"></i>
+                <i class="bi bi-arrow-right text-xl ml-2 mt-1.5"></i>
             </button>
         </div>
     </div>
+
 
     <!-- FEATURED BOUNTIES -->
     <section class="font text-white px-6 md:px-10 lg:px-16 my-10">
@@ -221,21 +390,24 @@
                 <h3 class="text-lg font-semibold">Design NFT Landing Page</h3>
                 <p class="text-sm text-gray-300 mt-2">Create a modern landing page for an NFT collection.</p>
                 <p class="mt-4 font-semibold">Reward: 0.2 ETH</p>
-                <button class="mt-4 border border-white px-4 py-2 rounded-lg hover:bg-white hover:text-black">View Task</button>
+                <button class="mt-4 border border-white px-4 py-2 rounded-lg hover:bg-white hover:text-black">View
+                    Task</button>
             </div>
 
             <div class="bg-[#2D2D2D] p-6 rounded-xl border border-white/30">
                 <h3 class="text-lg font-semibold">Write Web3 Article</h3>
                 <p class="text-sm text-gray-300 mt-2">Explain how DeFi works for beginners.</p>
                 <p class="mt-4 font-semibold">Reward: 150 USDC</p>
-                <button class="mt-4 border border-white px-4 py-2 rounded-lg hover:bg-white hover:text-black">View Task</button>
+                <button class="mt-4 border border-white px-4 py-2 rounded-lg hover:bg-white hover:text-black">View
+                    Task</button>
             </div>
 
             <div class="bg-[#2D2D2D] p-6 rounded-xl border border-white/30">
                 <h3 class="text-lg font-semibold">Build Smart Contract</h3>
                 <p class="text-sm text-gray-300 mt-2">Develop a staking contract using Solidity.</p>
                 <p class="mt-4 font-semibold">Reward: 0.5 ETH</p>
-                <button class="mt-4 border border-white px-4 py-2 rounded-lg hover:bg-white hover:text-black">View Task</button>
+                <button class="mt-4 border border-white px-4 py-2 rounded-lg hover:bg-white hover:text-black">View
+                    Task</button>
             </div>
         </div>
     </section>
@@ -293,10 +465,12 @@
                 </div>
             </div>
         </div>
-        <div class="border-t border-white/20 mt-8 pt-4 text-center text-gray-500 text-sm">© 2026 Happy Bounty. All rights reserved.</div>
+        <div class="border-t border-white/20 mt-8 pt-4 text-center text-gray-500 text-sm">© 2026 Happy Bounty. All
+            rights reserved.</div>
     </footer>
 
-    
+
 </body>
 <script src="./index.js"></script>
+
 </html>
