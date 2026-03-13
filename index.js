@@ -311,6 +311,8 @@ TOAST POPUP
       const shortAddr = account.slice(0, 6) + "..." + account.slice(-4);
 
       showToast(`✅ Connected to ${shortAddr}`);
+      location.href = "user_dashboard.html";
+
       closeW();
 
       return account;
@@ -341,7 +343,6 @@ ATTACH BUTTON LISTENERS
     btn.addEventListener("click", async () => {
       // await connectWalleT(btn.dataset.wallet);
       await connectWallet();
-      location.href = "user_dashboard.html";
     });
   });
 
