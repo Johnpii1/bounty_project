@@ -50,91 +50,134 @@
         </div>
     </div>
 
+    <!-- STEP PROGRESS -->
+<div class="flex justify-between items-center gap-2 mt-10 px-10">
 
-    <!-- NEXT PAGE -->
-    <div class="flex justify-between items-center gap-2  mt-10 px-10">
-
-        <!-- STEP 1 -->
-        <div class="flex flex-col gap-1">
-            <div class="py-1 w-[10vw] rounded-full bg-[#FF1AC69E]"></div>
-            <p class="text-xs text-gray-400">Step 1</p>
-            <h6 class="text-xs text-white flex flex-row gap-1"><span class="hidden md:flex">Select</span> Network</h6>
-        </div>
-
-        <!-- STEP 2 -->
-        <div class="flex flex-col gap-1">
-            <div class="py-1 w-[10vw] rounded-full bg-[#1c1c1c]"></div>
-            <p class="text-xs text-gray-400">Step 2</p>
-            <h6 class="text-xs text-white flex flex-row gap-1">Tasks<span class="hidden md:flex">details</span></h6>
-        </div>
-
-
-        <!-- STEP 3 -->
-        <div class="flex flex-col gap-1">
-            <div class="py-1 w-[10vw] rounded-full bg-[#1c1c1c]"></div>
-            <p class="text-xs text-gray-400">Step 3</p>
-            <h6 class="text-xs text-white flex flex-row gap-1">Reward<span class="hidden md:flex">information</span>
-            </h6>
-        </div>
-
-        <!-- STEP 4 -->
-        <div class="flex flex-col gap-1">
-            <div class="py-1 w-[10vw] rounded-full bg-[#1c1c1c]"></div>
-            <p class="text-xs text-gray-400">Step 4</p>
-            <h6 class="text-xs text-white flex flex-row gap-1">Review </h6>
-        </div>
+   <!-- STEP 1 -->
+    <div class="flex flex-col gap-1">
+        <div id="step1" class="py-1 w-[10vw] rounded-full bg-pink-500"></div>
+        <p class="text-xs text-gray-400">Step 1</p>
+        <h6 class="text-xs text-white">Select Network</h6>
     </div>
 
-    <!-- USER DASHBOARD -->
-    <div class="bg-[#2D2D2D] border border-white rounded-lg h-auto py-4 m-10 mt-10">
-        <!-- LIST OF WHAT TO DO -->
-        <p class="py-2 px-4 text-white text-xs md:text-sm">Step 1 of 4</p>
-
-        <!-- CHOOSE NETWORK -->
-        <h2 class="px-4 text-white text-xl md:text-2xl font-semibold">Choose Network</h2>
-
-        <!-- Choose network and category  -->
-        <p class="py-2 px-4 text-white text-xs md:text-sm">Choose network and category </p>
-
-        <!-- SELECT NETWORK AND SELECT CATIGORIES -->
-        <div class="flex flex-col gap-1">
-
-            <!-- SELECTE NETWORK-->
-            <div class="flex flex-col gap-1 px-4 mt-4">
-                <p class="text-white text-xs md:text-sm">Select network</p>
-
-                <button class=" relative border border-white rounder-lg w-[25vw]  h-[40px] bg-[#1c1c1c] rounded-lg">
-                    <span><i class="bi bi-caret-down-fill absolute right-3 text-white top-2"></i></span>
-                </button>
-            </div>
-
-            <!-- SELECTE CATIGORIES-->
-            <div class="flex flex-col gap-1 px-4 mt-4">
-                <p class="text-white text-xs md:text-sm">Select categories</p>
-
-                <button class=" relative border border-white rounder-lg w-[25vw]  h-[40px] bg-[#1c1c1c] rounded-lg">
-                    <span><i class="bi bi-caret-down-fill absolute right-3 text-white top-2"></i></span>
-                </button>
-            </div>
-
-        </div>
+    <!-- STEP 2 -->
+    <div class="flex flex-col gap-1">
+        <div id="step2" class="py-1 w-[10vw] rounded-full bg-gray-800"></div>
+        <p class="text-xs text-gray-400">Step 2</p>
+        <h6 class="text-xs text-white">Task Details</h6>
     </div>
 
-
-    <!-- BACK BUTTON AND NEXT BUTTON -->
-    <div class="flex justify-center items-center text-white mb-4">
-        <div class="flex justify-around gap-6">
-
-            <!-- BACK BUTTON -->
-            <button
-                class="border border-white rounded-lg px-4 h-[38px] hover:bg-[#FF1AC69E] w-[25vw] py-1">Back</button>
-
-            <!-- NEXT BUTTON -->
-            <button
-                class="border border-white rounded-lg px-4 h-[38px] hover:bg-[#FF1AC69E] w-[25vw] py-1">Next</button>
-
-        </div>
+    <!-- STEP 3 -->
+    <div class="flex flex-col gap-1">
+        <div id="step3" class="py-1 w-[10vw] rounded-full bg-gray-800"></div>
+        <p class="text-xs text-gray-400">Step 3</p>
+        <h6 class="text-xs text-white">Reward Info</h6>
     </div>
+
+    <!-- STEP 4 -->
+    <div class="flex flex-col gap-1">
+        <div id="step4" class="py-1 w-[10vw] rounded-full bg-gray-800"></div>
+        <p class="text-xs text-gray-400">Step 4</p>
+        <h6 class="text-xs text-white">Review</h6>
+    </div>
+
+</div>
+
+
+<!-- PAGE 1 -->
+<div id="page1" class="bg-[#2D2D2D] border border-white rounded-lg h-auto py-4 m-10 mt-10">
+
+<p class="py-2 px-4 text-white text-sm">Step 1 of 4</p>
+
+<h2 class="px-4 text-white text-xl font-semibold">
+Choose Network
+</h2>
+
+<p class="py-2 px-4 text-white text-sm">
+Choose network and category
+</p>
+
+<div class="flex flex-col gap-4 px-4 mt-4">
+
+<div>
+<p class="text-white text-sm">Select network</p>
+
+<button class="relative border border-white w-[25vw] h-[40px] bg-[#1c1c1c] rounded-lg">
+<i class="bi bi-caret-down-fill absolute right-3 text-white top-2"></i>
+</button>
+</div>
+
+<div>
+<p class="text-white text-sm">Select categories</p>
+
+<button class="relative border border-white w-[25vw] h-[40px] bg-[#1c1c1c] rounded-lg">
+<i class="bi bi-caret-down-fill absolute right-3 text-white top-2"></i>
+</button>
+</div>
+
+</div>
+
+</div>
+
+
+<!-- PAGE 2 -->
+<div id="page2" class="bg-[#2D2D2D] border border-white rounded-lg h-auto py-4 m-10 mt-10 hidden">
+
+<p class="py-2 px-4 text-white text-sm">Step 2 of 4</p>
+
+<h2 class="px-4 text-white text-xl font-semibold">
+Task Details
+</h2>
+
+<p class="px-4 text-white text-sm mt-2">
+Enter task details here
+</p>
+
+</div>
+
+
+<!-- PAGE 3 -->
+<div id="page3" class="bg-[#2D2D2D] border border-white rounded-lg h-auto py-4 m-10 mt-10 hidden">
+
+<p class="py-2 px-4 text-white text-sm">Step 3 of 4</p>
+
+<h2 class="px-4 text-white text-xl font-semibold">
+Reward Information
+</h2>
+
+</div>
+
+
+<!-- PAGE 4 -->
+<div id="page4" class="bg-[#2D2D2D] border border-white rounded-lg h-auto py-4 m-10 mt-10 hidden">
+
+<p class="py-2 px-4 text-white text-sm">Step 4 of 4</p>
+
+<h2 class="px-4 text-white text-xl font-semibold">
+Review
+</h2>
+
+</div>
+
+
+<!-- BUTTONS -->
+<div class="flex justify-center items-center text-white mb-10">
+
+<div class="flex gap-6">
+
+<button id="backBtn"
+class="border border-white rounded-lg px-4 h-[38px] hover:bg-pink-500 w-[120px]">
+Back
+</button>
+
+<button id="nextBtn"
+class="border border-white rounded-lg px-4 h-[38px] hover:bg-pink-500 w-[120px]">
+Next
+</button>
+
+</div>
+
+</div>
 
 
     <!-- FOOTER -->
@@ -215,5 +258,5 @@
     </footer>
 
 </body>
-
+<script src="./create.js"></script>
 </html>
