@@ -51,133 +51,191 @@
     </div>
 
     <!-- STEP PROGRESS -->
-<div class="flex justify-between items-center gap-2 mt-10 px-10">
+    <div class="flex justify-between items-center gap-2 mt-10 px-10">
 
-   <!-- STEP 1 -->
-    <div class="flex flex-col gap-1">
-        <div id="step1" class="py-1 w-[10vw] rounded-full bg-pink-500"></div>
-        <p class="text-xs text-gray-400">Step 1</p>
-        <h6 class="text-xs text-white">Select Network</h6>
+        <!-- STEP 1 -->
+        <div class="flex flex-col gap-1">
+            <div id="step1" class="py-1 w-[10vw] rounded-full bg-pink-500"></div>
+            <p class="text-xs text-gray-400">Step 1</p>
+            <h6 class="text-xs text-white">Select Network</h6>
+        </div>
+
+        <!-- STEP 2 -->
+        <div class="flex flex-col gap-1">
+            <div id="step2" class="py-1 w-[10vw] rounded-full bg-gray-800"></div>
+            <p class="text-xs text-gray-400">Step 2</p>
+            <h6 class="text-xs text-white">Task Details</h6>
+        </div>
+
+        <!-- STEP 3 -->
+        <div class="flex flex-col gap-1">
+            <div id="step3" class="py-1 w-[10vw] rounded-full bg-gray-800"></div>
+            <p class="text-xs text-gray-400">Step 3</p>
+            <h6 class="text-xs text-white">Reward Info</h6>
+        </div>
+
+        <!-- STEP 4 -->
+        <div class="flex flex-col gap-1">
+            <div id="step4" class="py-1 w-[10vw] rounded-full bg-gray-800"></div>
+            <p class="text-xs text-gray-400">Step 4</p>
+            <h6 class="text-xs text-white">Review</h6>
+        </div>
+
     </div>
 
-    <!-- STEP 2 -->
-    <div class="flex flex-col gap-1">
-        <div id="step2" class="py-1 w-[10vw] rounded-full bg-gray-800"></div>
-        <p class="text-xs text-gray-400">Step 2</p>
-        <h6 class="text-xs text-white">Task Details</h6>
+
+    <!-- PAGE 1 -->
+    <div id="page1" class="bg-[#2D2D2D] border border-white rounded-lg h-auto py-4 m-10 mt-10">
+
+        <p class="py-2 px-4 text-white text-sm">Step 1 of 4</p>
+
+        <h2 class="px-4 text-white text-xl font-semibold">
+            Choose Network
+        </h2>
+
+        <p class="py-2 px-4 text-white text-sm">
+            Choose network and category
+        </p>
+
+        <div class="flex flex-col gap-4 px-4 mt-4">
+
+            <div>
+                <p class="text-white text-sm">Select network</p>
+
+                <button class="relative border border-white w-[25vw] h-[40px] bg-[#1c1c1c] rounded-lg">
+                    <i class="bi bi-caret-down-fill absolute right-3 text-white top-2"></i>
+                </button>
+            </div>
+
+            <div>
+                <p class="text-white text-sm">Select categories</p>
+
+                <button class="relative border border-white w-[25vw] h-[40px] bg-[#1c1c1c] rounded-lg">
+                    <i class="bi bi-caret-down-fill absolute right-3 text-white top-2"></i>
+                </button>
+            </div>
+
+        </div>
+
     </div>
 
-    <!-- STEP 3 -->
-    <div class="flex flex-col gap-1">
-        <div id="step3" class="py-1 w-[10vw] rounded-full bg-gray-800"></div>
-        <p class="text-xs text-gray-400">Step 3</p>
-        <h6 class="text-xs text-white">Reward Info</h6>
+
+    <!-- PAGE 2 -->
+    <div id="page2" class="bg-[#2D2D2D] border border-white rounded-lg h-auto py-4 m-10 mt-10 hidden">
+
+        <p class="py-2 px-4 text-white text-sm">Step 2 of 4</p>
+
+        <h2 class="px-4 text-white text-xl font-semibold">
+            Task Details
+        </h2>
+
+        <p class="px-4 text-white text-xs mt-2">Enter the necessary details to understand your task</p>
+
+        <!-- TASK DETAIL-->
+        <div class="flex flex-col gap-1 mt-4 px-4">
+            <p class="flex gap-1 items-center text-white">Title <span class="text-red-900 mt-2">*</span></p>
+
+            <!-- INPUT FORM -->
+            <input type="text" class="border border-white rounded-lg w-[75vw] py-1 p-4 bg-[#1c1c1c] text-white">
+        </div>
+
+
+        <!-- Description -->
+        <div class="flex flex-col gap-1 mt-4 px-4">
+            <p class="flex gap-1 items-center text-white">Description <span class="text-red-900 mt-2">*</span></p>
+
+            <!-- INPUT FORM -->
+            <input type="text" class="border border-white rounded-lg w-[75vw] h-40 p-4 bg-[#1c1c1c] text-white">
+        </div>
+
+        <!-- TAGS -->
+        <div class="flex flex-col gap-1 mt-4 px-4">
+            <p class="flex gap-1 items-center text-white">Tags <span class="text-red-900 mt-2">*</span></p>
+
+            <button class="relative border border-white w-[75vw] h-[40px] bg-[#1c1c1c] rounded-lg">
+                <i class="bi bi-caret-down-fill absolute right-3 text-white top-2"></i>
+            </button>
+        </div>
+
+
+        <!-- TIME -->
+        <div class="flex flex-col gap-1 mt-4 px-4">
+            <p class="flex gap-1 items-center text-white">Timeline <span class="text-red-900 mt-2">*</span></p>
+
+            <div class="flex flex-row gap-3 items-center text-white">
+                <!-- FIRST  -->
+                <button class="relative border border-white w-[10vw] py-1 bg-[#1c1c1c] rounded-lg">
+                    Start
+                </button>
+
+                <!-- SECOUND  -->
+                <button class="relative border border-white w-[10vw] py-1 bg-[#1c1c1c] rounded-lg">
+                    Stop
+                </button>
+            </div>
+        </div>
+
+        <div>
+        <p class="px-4 py-3 text-xs text-white ">If you have a project boilerplate, a figma design, or something that might help people to work on this task,
+            you can provide a link below.</p>
+</div>
+
+
+ <!-- TAGS -->
+        <div class="flex flex-col gap-1 mt-4 px-4">
+            <p class="flex gap-1 items-center text-white">Tags <span class="text-red-900 mt-2">*</span></p>
+
+            <input type="url" class="relative border border-white w-[50vw] h-[40px] bg-[#1c1c1c] rounded-lg text-center"
+            placeholder="figma template or link to design || repository link || link to docs or necessary details"
+            >
+            </button>
+        </div>
+
+
+
     </div>
 
-    <!-- STEP 4 -->
-    <div class="flex flex-col gap-1">
-        <div id="step4" class="py-1 w-[10vw] rounded-full bg-gray-800"></div>
-        <p class="text-xs text-gray-400">Step 4</p>
-        <h6 class="text-xs text-white">Review</h6>
+
+    <!-- PAGE 3 -->
+    <div id="page3" class="bg-[#2D2D2D] border border-white rounded-lg h-auto py-4 m-10 mt-10 hidden">
+
+        <p class="py-2 px-4 text-white text-sm">Step 3 of 4</p>
+
+        <h2 class="px-4 text-white text-xl font-semibold">
+            Reward Information
+        </h2>
+
     </div>
 
-</div>
+
+    <!-- PAGE 4 -->
+    <div id="page4" class="bg-[#2D2D2D] border border-white rounded-lg h-auto py-4 m-10 mt-10 hidden">
+
+        <p class="py-2 px-4 text-white text-sm">Step 4 of 4</p>
+
+        <h2 class="px-4 text-white text-xl font-semibold">
+            Review
+        </h2>
+
+    </div>
 
 
-<!-- PAGE 1 -->
-<div id="page1" class="bg-[#2D2D2D] border border-white rounded-lg h-auto py-4 m-10 mt-10">
+    <!-- BUTTONS -->
+    <div class="flex justify-center items-center text-white mb-10">
 
-<p class="py-2 px-4 text-white text-sm">Step 1 of 4</p>
+        <div class="flex gap-6">
 
-<h2 class="px-4 text-white text-xl font-semibold">
-Choose Network
-</h2>
+            <button id="backBtn" class="border border-white rounded-lg px-4 h-[38px] hover:bg-pink-500 w-[30vw]">
+                Back
+            </button>
 
-<p class="py-2 px-4 text-white text-sm">
-Choose network and category
-</p>
+            <button id="nextBtn" class="border border-white rounded-lg px-4 h-[38px] hover:bg-pink-500 w-[30vw]">
+                Next
+            </button>
 
-<div class="flex flex-col gap-4 px-4 mt-4">
+        </div>
 
-<div>
-<p class="text-white text-sm">Select network</p>
-
-<button class="relative border border-white w-[25vw] h-[40px] bg-[#1c1c1c] rounded-lg">
-<i class="bi bi-caret-down-fill absolute right-3 text-white top-2"></i>
-</button>
-</div>
-
-<div>
-<p class="text-white text-sm">Select categories</p>
-
-<button class="relative border border-white w-[25vw] h-[40px] bg-[#1c1c1c] rounded-lg">
-<i class="bi bi-caret-down-fill absolute right-3 text-white top-2"></i>
-</button>
-</div>
-
-</div>
-
-</div>
-
-
-<!-- PAGE 2 -->
-<div id="page2" class="bg-[#2D2D2D] border border-white rounded-lg h-auto py-4 m-10 mt-10 hidden">
-
-<p class="py-2 px-4 text-white text-sm">Step 2 of 4</p>
-
-<h2 class="px-4 text-white text-xl font-semibold">
-Task Details
-</h2>
-
-<p class="px-4 text-white text-sm mt-2">
-Enter task details here
-</p>
-
-</div>
-
-
-<!-- PAGE 3 -->
-<div id="page3" class="bg-[#2D2D2D] border border-white rounded-lg h-auto py-4 m-10 mt-10 hidden">
-
-<p class="py-2 px-4 text-white text-sm">Step 3 of 4</p>
-
-<h2 class="px-4 text-white text-xl font-semibold">
-Reward Information
-</h2>
-
-</div>
-
-
-<!-- PAGE 4 -->
-<div id="page4" class="bg-[#2D2D2D] border border-white rounded-lg h-auto py-4 m-10 mt-10 hidden">
-
-<p class="py-2 px-4 text-white text-sm">Step 4 of 4</p>
-
-<h2 class="px-4 text-white text-xl font-semibold">
-Review
-</h2>
-
-</div>
-
-
-<!-- BUTTONS -->
-<div class="flex justify-center items-center text-white mb-10">
-
-<div class="flex gap-6">
-
-<button id="backBtn"
-class="border border-white rounded-lg px-4 h-[38px] hover:bg-pink-500 w-[120px]">
-Back
-</button>
-
-<button id="nextBtn"
-class="border border-white rounded-lg px-4 h-[38px] hover:bg-pink-500 w-[120px]">
-Next
-</button>
-
-</div>
-
-</div>
+    </div>
 
 
     <!-- FOOTER -->
@@ -259,4 +317,5 @@ Next
 
 </body>
 <script src="./create.js"></script>
+
 </html>
