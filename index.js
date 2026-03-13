@@ -308,6 +308,7 @@ TOAST POPUP
 
       const addresses = await walletClient.requestAddresses();
       account = addresses[0];
+      localStorage.setItem("connectedAccount", account);
       const shortAddr = account.slice(0, 6) + "..." + account.slice(-4);
 
       showToast(`✅ Connected to ${shortAddr}`);
