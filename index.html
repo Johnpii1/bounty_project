@@ -240,27 +240,46 @@
         class="menu hidden md:hidden fixed top-[70px] right-4 w-[80%] max-w-[320px] bg-white border border-black rounded-lg p-6 z-50">
         <button class="close absolute right-4 top-4 text-gray-600"><i class="bi bi-x-lg"></i></button>
 
+
+
         <!-- NAV LINKS -->
         <div class="font flex flex-col gap-6 mt-8 text-black cursor-pointer">
-            <a href="./index.html" class="border-b border-gray-400 hover:bg-gray-200 rounded-lg px-4">Home</a>
-            <h3 class="border-b border-gray-400 px-4 hover:bg-gray-200 rounded-lg">Resources <span
-                    class="text-red-700 text-sm">Coming soon</span></h3>
-            <h3 id="dropdown1" class="border-b border-gray-400 px-4 cursor-pointer hover:bg-gray-200 rounded-lg">
-                Categories</h3>
-        </div>
+            <a href="./index.html" class="border-white hover:bg-gray-300 rounded-lg hover:text-black border-b w-full py-1 rounded-lg px-4">Home</a>
 
-        <!-- MOBILE CATEGORIES DROPDOWN -->
-        <div class="Categories1  hidden absolute top-[35%] left-0 w-full bg-black text-white rounded-md">
-            <button id="close1" class="absolute top-3 right-3 text-white text-lg">✕</button>
-            <div class="font flex flex-col py-10 px-4 cursor-pointer text-sm">
-                <a class="border-b border-white hover:bg-gray-300 rounded-lg hover:text-black px-4 py-1">Development</a>
-                <a class="border-b border-white hover:bg-gray-300 rounded-lg hover:text-black px-4 py-1">Design</a>
-                <a class="border-b border-white hover:bg-gray-300 rounded-lg hover:text-black px-4 py-1">Marketing /
-                    Referrals</a>
-                <a class="border-b border-white hover:bg-gray-300 rounded-lg hover:text-black px-4 py-1">Other</a>
+           <!-- RESOURCES -->
+            <div class="rounded-xl bg-transparent">
+                <button class="categories  text-left border-white hover:bg-gray-300 rounded-lg hover:text-black border-b w-full py-1">
+                    <a class="px-4 py-1">Resources</a>
+                </button>
+
+                <div class="faq-answer hidden flex flex-col gap-2 px-5 pb-5 text-gray-600">
+
+                    <span
+                    class="text-red-700 text-sm">Coming soon</span>
+                </div>
+            </div>
+
+            <!-- CATEGOTIES -->
+            <div class="rounded-xl bg-transparent">
+                <button class="categories text-left border-white hover:bg-gray-300 rounded-lg hover:text-black border-b w-full py-1">
+                    <span class="font-medium text-gray-900 px-4">
+                        Categories
+                    </span>
+                </button>
+
+                <div class="faq-answer hidden flex flex-col gap-2 px-5 pb-5 text-gray-600">
+
+                    <a
+                        class="border-b border-white hover:bg-gray-300 rounded-lg hover:text-black px-4 py-1">Development</a>
+                    <a class="border-b border-white hover:bg-gray-300 rounded-lg hover:text-black px-4 py-1">Design</a>
+                    <a class="border-b border-white hover:bg-gray-300 rounded-lg hover:text-black px-4 py-1">Marketing /
+                        Referrals</a>
+                    <a class="border-b border-white hover:bg-gray-300 rounded-lg hover:text-black px-4 py-1">Other</a>
+                </div>
             </div>
         </div>
 
+        
         <!-- MOBILE LOGIN -->
         <div class="font flex flex-col gap-4 mt-10">
             <button class="login2 bg-black text-white rounded-lg py-2 hover:bg-gray-800">Sign up</button>

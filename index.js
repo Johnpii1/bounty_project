@@ -102,28 +102,6 @@ dropdown.addEventListener("mouseleave", () => {
 
 
 
-
-// ==========================
-// MOBILE CATEGORY DROPDOWN
-// ==========================
-const dropdown1 = document.getElementById("dropdown1");
-const menu3 = document.querySelector(".Categories1");
-const close1 = document.getElementById("close1");
-
-if (dropdown1 && menu3) {
-  dropdown1.addEventListener("click", () => {
-    menu3.classList.remove("hidden");
-  });
-}
-
-if (close1 && menu3) {
-  close1.addEventListener("click", () => {
-    menu3.classList.add("hidden");
-  });
-}
-
-
-
 // ==========================
 // WALLET MODAL (DESKTOP)
 // ==========================
@@ -163,3 +141,20 @@ if (closeWallet1 && walletModal1) {
     walletModal1.classList.add("hidden");
   });
 }
+
+
+//CATIGORIES
+const buttons = document.querySelectorAll(".categories");
+
+        buttons.forEach(button => {
+            button.addEventListener("click", () => {
+
+                const answer = button.nextElementSibling;
+                const icon = button.querySelector(".icon");
+
+                // Toggle answer
+                answer.classList.toggle("hidden");
+            });
+        });
+
+
