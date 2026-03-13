@@ -185,7 +185,7 @@ TOAST POPUP
     toast.style.backgroundColor = isError ? "#7f1d1d" : "#1e293b";
 
     setTimeout(() => {
-      toast.style.opacity = "0";
+      toast.style.opacity = "1";
     }, 2500);
   }
 
