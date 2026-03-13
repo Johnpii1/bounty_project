@@ -150,14 +150,14 @@
 
                     <!-- CONNETED WALLET -->
                     <div
-                      class="flex items-center gap-4 px-4 py-3 rounded-2xl cursor-pointer hover:bg-gray-200 transition-colors duration-200"
+                      class="wallet flex items-center gap-4 px-4 py-3 rounded-2xl cursor-pointer hover:bg-gray-200 transition-colors duration-200"
                     >
                       <img src="./image/metalmask.png" class="w-8" />
                       <p class="text-md font-semibold text-black">MetaMask</p>
                     </div>
 
                     <button
-                      class="flex items-center gap-4 px-4 py-3 rounded-xl w-[150%] hover:bg-gray-200 transition-colors duration-200"
+                      class="wallet flex items-center gap-4 px-4 py-3 rounded-xl w-[150%] hover:bg-gray-200 transition-colors duration-200"
                     >
                       <img src="./image/bitget.png" class="w-8 rounded-lg" />
                       <p class="text-md font-semibold text-black">
@@ -170,14 +170,14 @@
 
                     <!-- POPULAR WALLET -->
                     <button
-                      class="flex items-center gap-4 px-4 py-3 rounded-xl w-[150%] hover:bg-gray-200 transition-colors duration-200"
+                      class="wallet flex items-center gap-4 px-4 py-3 rounded-xl w-[150%] hover:bg-gray-200 transition-colors duration-200"
                     >
                       <img src="./image/rainbow.jpg" class="w-8 rounded-lg" />
                       <p class="text-md font-semibold text-black">Rainbow</p>
                     </button>
 
                     <button
-                      class="flex items-center gap-4 px-4 py-3 rounded-xl w-[150%] hover:bg-gray-200 transition-colors duration-200"
+                      class="wallet flex items-center gap-4 px-4 py-3 rounded-xl w-[150%] hover:bg-gray-200 transition-colors duration-200"
                     >
                       <img src="./image/coinbase.svg" class="w-8 rounded-lg" />
                       <p class="text-md font-semibold text-black">
@@ -186,7 +186,7 @@
                     </button>
 
                     <button
-                      class="flex items-center gap-4 px-4 py-3 rounded-xl w-[150%] hover:bg-gray-200 transition-colors duration-200"
+                      class="wallet flex items-center gap-4 px-4 py-3 rounded-xl w-[150%] hover:bg-gray-200 transition-colors duration-200"
                     >
                       <img
                         src="./image/walletconnect.svg"
@@ -630,6 +630,11 @@
         © 2026 Happy Bounty. All rights reserved.
       </div>
     </footer>
+
+    <div
+      id="toast"
+      class="fixed bottom-6 left-1/2 -translate-x-1/2 bg-gray-900 text-white text-sm px-5 py-3 rounded-full shadow-xl opacity-0 transition-opacity duration-300 pointer-events-none z-50"
+    ></div>
   </body>
   <script src="./index.js" type="module"></script>
 </html>

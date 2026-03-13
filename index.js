@@ -242,11 +242,11 @@ TOAST POPUP
      --------------------------------*/
 
   // const installedRow = document.getElementById("installedRow");
-  const installedCount = document.getElementById("installedCount");
+  // const installedCount = document.getElementById("installedCount");
 
   /* update detected count */
 
-  installedCount.innerText = `(${installedWallets.length} detected)`;
+  // installedCount.innerText = `(${installedWallets.length} detected)`;
 
   /* ------------------------------
      CONNECT WALLET
