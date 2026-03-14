@@ -185,7 +185,7 @@ TOAST POPUP
     toast.style.backgroundColor = isError ? "#7f1d1d" : "#1e293b";
 
     setTimeout(() => {
-      toast.style.opacity = "1";
+      toast.style.opacity = "0";
     }, 2500);
   }
 
@@ -257,28 +257,50 @@ TOAST POPUP
   // =========== SWITCH NETWORK ============
   async function switchNetwork() {
     try {
+      console.log(`Switching to chain ID: 0x${EXPECTED_CHAIN.id.toString(16)}`);
+
       await window.ethereum.request({
         method: "wallet_switchEthereumChain",
-        params: [{ chainId: `0x${EXPECTED_CHAIN.id.toString(16)}` }], //"0x7a69"
+        params: [{ chainId: `0x${EXPECTED_CHAIN.id.toString(16)}` }],
       });
+
+      console.log("Network switched successfully");
     } catch (err) {
-      // chain not added yet
+      // This error code indicates that the chain has not been added to MetaMask
       if (err.code === 4902) {
-        await window.ethereum.request({
-          method: "wallet_addEthereumChain",
-          params: [
-            {
-              chainId: `0x${EXPECTED_CHAIN.id.toString(16)}`,
-              chainName: EXPECTED_CHAIN.name,
-              rpcUrls: [EXPECTED_CHAIN.rpcUrl],
-              nativeCurrency: {
-                name: "Ether",
-                symbol: "ETH",
-                decimals: 18,
+        try {
+          console.log("Adding network to wallet...");
+          const rpcUrls = [
+            "http://localhost:8545",
+            "http://127.0.0.1:8545",
+            "https://localhost:8545",
+            "https://127.0.0.1:8545",
+          ];
+
+          await window.ethereum.request({
+            method: "wallet_addEthereumChain",
+            params: [
+              {
+                chainId: `0x${EXPECTED_CHAIN.id.toString(16)}`,
+                chainName: EXPECTED_CHAIN.name,
+                rpcUrls: rpcUrls, // Make sure this is an array
+                nativeCurrency: EXPECTED_CHAIN.nativeCurrency,
+                blockExplorerUrls: null, // Optional: add if you have one
               },
-            },
-          ],
-        });
+            ],
+          });
+
+          console.log("Network added successfully");
+
+          // After adding, try switching again
+          await window.ethereum.request({
+            method: "wallet_switchEthereumChain",
+            params: [{ chainId: `0x${EXPECTED_CHAIN.id.toString(16)}` }],
+          });
+        } catch (addError) {
+          console.error("Failed to add network:", addError);
+          throw addError;
+        }
       } else {
         throw err;
       }
@@ -297,7 +319,6 @@ TOAST POPUP
       });
 
       // 🔍 Check network FIRST
-      // "I COMMENTED BECAUSE THI IMPLEMENTATION I NOT NEEDED NOW"
       const chainId = await walletClient.getChainId();
 
       // console.log("Connected chain ID:", chainId);
@@ -305,6 +326,8 @@ TOAST POPUP
       if (chainId !== EXPECTED_CHAIN.id) {
         throw new Error("WRONG_NETWORK");
       }
+
+      console.log("Network is correct, proceeding with connection...");
 
       const addresses = await walletClient.requestAddresses();
       account = addresses[0];
@@ -324,6 +347,7 @@ TOAST POPUP
           true,
         );
       } else if (err.message === "WRONG_NETWORK") {
+        console.log("Attempting to switch network...");
         await switchNetwork()
           .then(() => {
             showToast("✅ Network switched. Please connect again.");

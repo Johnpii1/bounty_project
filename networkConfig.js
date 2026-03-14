@@ -5,5 +5,5 @@ export const EXPECTED_CHAIN = {
   name: "Anvil Local",
   network: "anvil",
   nativeCurrency: { name: "Ether", symbol: "ETH", decimals: 18 },
-  rpcUrl: "http://127.0.0.1:8545",
+  rpcUrl: "http://localhost:8545",
 };
