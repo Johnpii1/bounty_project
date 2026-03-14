@@ -1,4 +1,3 @@
-//
 let currentStep = 1;
 
 const steps = [
@@ -34,6 +33,13 @@ function updateSteps() {
   }
 
   pages[currentStep - 1].classList.remove("hidden");
+
+  // Change button text on step 4
+  if (currentStep === 4) {
+    nextBtn.textContent = "Create Task";
+  } else {
+    nextBtn.textContent = "Next";
+  }
 }
 
 nextBtn.addEventListener("click", () => {
@@ -50,11 +56,31 @@ backBtn.addEventListener("click", () => {
   }
 });
 
+// Run once when page loads
+updateSteps();
+
+//===========
+//FOR AFTER WHEN YOU HAVE CLICK ON CREATE
+//===========
+// nextBtn.addEventListener("click", () => {
+
+//   if (currentStep < 4) {
+//     currentStep++;
+//     updateSteps();
+//   } else {
+
+//===========
+//     // Step 4 → go to another page
+//=========
+//     window.location.href = "success.html";
+//   }
+
+// });
 
 //TOGGLE FOR SELECT MUTIPE
- const toggle = document.getElementById("toggle");
-    const dropdown = document.getElementById("dropdown");
+const toggle = document.getElementById("toggle");
+const dropdown = document.getElementById("dropdown");
 
-    toggle.addEventListener("change", () => {
-      dropdown.classList.toggle("hidden", !toggle.checked);
-    });
+toggle.addEventListener("change", () => {
+  dropdown.classList.toggle("hidden", !toggle.checked);
+});
