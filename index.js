@@ -335,9 +335,8 @@ TOAST POPUP
       const shortAddr = account.slice(0, 6) + "..." + account.slice(-4);
 
       showToast(`✅ Connected to ${shortAddr}`);
-      location.href = "user_dashboard.html";
-
       closeW();
+      location.href = "user_dashboard.html";
 
       return account;
     } catch (err) {
