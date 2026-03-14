@@ -105,8 +105,10 @@ export async function connectWallet() {
         .catch((switchErr) => {
           showToast(`❌ ${switchErr.shortMessage}`, true);
         });
-      showToast("✅ Network switched. Please connect again.");
+      //   showToast("✅ Network switched. Please connect again.");
     }
+    showToast(`❌ ${err.shortMessage || err.message}`, true);
+    console.error("Connection error:", err);
   }
 }
 
