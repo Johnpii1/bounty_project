@@ -49,3 +49,12 @@ backBtn.addEventListener("click", () => {
     updateSteps();
   }
 });
+
+
+//TOGGLE FOR SELECT MUTIPE
+ const toggle = document.getElementById("toggle");
+    const dropdown = document.getElementById("dropdown");
+
+    toggle.addEventListener("change", () => {
+      dropdown.classList.toggle("hidden", !toggle.checked);
+    });

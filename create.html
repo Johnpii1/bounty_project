@@ -99,22 +99,36 @@
 
         <div class="flex flex-col gap-4 px-4 mt-4">
 
-            <div>
+            <!-- FOR SELECT NETWORK -->
+            <div class="text-white">
                 <p class="text-white text-sm">Select network</p>
 
-                <button class="relative border border-white w-[25vw] h-[40px] bg-[#1c1c1c] rounded-lg">
-                    <i class="bi bi-caret-down-fill absolute right-3 text-white top-2"></i>
-                </button>
+                <!-- FOR ALL NETWORK -->
+                <input list="networks" placeholder="Select network"
+                    class="border border-white w-[25vw] h-[40px] bg-[#1c1c1c] rounded-lg px-2">
+                <datalist id="networks">
+                    <option value="Injective">
+                    <option value="base">
+                    <option value="ethereun">
+                    <option value="bsc"></option>
+                </datalist>
             </div>
 
-            <div>
+
+            <!-- FOR SELECT categories -->
+            <div class="text-white">
                 <p class="text-white text-sm">Select categories</p>
 
-                <button class="relative border border-white w-[25vw] h-[40px] bg-[#1c1c1c] rounded-lg">
-                    <i class="bi bi-caret-down-fill absolute right-3 text-white top-2"></i>
-                </button>
+                <!-- FOR ALL NETWORK -->
+                <input list="categories" placeholder="Select categories"
+                    class="border border-white w-[25vw] h-[40px] bg-[#1c1c1c] rounded-lg px-2">
+                <datalist id="categories">
+                    <option value="Development">
+                    <option value="Design">
+                    <option value="Marketting / Referals">
+                    <option value="others"></option>
+                </datalist>
             </div>
-
         </div>
 
     </div>
@@ -204,17 +218,43 @@
         <p class="py-2 px-4 text-white text-sm">Step 3 of 4</p>
 
         <h2 class="px-4 text-white text-xl font-semibold">
-           Reward information
+            Reward information
         </h2>
 
-<p class="text-xs text-white px-4">When creating a new task, you have two options regarding the reward:</p>
+        <p class="text-xs text-white px-4">When creating a new task, you have two options regarding the reward:</p>
 
-<p class="text-xs text-white px-4 mt-4">1. &nbsp; Self-fund: You use your own money to create the task. This means you will be responsible for providing the reward money that 
-      will be given to the person who successfully completes the task.</p>
+        <p class="text-xs text-white px-4 mt-4">1. &nbsp; Self-fund: You use your own money to create the task. This
+            means you will be responsible for providing the reward money that
+            will be given to the person who successfully completes the task.</p>
 
 
-      <p class="text-xs text-white px-4 mt-4">2. &nbsp; Self-fund: You use your own money to create the task. This means you will be responsible for providing the reward money that 
-      will be given to the person who successfully completes the task.</p>
+        <p class="text-xs text-white px-4 mt-4">2. &nbsp; Self-fund: You use your own money to create the task. This
+            means you will be responsible for providing the reward money that
+            will be given to the person who successfully completes the task.</p>
+
+
+            
+
+ <div class="flex flex-col  justify-center gap-4 mt-8 m-8">
+  <!-- Toggle Switch -->
+   <div class="flex flex-row items-center gap-2">
+     <h3 class="text-white text-md">Multiple winner</h3>
+  
+  <label class="relative inline-flex items-center cursor-pointer">
+    <input type="checkbox" id="toggle" class="sr-only peer">
+    <div class="w-12 h-4 bg-gray-300 rounded-full peer-checked:bg-[#FF1AC69E] transition-all"></div>
+    <div class="absolute left-3 top-1 w-2 h-2 bg-white rounded-full peer-checked:translate-x-6 transition-all"></div>
+  </label>
+</div>
+  <!-- Dropdown (hidden by default) -->
+  <div id="dropdown" class="hidden bg-[#2D2D2D] border border-white rounded-lg w-fit h-auto py-1 px-4 text-black border rounded p-2 shadow-lg  flex flex-row gap-2 items-center">
+   <button class="border border-white rounded-lg w-fit h-auto py-1 px-4 text-white text-sm">Equal Split</button>
+      <button class="border border-white rounded-lg w-fit h-auto py-1 px-6 text-white text-sm">% split</button>
+    <button><i class="bi bi-info-circle text-white text-sm"></i> </button>
+  </div>
+</div>
+ 
+
 
 
     </div>
@@ -229,7 +269,8 @@
             Review
         </h2>
 
-        <p class="text-xs text-white px-4 mt-4">In this steps you will view the main information and get a sense of how your task is doing</p>
+        <p class="text-xs text-white px-4 mt-4">In this steps you will view the main information and get a sense of how
+            your task is doing</p>
     </div>
 
 
@@ -243,7 +284,7 @@
             </button>
 
             <button id="nextBtn" class="border border-white rounded-lg px-4 h-[38px] hover:bg-pink-500 w-[30vw]">
-                Next
+                Next Step
             </button>
 
         </div>
