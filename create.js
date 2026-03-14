@@ -77,6 +77,8 @@ updateSteps();
 
 // });
 
+
+
 //TOGGLE FOR SELECT MUTIPE
 const toggle = document.getElementById("toggle");
 const dropdown = document.getElementById("dropdown");
@@ -84,3 +86,24 @@ const dropdown = document.getElementById("dropdown");
 toggle.addEventListener("change", () => {
   dropdown.classList.toggle("hidden", !toggle.checked);
 });
+
+
+//FOR INFORMATION
+const inf = document.getElementById("infom");
+const inf1 = document.getElementById("infomenu");
+
+if (inf && inf1) {
+  inf.addEventListener("click", () => {
+    inf1.classList.toggle("hidden");
+  });
+}
+  if (inf && inf1) {
+    inf.addEventListener("mouseleave", () => {
+      inf1.classList.add("hidden");
+    });     
+  }
+
+
+  
+
+  
