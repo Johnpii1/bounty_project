@@ -5,7 +5,7 @@ import {
   http,
 } from "https://esm.sh/viem";
 
-import { EXPECTED_CHAIN } from "./networkConfig.js";
+import { EXPECTED_CHAIN, INJECTIVE_CHAIN } from "./networkConfig.js";
 
 let walletClient;
 let publicClient;
@@ -238,30 +238,22 @@ TOAST POPUP
     });
 
   /* ------------------------------
-      RENDER INSTALLED WALLETS
-     --------------------------------*/
-
-  // const installedRow = document.getElementById("installedRow");
-  // const installedCount = document.getElementById("installedCount");
-
-  /* update detected count */
-
-  // installedCount.innerText = `(${installedWallets.length} detected)`;
-
-  /* ------------------------------
      CONNECT WALLET
      --------------------------------*/
 
   const walletButtons = document.querySelectorAll(".wallet");
 
   // =========== SWITCH NETWORK ============
+  // =========== SWITCH NETWORK ============
   async function switchNetwork() {
     try {
-      console.log(`Switching to chain ID: 0x${EXPECTED_CHAIN.id.toString(16)}`);
+      console.log(
+        `Switching to chain ID: 0x${INJECTIVE_CHAIN.id.toString(16)}`,
+      );
 
       await window.ethereum.request({
         method: "wallet_switchEthereumChain",
-        params: [{ chainId: `0x${EXPECTED_CHAIN.id.toString(16)}` }],
+        params: [{ chainId: `0x${INJECTIVE_CHAIN.id.toString(16)}` }],
       });
 
       console.log("Network switched successfully");
@@ -270,22 +262,16 @@ TOAST POPUP
       if (err.code === 4902) {
         try {
           console.log("Adding network to wallet...");
-          const rpcUrls = [
-            "http://localhost:8545",
-            "http://127.0.0.1:8545",
-            "https://localhost:8545",
-            "https://127.0.0.1:8545",
-          ];
 
           await window.ethereum.request({
             method: "wallet_addEthereumChain",
             params: [
               {
-                chainId: `0x${EXPECTED_CHAIN.id.toString(16)}`,
-                chainName: EXPECTED_CHAIN.name,
-                rpcUrls: rpcUrls, // Make sure this is an array
-                nativeCurrency: EXPECTED_CHAIN.nativeCurrency,
-                blockExplorerUrls: null, // Optional: add if you have one
+                chainId: `0x${INJECTIVE_CHAIN.id.toString(16)}`,
+                chainName: INJECTIVE_CHAIN.name,
+                rpcUrls: [INJECTIVE_CHAIN.rpcUrl], // Make sure this is an array
+                nativeCurrency: INJECTIVE_CHAIN.nativeCurrency,
+                blockExplorerUrls: [INJECTIVE_CHAIN.blockExplorerUrls], // Optional: add if you have one
               },
             ],
           });
@@ -295,7 +281,7 @@ TOAST POPUP
           // After adding, try switching again
           await window.ethereum.request({
             method: "wallet_switchEthereumChain",
-            params: [{ chainId: `0x${EXPECTED_CHAIN.id.toString(16)}` }],
+            params: [{ chainId: `0x${INJECTIVE_CHAIN.id.toString(16)}` }],
           });
         } catch (addError) {
           console.error("Failed to add network:", addError);
@@ -323,7 +309,7 @@ TOAST POPUP
 
       // console.log("Connected chain ID:", chainId);
 
-      if (chainId !== EXPECTED_CHAIN.id) {
+      if (chainId !== INJECTIVE_CHAIN.id) {
         throw new Error("WRONG_NETWORK");
       }
 
@@ -354,8 +340,8 @@ TOAST POPUP
           .catch((switchErr) => {
             showToast(`❌ ${switchErr.shortMessage}`, true);
           });
+        showToast("✅ Network switched. Please connect again.");
       }
-      showToast(`❌ ${err.shortMessage}`, true);
     }
   }
 
@@ -373,54 +359,33 @@ ATTACH BUTTON LISTENERS
   // END
 })();
 
-
 const bountySection = document.getElementById("bountySection");
 
 window.addEventListener("scroll", () => {
-
   if (window.scrollY < 100) {
-    
     bountySection.classList.add("scale-90");
-    
   } else {
-    
     bountySection.classList.remove("scale-90");
-    
   }
-
 });
-
-
-
-
 
 const cards = document.querySelectorAll(".bounty-card");
 const section = document.querySelector("#bounty");
 
 const observer = new IntersectionObserver((entries) => {
-
-  entries.forEach(entry => {
-
+  entries.forEach((entry) => {
     if (entry.isIntersecting) {
-
       cards.forEach((card, index) => {
-
         setTimeout(() => {
-          card.classList.remove("opacity-0","translate-y-10");
+          card.classList.remove("opacity-0", "translate-y-10");
         }, index * 300);
-
       });
-
     } else {
-
-      cards.forEach(card => {
-        card.classList.add("opacity-0","translate-y-10");
+      cards.forEach((card) => {
+        card.classList.add("opacity-0", "translate-y-10");
       });
-
     }
-
   });
-
 });
 
 observer.observe(section);
