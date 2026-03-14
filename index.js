@@ -372,3 +372,55 @@ ATTACH BUTTON LISTENERS
 
   // END
 })();
+
+
+const bountySection = document.getElementById("bountySection");
+
+window.addEventListener("scroll", () => {
+
+  if (window.scrollY < 100) {
+    
+    bountySection.classList.add("scale-90");
+    
+  } else {
+    
+    bountySection.classList.remove("scale-90");
+    
+  }
+
+});
+
+
+
+
+
+const cards = document.querySelectorAll(".bounty-card");
+const section = document.querySelector("#bounty");
+
+const observer = new IntersectionObserver((entries) => {
+
+  entries.forEach(entry => {
+
+    if (entry.isIntersecting) {
+
+      cards.forEach((card, index) => {
+
+        setTimeout(() => {
+          card.classList.remove("opacity-0","translate-y-10");
+        }, index * 300);
+
+      });
+
+    } else {
+
+      cards.forEach(card => {
+        card.classList.add("opacity-0","translate-y-10");
+      });
+
+    }
+
+  });
+
+});
+
+observer.observe(section);
