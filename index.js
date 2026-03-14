@@ -161,6 +161,11 @@ buttons.forEach((button) => {
 // Wallet connection
 // =========================
 
+const getWallet = document.querySelector(".walletLink");
+getWallet.addEventListener("click", () => {
+  location.href = "https://metamask.io/en-GB/download";
+});
+
 (function () {
   /* ------------------------------
      CONNECT WALLET
