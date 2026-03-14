@@ -188,6 +188,7 @@ ATTACH BUTTON LISTENERS
   // END
 })();
 
+//FOR FEATURE ANIMATION
 const bountySection = document.getElementById("bountySection");
 
 window.addEventListener("scroll", () => {
@@ -198,6 +199,8 @@ window.addEventListener("scroll", () => {
   }
 });
 
+
+//FOR HOW IT WORK ANIMATION 
 const cards = document.querySelectorAll(".bounty-card");
 const section = document.querySelector("#bounty");
 
@@ -218,3 +221,10 @@ const observer = new IntersectionObserver((entries) => {
 });
 
 observer.observe(section);
+
+
+
+
+
+
+
