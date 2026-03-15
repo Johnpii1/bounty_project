@@ -1,4 +1,5 @@
 bountyAddress = "0xc49c0457c656B901324cB7f9b6736D80f1DBD28B";
+network = "INJ";
 bountyABI = [
   {
     inputs: [
