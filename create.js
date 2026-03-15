@@ -77,8 +77,7 @@ updateSteps();
 
 // });
 
-
-// 
+//
 //TOGGLE FOR SELECT MUTIPE
 const toggle = document.getElementById("toggle");
 const dropdown = document.getElementById("dropdown");
@@ -86,7 +85,6 @@ const dropdown = document.getElementById("dropdown");
 toggle.addEventListener("change", () => {
   dropdown.classList.toggle("hidden", !toggle.checked);
 });
-
 
 //FOR INFORMATION
 const inf = document.getElementById("infom");
@@ -97,14 +95,13 @@ if (inf && inf1) {
     inf1.classList.toggle("hidden");
   });
 }
-  if (inf && inf1) {
-    inf.addEventListener("mouseleave", () => {
-      inf1.classList.add("hidden");
-    });     
-  }
+if (inf && inf1) {
+  inf.addEventListener("mouseleave", () => {
+    inf1.classList.add("hidden");
+  });
+}
 
-
-  //FOR PLUS NAV BTN
+//FOR PLUS NAV BTN
 const plus = document.querySelector(".plusbtn");
 const minus = document.querySelector(".plusmenu");
 
@@ -112,9 +109,10 @@ plus.addEventListener("click", () => {
   minus.classList.toggle("hidden");
 });
 
-  
+//FOR PLUS NAV BTN
+const profilem = document.querySelector(".profile");
+const profile1 = document.querySelector(".profilemenu ");
 
-
-  
-
-  
+profilem.addEventListener("click", () => {
+  profile1.classList.toggle("hidden");
+});

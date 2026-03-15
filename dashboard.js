@@ -1,8 +1,6 @@
 const account = localStorage.getItem("account");
 console.log("Retrieved account from localStorage:", account);
 
-
-
 //FOR SORT BY FOR DESKTOP
 const sort = document.getElementById("sortby");
 const menu1 = document.getElementById("sortmenu");
@@ -16,10 +14,8 @@ if (sort && menu1) {
     sort.addEventListener("mouseleave", () => {
       menu1.classList.add("hidden");
     });
-  
   }
 }
-
 
 //FOR SORT BY FOR MOBILE
 const sort1 = document.getElementById("sortby1");
@@ -34,7 +30,6 @@ if (sort && menu1) {
     sort1.addEventListener("mouseleave", () => {
       menu2.classList.add("hidden");
     });
-  
   }
 }
 
@@ -46,8 +41,10 @@ plus.addEventListener("click", () => {
   minus.classList.toggle("hidden");
 });
 
+//FOR PLUS NAV BTN
+const profilem = document.querySelector(".profile");
+const profile1 = document.querySelector(".profilemenu ");
 
-
-
-
-
+profilem.addEventListener("click", () => {
+  profile1.classList.toggle("hidden");
+});
