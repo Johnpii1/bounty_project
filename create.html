@@ -155,7 +155,8 @@
             <p class="flex gap-1 items-center text-white">Title <span class="text-red-900 mt-2">*</span></p>
 
             <!-- INPUT FORM -->
-            <input type="text" class="border border-white rounded-lg min-w-[240px] max-w-[700px] py-1 p-4 bg-[#1c1c1c] text-white">
+            <input type="text"
+                class="border border-white rounded-lg min-w-[240px] max-w-[700px] py-1 p-4 bg-[#1c1c1c] text-white">
         </div>
 
 
@@ -164,7 +165,8 @@
             <p class="flex gap-1 items-center text-white">Description <span class="text-red-900 mt-2">*</span></p>
 
             <!-- INPUT FORM -->
-            <textarea class="border border-white rounded-lg min-w-[240px] max-w-[700px] h-40 p-4 bg-[#1c1c1c] text-white resize-none"
+            <textarea
+                class="border border-white rounded-lg min-w-[240px] max-w-[700px] h-40 p-4 bg-[#1c1c1c] text-white resize-none"
                 placeholder="Enter description"></textarea>
         </div>
 
@@ -184,12 +186,14 @@
 
             <div class="flex flex-row gap-3 items-center text-white">
                 <!-- FIRST  -->
-                <button  class="flex items-center justify-center border border-white w-[15vw]  bg-[#1c1c1c]  rounded-lg text=sm">
+                <button
+                    class="flex items-center justify-center border border-white w-[15vw]  bg-[#1c1c1c]  rounded-lg text=sm">
                     Start
                 </button>
 
                 <!-- SECOUND  -->
-                <button class=" flex items-center justify-center border border-white w-[15vw]  bg-[#1c1c1c] rounded-lg px-4 text=sm">
+                <button
+                    class=" flex items-center justify-center border border-white w-[15vw]  bg-[#1c1c1c] rounded-lg px-4 text=sm">
                     Stop
                 </button>
             </div>
@@ -207,7 +211,7 @@
             <p class="flex gap-1 items-center text-white">Origin link <span class="text-red-900 mt-2">*</span></p>
 
             <input type="url"
-                class=" border border-white min-w-[260px] max-w-[700px] h-[40px] bg-[#1c1c1c] px-8 rounded-lg text-center text-xs"
+                class=" border border-white min-w-[240px] max-w-[700px] h-[40px] bg-[#1c1c1c] px-8 rounded-lg text-center text-xs"
                 placeholder="figma template or link to design">
             </button>
         </div>
@@ -256,48 +260,55 @@
             <!-- Dropdown (hidden by default) -->
             <div id="dropdown"
                 class="hidden bg-[#2D2D2D] border border-white rounded-lg w-fit h-auto py-1 px-4 text-black border rounded p-2 shadow-lg  flex flex-row gap-2 items-center">
-                <button class="border border-white rounded-lg w-fit h-auto py-1 px-4 text-white text-sm">Equal
+                <button
+                    class="border border-white rounded-lg w-fit h-auto py-1 px-4 text-white text-[13px] md:text-sm">Equal
                     Split</button>
-                <button class="border border-white rounded-lg w-fit h-auto py-1 px-6 text-white text-sm">%
+                <button
+                    class="border border-white rounded-lg w-fit h-auto py-1 px-6 text-white text-[13px] md:text-sm">%
                     split</button>
 
                 <!-- INFORMAYION -->
                 <button id="infom" class="relative"><i class="bi bi-info-circle text-white text-sm"></i>
 
-                    <!-- INOFO MENU -->
-                    <div id="infomenu"
-                        class="absolute bg-white border border-[#2D2D2D]  left-[-9rem] w-[18rem] md:w-[24vw] h-auto top-7 z-50 rounded-lg hidden text-start px-3 py-2">
+                    <div class="relative">
+                        <!-- INOFO MENU -->
+                        <div id="infomenu"
+                            class="absolute bg-white border border-[#2D2D2D] left-[-4rem] md:left-[-1rem] w-[60vw] max-w-[380px] md:w-[24vw] h-auto top-2 z-50 rounded-lg hidden text-start px-3 py-2 break-words  left-1/2 -translate-x-1/2  max-w-[380px]">
 
-                        <p class="text-xs text-black mt-2">For equal split; Reward is split equally among winners.</p>
+                            <p class="text-xs text-black mt-2">
+                                For equal split; Reward is split equally among winners.
+                            </p>
 
-                        <p class="text-xs text-black mt-2">For % split: Reward is distributed according to custom
-                            percentages.</p>
+                            <p class="text-xs text-black mt-2">
+                                For % split: Reward is distributed according to custom percentages.
+                            </p>
 
-                        <div class=" mt-2 flex flex-col gap-1">
-                            <p class="text-xs text-black font-semibold">Supported configurations:</p>
-                            <div class="text-xs flex flex-col gap-1">
-                                <span>[40, 30, 20, 5, 5]</span>
-                                <span>[40, 30, 20, 10]</span>
-                                <span>[50, 30, 20]</span>
-                                <span">[50, 50]</span>
+                            <div class="mt-2 flex flex-col gap-1">
+                                <p class="text-xs text-black font-semibold">Supported configurations:</p>
+
+                                <div class="text-xs flex flex-col gap-1">
+                                    <span>[40, 30, 20, 5, 5]</span>
+                                    <span>[40, 30, 20, 10]</span>
+                                    <span>[50, 30, 20]</span>
+                                    <span>[50, 50]</span>
+                                </div>
                             </div>
-                        </div>
 
-                        <div class=" mt-2 flex flex-col gap-1">
-                            <p class="text-xs text-black mt-2 flex flex-col gap-1 font-semibold">
-                                Rules:</p>
-                            <div class="text-xs px-6 flex flex-col gap-1">
-                                <ul class="text-black list-disc space-y-1">
-                                    <li>Minimum winners: 2</li>
-                                    <li>Maximum winners: 5</li>
-                                    <li>Percentages must sum to 100</li>
-                                    <li>Minimum winners: 2</li>
+                            <div class="mt-2 flex flex-col gap-1">
+                                <p class="text-xs text-black font-semibold">Rules:</p>
+
+                                <ul class="text-xs text-black list-disc pl-5 space-y-1">
+                                    <li>Minimum winners: 2</li>
+                                    <li>Maximum winners: 5</li>
+                                    <li>Percentages must sum to 100</li>
+                                    <li>Minimum winners: 2</li>
                                 </ul>
                             </div>
+
                         </div>
-                    </div>
                 </button>
             </div>
+
 
             <p class="text-xs text-white">By creating a task with multiple winners you allow the curators to distribute
                 the reward to multiple participants on a single proposal.</p>
