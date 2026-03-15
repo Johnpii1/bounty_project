@@ -1,629 +1,586 @@
 <!doctype html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>user_dashboard</title>
 
-    <script src="https://cdn.tailwindcss.com"></script>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>user_dashboard</title>
 
-    <link rel="stylesheet" href="style.css" />
+  <script src="https://cdn.tailwindcss.com"></script>
 
-    <!-- ICONS -->
-    <link
-      rel="stylesheet"
-      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css"
-    />
+  <link rel="stylesheet" href="style.css" />
 
-    <!-- FONT -->
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <!-- ICONS -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" />
 
-    <!-- FONT -->
-    <link
-      href="https://fonts.googleapis.com/css2?family=IM+Fell+DW+Pica+SC&family=Irish+Grover&display=swap"
-      rel="stylesheet"
-    />
+  <!-- FONT -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+
+  <!-- FONT -->
+  <link href="https://fonts.googleapis.com/css2?family=IM+Fell+DW+Pica+SC&family=Irish+Grover&display=swap"
+    rel="stylesheet" />
 
 
-<!-- CSS -->
- <link rel="stylesheet" href="style.css">
+  <!-- CSS -->
+  <link rel="stylesheet" href="style.css">
 
-  </head>
+</head>
 
-  <body class="bg-black overflow-x-hidden">
-    <!-- HEADER -->
+<body class="bg-black overflow-x-hidden">
+  <!-- HEADER -->
+  <div
+    class="flex justify-between items-center p-2 md:p-6 bg-[#2D2D2D] h-[55px] border border-white/40 w-full sticky top-0 z-50">
+    <div>
+      <a href="./user_dashboard.html">
+        <img class="h-[100px] mt-2.5 object-contain" src="./image/HappyBounty.png" />
+      </a>
+    </div>
+
+    <div class="flex flex-row items-center gap-2 font-semibold text-white">
+
+      <!-- PLUS   -->
+      <button class="relative plusbtn"><i class="bi bi-plus text-2xl"></i>
+
+        <div class="plusmenu hidden absolute border boredr-[#2D2D2D] min-w-[240px] max-w-[650px] bg-white h-auto py-2 top-[2.4rem] right-0 rounded-lg text-black flex flex-col text-start px-2 z-50 text-sm">
+          <div  class="text-black hover:bg-gray-200 rounded-lg  py-1 px-2">Create</div> 
+           <div  class="text-black hover:bg-gray-200 rounded-lg  py-1 px-2">Active</div>
+            <div  class="text-black hover:bg-gray-200 rounded-lg  py-1 px-2">Completed</div>
+        </div>
+
+      </button>
+
+
+
+
+
+      <div class="bg-white rounded-full h-[30px] w-[30px]"></div>
+
+      <button><i class="bi bi-caret-down-fill"></i></button>
+    </div>
+  </div>
+
+  <!-- USER DASHBOARD -->
+  <div class="bg-[#2D2D2D] border border-white rounded-lg h-auto py-4 m-10">
+    <h3 class="text-white px-8 text-[12px]">Your Earnings on Happy bounty</h3>
+
+    <h4 class="text-white px-8 text-2xl font-bold mt-4">
+      $0.<span class="text-gray-400 text-lg">00</span>
+    </h4>
+
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mt-4 px-4 pb-4">
+      <div class="h-20 bg-[#2D2D2D] border border-white rounded-lg">
+        <p class="text-white text-center m-2 text-[12px]">
+          Completed bounty or tasks
+        </p>
+
+        <h5 class="text-white text-2xl flex justify-center items-center">
+          0
+        </h5>
+      </div>
+
+      <div class="h-20 bg-[#2D2D2D] border border-white rounded-lg">
+        <p class="text-white text-center m-2 text-[12px]">Task in progress</p>
+
+        <h5 class="text-white text-2xl flex justify-center items-center">
+          0
+        </h5>
+      </div>
+
+      <div class="h-20 bg-[#2D2D2D] border border-white rounded-lg">
+        <p class="text-white text-center m-2 text-[12px]">Competence score</p>
+
+        <h5 class="text-white text-2xl flex justify-center items-center">
+          0
+        </h5>
+      </div>
+    </div>
+  </div>
+
+  <!-- SECTION TWO -->
+  <div class="flex flex-wrap items-center gap-2 m-10">
+    <div class="flex items-center gap-2 border border-white/70 rounded-lg text-white bg-gray-800 px-4 h-[30px]">
+      <p class="text-[14px]">All Tasks</p>
+
+      <div class="border border-white/70 text-white bg-gray-800 text-[12px] px-2 rounded-lg font-semibold">
+        300
+      </div>
+    </div>
+
     <div
-      class="flex justify-between items-center p-2 md:p-6 bg-[#2D2D2D] h-[55px] border border-white/40 w-full sticky top-0 z-50"
-    >
+      class="flex items-center border border-white/70 rounded-lg text-white bg-gray-800 px-4 h-[30px] hover:bg-[#FF1AC69E] cursor-pointer">
+      <a href="./create.html" class="text-[14px]">Create task</a>
+    </div>
+  </div>
+
+  <!-- SEARCH + SORT -->
+  <div class="flex justify-between gap-2 items-center m-10">
+    <div class="relative border border-white/50 rounded-lg px-4 h-[38px] flex items-center md:w-[60vw] w-[50vw]">
+      <input type="search" placeholder="Search project"
+        class="bg-transparent outline-none text-white md:w-[700vw] min-w-[10%]" />
+
+      <span class="border border-white/50 h-[38px] mr-4"></span>
+
+      <i class="bi bi-search absolute right-3 cursor-pointer text-white text-sm"></i>
+    </div>
+
+
+    <!-- FOR MOBILE  -->
+    <button id="sortby1"
+      class="text-white flex items-center gap-2 text-[12px] border border-white rounded-lg px-2 py-1 bg-gray-800 md:hidden">
+      Sort by
+
+      <i class="bi bi-caret-down-fill"></i>
+
+
+      <!-- DROPDOWN MENU FOR MOBILE-->
+      <div class="relative">
+        <div id="sortmenu1"
+          class="hidden absolute bg-[#FFFFFF] min-w-[100px] h-auto py-2  top-[1.1rem] right-0 rounded-lg text-black flex flex-col gap-2 text-start px-2 z-50 text-sm">
+
+          <span class="hover:bg-gray-200 rounded-lg  py-1 px-2">Active</span>
+          <span class="hover:bg-gray-200 rounded-lg  py-1 px-2">Completed</span>
+          <span class="hover:bg-gray-200 rounded-lg  py-1 px-2">Up Next</span>
+        </div>
+      </div>
+    </button>
+
+    <!--- FOR DESKTOP -->
+    <button id="sortby"
+      class="hidden md:flex items-center gap-2 text-white border border-white bg-gray-800 rounded-lg px-4 h-[30px] hover:bg-white/80 hover:text-black font-semibold">
+      Sort by
+
+      <i class="bi bi-caret-down-fill"></i>
+
+      <!-- DROPDOWN MENU FOR DESKTOP-->
+      <div class="relative">
+        <div id="sortmenu"
+          class="hidden absolute bg-[#FFFFFF] w-[15vw] h-auto py-2  top-[1rem] -right-3 rounded-lg text-black flex flex-col gap-2 text-start px-2 z-50 text-sm">
+
+          <span class="hover:bg-gray-200 rounded-lg  py-1 px-2">Active</span>
+          <span class="hover:bg-gray-200 rounded-lg  py-1 px-2">Completed</span>
+          <span class="hover:bg-gray-200 rounded-lg  py-1 px-2">Up Next</span>
+        </div>
+      </div>
+
+
+
+
+    </button>
+  </div>
+
+  <!-- GRID -->
+  <div class="grid grid-cols-1 md:grid-cols-2 gap-6 m-10">
+    <!-- BOX 1 -->
+    <div class="bg-[#2D2D2D] rounded-[17px] border border-white/50">
+      <div class="flex justify-between items-center px-4">
+        <h3 class="text-white text-sm md:text-[18px]">
+          Category tag, eg “Design”
+        </h3>
+
+        <div class="relative flex flex-col items-center py-2">
+          <span class="absolute top-0 -left-[5%] border h-[66px] border-white/50"></span>
+
+          <h4 class="flex gap-4 items-center text-white text-xs md:text-[14px]">
+            <p class="bg-white rounded-full w-[35px] h-[26px]"></p>
+            Rewards
+          </h4>
+
+          <p class="text-white text-xs md:text-[16px]">eg: 25 BASE ETH</p>
+        </div>
+      </div>
+
+      <div class="border-b border-white/50 mt-2"></div>
+
+      <div class="flex flex-col gap-6 m-4">
+        <h3 class="text-white text-sm md:text-md">Task Title:</h3>
+
+        <p class="text-white text-xs md:text-sm">
+          Brief description (1–2 lines)
+        </p>
+
+        <h3 class="text-white text-sm md:text-md">
+          Tags: Development, GitHub, UX etc
+        </h3>
+
+        <h3 class="text-white text-sm md:text-md">
+          🗓 Deadline: Apr 10 | Status: Open
+        </h3>
+
+        <div>
+          <button class="border-none text-white text-xs">
+            ➤ View Details |
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- BOX 2 -->
+    <div class="bg-[#2D2D2D] rounded-[17px] border border-white/50">
+      <div class="flex justify-between items-center px-4">
+        <h3 class="text-white text-sm md:text-[18px]">
+          Category tag, eg “Design”
+        </h3>
+
+        <div class="relative flex flex-col items-center py-2">
+          <span class="absolute top-0 -left-[5%] border h-[66px] border-white/50"></span>
+
+          <h4 class="flex gap-4 items-center text-white text-xs md:text-[14px]">
+            <p class="bg-white rounded-full w-[35px] h-[26px]"></p>
+            Rewards
+          </h4>
+
+          <p class="text-white text-xs md:text-[16px]">eg: 25 BASE ETH</p>
+        </div>
+      </div>
+
+      <div class="border-b border-white/50 mt-2"></div>
+
+      <div class="flex flex-col gap-6 m-4">
+        <h3 class="text-white text-sm md:text-md">Task Title:</h3>
+
+        <p class="text-white text-xs md:text-sm">
+          Brief description (1–2 lines)
+        </p>
+
+        <h3 class="text-white text-sm md:text-md">
+          Tags: Development, GitHub, UX etc
+        </h3>
+
+        <h3 class="text-white text-sm md:text-md">
+          🗓 Deadline: Apr 10 | Status: Open
+        </h3>
+
+        <div>
+          <button class="border-none text-white text-xs">
+            ➤ View Details |
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- BOX 3 -->
+    <div class="bg-[#2D2D2D] rounded-[17px] border border-white/50">
+      <div class="flex justify-between items-center px-4">
+        <h3 class="text-white text-sm md:text-[18px]">
+          Category tag, eg “Design”
+        </h3>
+
+        <div class="relative flex flex-col items-center py-2">
+          <span class="absolute top-0 -left-[5%] border h-[66px] border-white/50"></span>
+
+          <h4 class="flex gap-4 items-center text-white text-xs md:text-[14px]">
+            <p class="bg-white rounded-full w-[35px] h-[26px]"></p>
+            Rewards
+          </h4>
+
+          <p class="text-white text-xs md:text-[16px]">eg: 25 BASE ETH</p>
+        </div>
+      </div>
+
+      <div class="border-b border-white/50 mt-2"></div>
+
+      <div class="flex flex-col gap-6 m-4">
+        <h3 class="text-white text-sm md:text-md">Task Title:</h3>
+
+        <p class="text-white text-xs md:text-sm">
+          Brief description (1–2 lines)
+        </p>
+
+        <h3 class="text-white text-sm md:text-md">
+          Tags: Development, GitHub, UX etc
+        </h3>
+
+        <h3 class="text-white text-sm md:text-md">
+          🗓 Deadline: Apr 10 | Status: Open
+        </h3>
+
+        <div>
+          <button class="border-none text-white text-xs">
+            ➤ View Details |
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- BOX 4 -->
+    <div class="bg-[#2D2D2D] rounded-[17px] border border-white/50">
+      <div class="flex justify-between items-center px-4">
+        <h3 class="text-white text-sm md:text-[18px]">
+          Category tag, eg “Design”
+        </h3>
+
+        <div class="relative flex flex-col items-center py-2">
+          <span class="absolute top-0 -left-[5%] border h-[66px] border-white/50"></span>
+
+          <h4 class="flex gap-4 items-center text-white text-xs md:text-[14px]">
+            <p class="bg-white rounded-full w-[35px] h-[26px]"></p>
+            Rewards
+          </h4>
+
+          <p class="text-white text-xs md:text-[16px]">eg: 25 BASE ETH</p>
+        </div>
+      </div>
+
+      <div class="border-b border-white/50 mt-2"></div>
+
+      <div class="flex flex-col gap-6 m-4">
+        <h3 class="text-white text-sm md:text-md">Task Title:</h3>
+
+        <p class="text-white text-xs md:text-sm">
+          Brief description (1–2 lines)
+        </p>
+
+        <h3 class="text-white text-sm md:text-md">
+          Tags: Development, GitHub, UX etc
+        </h3>
+
+        <h3 class="text-white text-sm md:text-md">
+          🗓 Deadline: Apr 10 | Status: Open
+        </h3>
+
+        <div>
+          <button class="border-none text-white text-xs">
+            ➤ View Details |
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- BOX 5 -->
+    <div class="bg-[#2D2D2D] rounded-[17px] border border-white/50">
+      <div class="flex justify-between items-center px-4">
+        <h3 class="text-white text-sm md:text-[18px]">
+          Category tag, eg “Design”
+        </h3>
+
+        <div class="relative flex flex-col items-center py-2">
+          <span class="absolute top-0 -left-[5%] border h-[66px] border-white/50"></span>
+
+          <h4 class="flex gap-4 items-center text-white text-xs md:text-[14px]">
+            <p class="bg-white rounded-full w-[35px] h-[26px]"></p>
+            Rewards
+          </h4>
+
+          <p class="text-white text-xs md:text-[16px]">eg: 25 BASE ETH</p>
+        </div>
+      </div>
+
+      <div class="border-b border-white/50 mt-2"></div>
+
+      <div class="flex flex-col gap-6 m-4">
+        <h3 class="text-white text-sm md:text-md">Task Title:</h3>
+
+        <p class="text-white text-xs md:text-sm">
+          Brief description (1–2 lines)
+        </p>
+
+        <h3 class="text-white text-sm md:text-md">
+          Tags: Development, GitHub, UX etc
+        </h3>
+
+        <h3 class="text-white text-sm md:text-md">
+          🗓 Deadline: Apr 10 | Status: Open
+        </h3>
+
+        <div>
+          <button class="border-none text-white text-xs">
+            ➤ View Details |
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- BOX 6 -->
+    <div class="bg-[#2D2D2D] rounded-[17px] border border-white/50">
+      <div class="flex justify-between items-center px-4">
+        <h3 class="text-white text-sm md:text-[18px]">
+          Category tag, eg “Design”
+        </h3>
+
+        <div class="relative flex flex-col items-center py-2">
+          <span class="absolute top-0 -left-[5%] border h-[66px] border-white/50"></span>
+
+          <h4 class="flex gap-4 items-center text-white text-xs md:text-[14px]">
+            <p class="bg-white rounded-full w-[35px] h-[26px]"></p>
+            Rewards
+          </h4>
+
+          <p class="text-white text-xs md:text-[16px]">eg: 25 BASE ETH</p>
+        </div>
+      </div>
+
+      <div class="border-b border-white/50 mt-2"></div>
+
+      <div class="flex flex-col gap-6 m-4">
+        <h3 class="text-white text-sm md:text-md">Task Title:</h3>
+
+        <p class="text-white text-xs md:text-sm">
+          Brief description (1–2 lines)
+        </p>
+
+        <h3 class="text-white text-sm md:text-md">
+          Tags: Development, GitHub, UX etc
+        </h3>
+
+        <h3 class="text-white text-sm md:text-md">
+          🗓 Deadline: Apr 10 | Status: Open
+        </h3>
+
+        <div>
+          <button class="border-none text-white text-xs">
+            ➤ View Details |
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- BOX 7 -->
+    <div class="bg-[#2D2D2D] rounded-[17px] border border-white/50">
+      <div class="flex justify-between items-center px-4">
+        <h3 class="text-white text-sm md:text-[18px]">
+          Category tag, eg “Design”
+        </h3>
+
+        <div class="relative flex flex-col items-center py-2">
+          <span class="absolute top-0 -left-[5%] border h-[66px] border-white/50"></span>
+
+          <h4 class="flex gap-4 items-center text-white text-xs md:text-[14px]">
+            <p class="bg-white rounded-full w-[35px] h-[26px]"></p>
+            Rewards
+          </h4>
+
+          <p class="text-white text-xs md:text-[16px]">eg: 25 BASE ETH</p>
+        </div>
+      </div>
+
+      <div class="border-b border-white/50 mt-2"></div>
+
+      <div class="flex flex-col gap-6 m-4">
+        <h3 class="text-white text-sm md:text-md">Task Title:</h3>
+
+        <p class="text-white text-xs md:text-sm">
+          Brief description (1–2 lines)
+        </p>
+
+        <h3 class="text-white text-sm md:text-md">
+          Tags: Development, GitHub, UX etc
+        </h3>
+
+        <h3 class="text-white text-sm md:text-md">
+          🗓 Deadline: Apr 10 | Status: Open
+        </h3>
+
+        <div>
+          <button class="border-none text-white text-xs">
+            ➤ View Details |
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- BOX 8 -->
+    <div class="bg-[#2D2D2D] rounded-[17px] border border-white/50">
+      <div class="flex justify-between items-center px-4">
+        <h3 class="text-white text-sm md:text-[18px]">
+          Category tag, eg “Design”
+        </h3>
+
+        <div class="relative flex flex-col items-center py-2">
+          <span class="absolute top-0 -left-[5%] border h-[66px] border-white/50"></span>
+
+          <h4 class="flex gap-4 items-center text-white text-xs md:text-[14px]">
+            <p class="bg-white rounded-full w-[35px] h-[26px]"></p>
+            Rewards
+          </h4>
+
+          <p class="text-white text-xs md:text-[16px]">eg: 25 BASE ETH</p>
+        </div>
+      </div>
+
+      <div class="border-b border-white/50 mt-2"></div>
+
+      <div class="flex flex-col gap-6 m-4">
+        <h3 class="text-white text-sm md:text-md">Task Title:</h3>
+
+        <p class="text-white text-xs md:text-sm">
+          Brief description (1–2 lines)
+        </p>
+
+        <h3 class="text-white text-sm md:text-md">
+          Tags: Development, GitHub, UX etc
+        </h3>
+
+        <h3 class="text-white text-sm md:text-md">
+          🗓 Deadline: Apr 10 | Status: Open
+        </h3>
+
+        <div>
+          <button class="border-none text-white text-xs">
+            ➤ View Details |
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- LOAD MORE -->
+  <div class="flex justify-center items-center mt-4">
+    <button
+      class="text-white border border-white bg-gray-800 rounded-lg px-4 h-[30px] hover:bg-white/80 hover:text-black font-semibold">
+      Load more
+    </button>
+  </div>
+
+  <!-- FOOTER -->
+  <footer class="bg-[#111] text-white mt-20 p-10">
+    <div class="grid md:grid-cols-4 gap-8">
       <div>
-        <a href="./user_dashboard.html">
-          <img
-            class="h-[100px] mt-2.5 object-contain"
-            src="./image/HappyBounty.png"
-          />
-        </a>
+        <h3 class="text-xl font-semibold mb-3">Happy Bounty</h3>
+
+        <p class="text-gray-400 text-sm">
+          Earn crypto by completing Web3 tasks and bounties.
+        </p>
       </div>
 
-      <div class="flex flex-row items-center gap-2 font-semibold text-white">
-        <button><i class="bi bi-plus"></i></button>
+      <div>
+        <h4 class="font-semibold mb-3">Platform</h4>
 
-        <button><i class="bi bi-caret-down-fill"></i></button>
-
-        <button><i class="bi bi-question-diamond-fill"></i></button>
-
-        <button><i class="bi bi-caret-down-fill"></i></button>
-
-        <div class="bg-white rounded-full h-[30px] w-[45px]"></div>
-
-        <button><i class="bi bi-caret-down-fill"></i></button>
+        <ul class="text-gray-400 space-y-2 text-sm">
+          <li>Browse Tasks</li>
+          <li>Categories</li>
+          <li>Leaderboard</li>
+          <li>Rewards</li>
+        </ul>
       </div>
-    </div>
 
-    <!-- USER DASHBOARD -->
-    <div class="bg-[#2D2D2D] border border-white rounded-lg h-auto py-4 m-10">
-      <h3 class="text-white px-8 text-[12px]">Your Earnings on Happy bounty</h3>
+      <div>
+        <h4 class="font-semibold mb-3">Resources</h4>
 
-      <h4 class="text-white px-8 text-2xl font-bold mt-4">
-        $0.<span class="text-gray-400 text-lg">00</span>
-      </h4>
+        <ul class="text-gray-400 space-y-2 text-sm">
+          <li>Docs</li>
+          <li>Blog</li>
+          <li>Help Center</li>
+          <li>Community</li>
+        </ul>
+      </div>
 
-      <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mt-4 px-4 pb-4">
-        <div class="h-20 bg-[#2D2D2D] border border-white rounded-lg">
-          <p class="text-white text-center m-2 text-[12px]">
-            Completed bounty or tasks
-          </p>
+      <div>
+        <h4 class="font-semibold mb-3">Follow Us</h4>
 
-          <h5 class="text-white text-2xl flex justify-center items-center">
-            0
-          </h5>
-        </div>
-
-        <div class="h-20 bg-[#2D2D2D] border border-white rounded-lg">
-          <p class="text-white text-center m-2 text-[12px]">Task in progress</p>
-
-          <h5 class="text-white text-2xl flex justify-center items-center">
-            0
-          </h5>
-        </div>
-
-        <div class="h-20 bg-[#2D2D2D] border border-white rounded-lg">
-          <p class="text-white text-center m-2 text-[12px]">Competence score</p>
-
-          <h5 class="text-white text-2xl flex justify-center items-center">
-            0
-          </h5>
+        <div class="flex gap-4 text-xl">
+          <i class="bi bi-twitter"></i>
+          <i class="bi bi-discord"></i>
+          <i class="bi bi-github"></i>
         </div>
       </div>
     </div>
 
-    <!-- SECTION TWO -->
-    <div class="flex flex-wrap items-center gap-2 m-10">
-      <div
-        class="flex items-center gap-2 border border-white/70 rounded-lg text-white bg-gray-800 px-4 h-[30px]"
-      >
-        <p class="text-[14px]">All Tasks</p>
-
-        <div
-          class="border border-white/70 text-white bg-gray-800 text-[12px] px-2 rounded-lg font-semibold"
-        >
-          300
-        </div>
-      </div>
-
-      <div
-        class="flex items-center border border-white/70 rounded-lg text-white bg-gray-800 px-4 h-[30px] hover:bg-[#FF1AC69E] cursor-pointer"
-      >
-        <a href="./create.html" class="text-[14px]">Create task</a>
-      </div>
+    <div class="border-t border-white/20 mt-8 pt-4 text-center text-gray-500 text-sm">
+      © 2026 Happy Bounty. All rights reserved.
     </div>
+  </footer>
+</body>
+<script src="./dashboard.js" type="module"></script>
 
-    <!-- SEARCH + SORT -->
-    <div class="flex justify-between gap-2 items-center m-10">
-      <div
-        class="relative border border-white/50 rounded-lg px-4 h-[38px] flex items-center md:w-[60vw]"
-      >
-        <input
-          type="search"
-          placeholder="Search project"
-          class="bg-transparent outline-none text-white md:w-[750px] w-[150px]"
-        />
-
-        <span class="border border-white/50 h-[38px] mr-4"></span>
-
-        <i
-          class="bi bi-search absolute right-3 cursor-pointer text-white text-sm"
-        ></i>
-      </div>
-
-      <button id="sortby1"
-        class="text-white flex items-center gap-2 border border-white rounded-lg px-2 py-1 bg-gray-800 md:hidden"
-      >
-        Sort by
-
-        <i class="bi bi-caret-down-fill"></i>
-
-
-         <!-- DROPDOWN MENU FOR MOBILE-->
-<div class="relative">
-<div id="sortmenu1" class="hidden absolute bg-[#FFFFFF] w-[30vw]  h-auto py-2  top-[1.1rem] right-0 rounded-lg text-black flex flex-col gap-2 text-start px-2 z-50 text-sm">
-
-<span class="hover:bg-gray-200 rounded-lg  py-1 px-2">Active</span>
-<span class="hover:bg-gray-200 rounded-lg  py-1 px-2">Completed</span>
-<span class="hover:bg-gray-200 rounded-lg  py-1 px-2">Up Next</span>
-</div>
-</div>
-      </button>
-
-      <button id="sortby"
-        class="hidden md:flex items-center gap-2 text-white border border-white bg-gray-800 rounded-lg px-4 h-[30px] hover:bg-white/80 hover:text-black font-semibold"
-      >
-        Sort by
-
-        <i class="bi bi-caret-down-fill"></i>
-
-        <!-- DROPDOWN MENU FOR DESKTOP-->
-<div class="relative">
-<div id="sortmenu" class="hidden absolute bg-[#FFFFFF] w-[15vw] h-auto py-2  top-[1rem] -right-3 rounded-lg text-black flex flex-col gap-2 text-start px-2 z-50 text-sm">
-
-<span class="hover:bg-gray-200 rounded-lg  py-1 px-2" >Active</span>
-<span class="hover:bg-gray-200 rounded-lg  py-1 px-2">Completed</span>
-<span class="hover:bg-gray-200 rounded-lg  py-1 px-2">Up Next</span>
-</div>
-</div>
-
-
-
-
-      </button>
-    </div>
-
-    <!-- GRID -->
-    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 m-10">
-      <!-- BOX 1 -->
-      <div class="bg-[#2D2D2D] rounded-[17px] border border-white/50">
-        <div class="flex justify-between items-center px-4">
-          <h3 class="text-white text-sm md:text-[18px]">
-            Category tag, eg “Design”
-          </h3>
-
-          <div class="relative flex flex-col items-center py-2">
-            <span
-              class="absolute top-0 -left-[5%] border h-[66px] border-white/50"
-            ></span>
-
-            <h4
-              class="flex gap-4 items-center text-white text-xs md:text-[14px]"
-            >
-              <p class="bg-white rounded-full w-[35px] h-[26px]"></p>
-              Rewards
-            </h4>
-
-            <p class="text-white text-xs md:text-[16px]">eg: 25 BASE ETH</p>
-          </div>
-        </div>
-
-        <div class="border-b border-white/50 mt-2"></div>
-
-        <div class="flex flex-col gap-6 m-4">
-          <h3 class="text-white text-sm md:text-md">Task Title:</h3>
-
-          <p class="text-white text-xs md:text-sm">
-            Brief description (1–2 lines)
-          </p>
-
-          <h3 class="text-white text-sm md:text-md">
-            Tags: Development, GitHub, UX etc
-          </h3>
-
-          <h3 class="text-white text-sm md:text-md">
-            🗓 Deadline: Apr 10 | Status: Open
-          </h3>
-
-          <div>
-            <button class="border-none text-white text-xs">
-              ➤ View Details |
-            </button>
-          </div>
-        </div>
-      </div>
-
-      <!-- BOX 2 -->
-      <div class="bg-[#2D2D2D] rounded-[17px] border border-white/50">
-        <div class="flex justify-between items-center px-4">
-          <h3 class="text-white text-sm md:text-[18px]">
-            Category tag, eg “Design”
-          </h3>
-
-          <div class="relative flex flex-col items-center py-2">
-            <span
-              class="absolute top-0 -left-[5%] border h-[66px] border-white/50"
-            ></span>
-
-            <h4
-              class="flex gap-4 items-center text-white text-xs md:text-[14px]"
-            >
-              <p class="bg-white rounded-full w-[35px] h-[26px]"></p>
-              Rewards
-            </h4>
-
-            <p class="text-white text-xs md:text-[16px]">eg: 25 BASE ETH</p>
-          </div>
-        </div>
-
-        <div class="border-b border-white/50 mt-2"></div>
-
-        <div class="flex flex-col gap-6 m-4">
-          <h3 class="text-white text-sm md:text-md">Task Title:</h3>
-
-          <p class="text-white text-xs md:text-sm">
-            Brief description (1–2 lines)
-          </p>
-
-          <h3 class="text-white text-sm md:text-md">
-            Tags: Development, GitHub, UX etc
-          </h3>
-
-          <h3 class="text-white text-sm md:text-md">
-            🗓 Deadline: Apr 10 | Status: Open
-          </h3>
-
-          <div>
-            <button class="border-none text-white text-xs">
-              ➤ View Details |
-            </button>
-          </div>
-        </div>
-      </div>
-
-      <!-- BOX 3 -->
-      <div class="bg-[#2D2D2D] rounded-[17px] border border-white/50">
-        <div class="flex justify-between items-center px-4">
-          <h3 class="text-white text-sm md:text-[18px]">
-            Category tag, eg “Design”
-          </h3>
-
-          <div class="relative flex flex-col items-center py-2">
-            <span
-              class="absolute top-0 -left-[5%] border h-[66px] border-white/50"
-            ></span>
-
-            <h4
-              class="flex gap-4 items-center text-white text-xs md:text-[14px]"
-            >
-              <p class="bg-white rounded-full w-[35px] h-[26px]"></p>
-              Rewards
-            </h4>
-
-            <p class="text-white text-xs md:text-[16px]">eg: 25 BASE ETH</p>
-          </div>
-        </div>
-
-        <div class="border-b border-white/50 mt-2"></div>
-
-        <div class="flex flex-col gap-6 m-4">
-          <h3 class="text-white text-sm md:text-md">Task Title:</h3>
-
-          <p class="text-white text-xs md:text-sm">
-            Brief description (1–2 lines)
-          </p>
-
-          <h3 class="text-white text-sm md:text-md">
-            Tags: Development, GitHub, UX etc
-          </h3>
-
-          <h3 class="text-white text-sm md:text-md">
-            🗓 Deadline: Apr 10 | Status: Open
-          </h3>
-
-          <div>
-            <button class="border-none text-white text-xs">
-              ➤ View Details |
-            </button>
-          </div>
-        </div>
-      </div>
-
-      <!-- BOX 4 -->
-      <div class="bg-[#2D2D2D] rounded-[17px] border border-white/50">
-        <div class="flex justify-between items-center px-4">
-          <h3 class="text-white text-sm md:text-[18px]">
-            Category tag, eg “Design”
-          </h3>
-
-          <div class="relative flex flex-col items-center py-2">
-            <span
-              class="absolute top-0 -left-[5%] border h-[66px] border-white/50"
-            ></span>
-
-            <h4
-              class="flex gap-4 items-center text-white text-xs md:text-[14px]"
-            >
-              <p class="bg-white rounded-full w-[35px] h-[26px]"></p>
-              Rewards
-            </h4>
-
-            <p class="text-white text-xs md:text-[16px]">eg: 25 BASE ETH</p>
-          </div>
-        </div>
-
-        <div class="border-b border-white/50 mt-2"></div>
-
-        <div class="flex flex-col gap-6 m-4">
-          <h3 class="text-white text-sm md:text-md">Task Title:</h3>
-
-          <p class="text-white text-xs md:text-sm">
-            Brief description (1–2 lines)
-          </p>
-
-          <h3 class="text-white text-sm md:text-md">
-            Tags: Development, GitHub, UX etc
-          </h3>
-
-          <h3 class="text-white text-sm md:text-md">
-            🗓 Deadline: Apr 10 | Status: Open
-          </h3>
-
-          <div>
-            <button class="border-none text-white text-xs">
-              ➤ View Details |
-            </button>
-          </div>
-        </div>
-      </div>
-
-      <!-- BOX 5 -->
-      <div class="bg-[#2D2D2D] rounded-[17px] border border-white/50">
-        <div class="flex justify-between items-center px-4">
-          <h3 class="text-white text-sm md:text-[18px]">
-            Category tag, eg “Design”
-          </h3>
-
-          <div class="relative flex flex-col items-center py-2">
-            <span
-              class="absolute top-0 -left-[5%] border h-[66px] border-white/50"
-            ></span>
-
-            <h4
-              class="flex gap-4 items-center text-white text-xs md:text-[14px]"
-            >
-              <p class="bg-white rounded-full w-[35px] h-[26px]"></p>
-              Rewards
-            </h4>
-
-            <p class="text-white text-xs md:text-[16px]">eg: 25 BASE ETH</p>
-          </div>
-        </div>
-
-        <div class="border-b border-white/50 mt-2"></div>
-
-        <div class="flex flex-col gap-6 m-4">
-          <h3 class="text-white text-sm md:text-md">Task Title:</h3>
-
-          <p class="text-white text-xs md:text-sm">
-            Brief description (1–2 lines)
-          </p>
-
-          <h3 class="text-white text-sm md:text-md">
-            Tags: Development, GitHub, UX etc
-          </h3>
-
-          <h3 class="text-white text-sm md:text-md">
-            🗓 Deadline: Apr 10 | Status: Open
-          </h3>
-
-          <div>
-            <button class="border-none text-white text-xs">
-              ➤ View Details |
-            </button>
-          </div>
-        </div>
-      </div>
-
-      <!-- BOX 6 -->
-      <div class="bg-[#2D2D2D] rounded-[17px] border border-white/50">
-        <div class="flex justify-between items-center px-4">
-          <h3 class="text-white text-sm md:text-[18px]">
-            Category tag, eg “Design”
-          </h3>
-
-          <div class="relative flex flex-col items-center py-2">
-            <span
-              class="absolute top-0 -left-[5%] border h-[66px] border-white/50"
-            ></span>
-
-            <h4
-              class="flex gap-4 items-center text-white text-xs md:text-[14px]"
-            >
-              <p class="bg-white rounded-full w-[35px] h-[26px]"></p>
-              Rewards
-            </h4>
-
-            <p class="text-white text-xs md:text-[16px]">eg: 25 BASE ETH</p>
-          </div>
-        </div>
-
-        <div class="border-b border-white/50 mt-2"></div>
-
-        <div class="flex flex-col gap-6 m-4">
-          <h3 class="text-white text-sm md:text-md">Task Title:</h3>
-
-          <p class="text-white text-xs md:text-sm">
-            Brief description (1–2 lines)
-          </p>
-
-          <h3 class="text-white text-sm md:text-md">
-            Tags: Development, GitHub, UX etc
-          </h3>
-
-          <h3 class="text-white text-sm md:text-md">
-            🗓 Deadline: Apr 10 | Status: Open
-          </h3>
-
-          <div>
-            <button class="border-none text-white text-xs">
-              ➤ View Details |
-            </button>
-          </div>
-        </div>
-      </div>
-
-      <!-- BOX 7 -->
-      <div class="bg-[#2D2D2D] rounded-[17px] border border-white/50">
-        <div class="flex justify-between items-center px-4">
-          <h3 class="text-white text-sm md:text-[18px]">
-            Category tag, eg “Design”
-          </h3>
-
-          <div class="relative flex flex-col items-center py-2">
-            <span
-              class="absolute top-0 -left-[5%] border h-[66px] border-white/50"
-            ></span>
-
-            <h4
-              class="flex gap-4 items-center text-white text-xs md:text-[14px]"
-            >
-              <p class="bg-white rounded-full w-[35px] h-[26px]"></p>
-              Rewards
-            </h4>
-
-            <p class="text-white text-xs md:text-[16px]">eg: 25 BASE ETH</p>
-          </div>
-        </div>
-
-        <div class="border-b border-white/50 mt-2"></div>
-
-        <div class="flex flex-col gap-6 m-4">
-          <h3 class="text-white text-sm md:text-md">Task Title:</h3>
-
-          <p class="text-white text-xs md:text-sm">
-            Brief description (1–2 lines)
-          </p>
-
-          <h3 class="text-white text-sm md:text-md">
-            Tags: Development, GitHub, UX etc
-          </h3>
-
-          <h3 class="text-white text-sm md:text-md">
-            🗓 Deadline: Apr 10 | Status: Open
-          </h3>
-
-          <div>
-            <button class="border-none text-white text-xs">
-              ➤ View Details |
-            </button>
-          </div>
-        </div>
-      </div>
-
-      <!-- BOX 8 -->
-      <div class="bg-[#2D2D2D] rounded-[17px] border border-white/50">
-        <div class="flex justify-between items-center px-4">
-          <h3 class="text-white text-sm md:text-[18px]">
-            Category tag, eg “Design”
-          </h3>
-
-          <div class="relative flex flex-col items-center py-2">
-            <span
-              class="absolute top-0 -left-[5%] border h-[66px] border-white/50"
-            ></span>
-
-            <h4
-              class="flex gap-4 items-center text-white text-xs md:text-[14px]"
-            >
-              <p class="bg-white rounded-full w-[35px] h-[26px]"></p>
-              Rewards
-            </h4>
-
-            <p class="text-white text-xs md:text-[16px]">eg: 25 BASE ETH</p>
-          </div>
-        </div>
-
-        <div class="border-b border-white/50 mt-2"></div>
-
-        <div class="flex flex-col gap-6 m-4">
-          <h3 class="text-white text-sm md:text-md">Task Title:</h3>
-
-          <p class="text-white text-xs md:text-sm">
-            Brief description (1–2 lines)
-          </p>
-
-          <h3 class="text-white text-sm md:text-md">
-            Tags: Development, GitHub, UX etc
-          </h3>
-
-          <h3 class="text-white text-sm md:text-md">
-            🗓 Deadline: Apr 10 | Status: Open
-          </h3>
-
-          <div>
-            <button class="border-none text-white text-xs">
-              ➤ View Details |
-            </button>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <!-- LOAD MORE -->
-    <div class="flex justify-center items-center mt-4">
-      <button
-        class="text-white border border-white bg-gray-800 rounded-lg px-4 h-[30px] hover:bg-white/80 hover:text-black font-semibold"
-      >
-        Load more
-      </button>
-    </div>
-
-    <!-- FOOTER -->
-    <footer class="bg-[#111] text-white mt-20 p-10">
-      <div class="grid md:grid-cols-4 gap-8">
-        <div>
-          <h3 class="text-xl font-semibold mb-3">Happy Bounty</h3>
-
-          <p class="text-gray-400 text-sm">
-            Earn crypto by completing Web3 tasks and bounties.
-          </p>
-        </div>
-
-        <div>
-          <h4 class="font-semibold mb-3">Platform</h4>
-
-          <ul class="text-gray-400 space-y-2 text-sm">
-            <li>Browse Tasks</li>
-            <li>Categories</li>
-            <li>Leaderboard</li>
-            <li>Rewards</li>
-          </ul>
-        </div>
-
-        <div>
-          <h4 class="font-semibold mb-3">Resources</h4>
-
-          <ul class="text-gray-400 space-y-2 text-sm">
-            <li>Docs</li>
-            <li>Blog</li>
-            <li>Help Center</li>
-            <li>Community</li>
-          </ul>
-        </div>
-
-        <div>
-          <h4 class="font-semibold mb-3">Follow Us</h4>
-
-          <div class="flex gap-4 text-xl">
-            <i class="bi bi-twitter"></i>
-            <i class="bi bi-discord"></i>
-            <i class="bi bi-github"></i>
-          </div>
-        </div>
-      </div>
-
-      <div
-        class="border-t border-white/20 mt-8 pt-4 text-center text-gray-500 text-sm"
-      >
-        © 2026 Happy Bounty. All rights reserved.
-      </div>
-    </footer>
-  </body>
-  <script src="./dashboard.js" type="module"></script>
 </html>

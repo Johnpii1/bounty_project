@@ -38,4 +38,16 @@ if (sort && menu1) {
   }
 }
 
+//FOR PLUS NAV BTN
+const plus = document.querySelector(".plusbtn");
+const minus = document.querySelector(".plusmenu");
+
+plus.addEventListener("click", () => {
+  minus.classList.toggle("hidden");
+});
+
+
+
+
+
 

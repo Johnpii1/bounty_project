@@ -78,7 +78,7 @@ updateSteps();
 // });
 
 
-
+// 
 //TOGGLE FOR SELECT MUTIPE
 const toggle = document.getElementById("toggle");
 const dropdown = document.getElementById("dropdown");
@@ -102,6 +102,17 @@ if (inf && inf1) {
       inf1.classList.add("hidden");
     });     
   }
+
+
+  //FOR PLUS NAV BTN
+const plus = document.querySelector(".plusbtn");
+const minus = document.querySelector(".plusmenu");
+
+plus.addEventListener("click", () => {
+  minus.classList.toggle("hidden");
+});
+
+  
 
 
   
