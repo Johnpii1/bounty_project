@@ -155,7 +155,7 @@
             <p class="flex gap-1 items-center text-white">Title <span class="text-red-900 mt-2">*</span></p>
 
             <!-- INPUT FORM -->
-            <input type="text" class="border border-white rounded-lg w-[75vw] py-1 p-4 bg-[#1c1c1c] text-white">
+            <input type="text" class="border border-white rounded-lg min-w-[260px] w-full py-1 p-4 bg-[#1c1c1c] text-white">
         </div>
 
 
@@ -164,7 +164,7 @@
             <p class="flex gap-1 items-center text-white">Description <span class="text-red-900 mt-2">*</span></p>
 
             <!-- INPUT FORM -->
-            <textarea class="border border-white rounded-lg w-[75vw] h-40 p-4 bg-[#1c1c1c] text-white resize-none"
+            <textarea class="border border-white rounded-lg min-w-[260px] w-full h-40 p-4 bg-[#1c1c1c] text-white resize-none"
                 placeholder="Enter description"></textarea>
         </div>
 
@@ -172,7 +172,7 @@
         <div class="flex flex-col gap-1 mt-4 px-4">
             <p class="flex gap-1 items-center text-white">Tags <span class="text-red-900 mt-2">*</span></p>
 
-            <button class="relative border border-white w-[75vw] h-[40px] bg-[#1c1c1c] rounded-lg">
+            <button class="relative border border-white min-w-[260px] w-full h-[40px] bg-[#1c1c1c] rounded-lg">
                 <i class="bi bi-caret-down-fill absolute right-3 text-white top-2"></i>
             </button>
         </div>
@@ -184,12 +184,12 @@
 
             <div class="flex flex-row gap-3 items-center text-white">
                 <!-- FIRST  -->
-                <button class=" border border-white w-[15vw]  bg-[#1c1c1c]  rounded-lg text=sm">
+                <button  class="flex items-center justify-center border border-white w-[15vw]  bg-[#1c1c1c]  rounded-lg text=sm">
                     Start
                 </button>
 
                 <!-- SECOUND  -->
-                <button class=" border border-white w-[15vw]  bg-[#1c1c1c] rounded-lg px-4 text=sm">
+                <button class=" flex items-center justify-center border border-white w-[15vw]  bg-[#1c1c1c] rounded-lg px-4 text=sm">
                     Stop
                 </button>
             </div>
@@ -207,7 +207,7 @@
             <p class="flex gap-1 items-center text-white">Origin link <span class="text-red-900 mt-2">*</span></p>
 
             <input type="url"
-                class=" border border-white w-[60vw] h-[40px] bg-[#1c1c1c] px-8 rounded-lg text-center text-xs"
+                class=" border border-white min-w-[260px] w-full h-[40px] bg-[#1c1c1c] px-8 rounded-lg text-center text-xs"
                 placeholder="figma template or link to design">
             </button>
         </div>
@@ -332,82 +332,85 @@
 
             <div class="flex flex-col md:flex-row md:justify-between gap-4 mt-6">
 
-    <div>
-        <h4 class="text-white text-sm">Set reward</h4>
-        <p class="text-xs text-white">
-            Amount distributed to the person whose solution was accepted
-        </p>
-    </div>
+                <div>
+                    <h4 class="text-white text-sm">Set reward</h4>
+                    <p class="text-xs text-white">
+                        Amount distributed to the person whose solution was accepted
+                    </p>
+                </div>
 
-    <div class="flex flex-col gap-1 w-full md:w-[260px]">
-        <p class="text-xs text-white">
-            Total balance: <span class="font-semibold text-sm">0.0000 USDC</span>
-        </p>
+                <div class="flex flex-col gap-1 w-full md:w-[260px]">
+                    <p class="text-xs text-white">
+                        Total balance: <span class="font-semibold text-sm">0.0000 USDC</span>
+                    </p>
 
-        <div class="flex items-center justify-between border border-white rounded-lg bg-[#2D2D2D] w-full h-8 px-4">
-            <input type="number" min="0" step="0.01" placeholder="0.00"
-                class="bg-transparent outline-none text-white text-sm w-full">
+                    <div
+                        class="flex items-center justify-between border border-white rounded-lg bg-[#2D2D2D] w-full h-8 px-4">
+                        <input type="number" min="0" step="0.01" placeholder="0.00"
+                            class="bg-transparent outline-none text-white text-sm w-full">
 
-            <p class="text-white/50 text-sm">USDC</p>
-        </div>
-    </div>
+                        <p class="text-white/50 text-sm">USDC</p>
+                    </div>
+                </div>
 
-</div>
-
-<div class="border-b border-white/50 mt-4 w-full"></div>
-
-
-<div class="flex flex-col md:flex-row md:justify-between gap-4 mt-6">
-
-    <div>
-        <h4 class="text-white text-sm">Service fees</h4>
-        <a href="" class="text-xs text-blue-700 hover:underline">Learn more</a>
-    </div>
-
-    <div class="flex flex-col gap-1 w-full md:w-[260px]">
-        <p class="text-xs text-white">
-            Total balance: <span class="font-semibold text-sm">0.0000 USDC</span>
-        </p>
-
-        <div class="flex items-center justify-between border border-white rounded-lg bg-[#2D2D2D] w-full h-8 px-4">
-            <input type="number" min="0" step="0.01" placeholder="0.00"
-                class="bg-transparent outline-none text-white text-sm w-full">
-
-            <p class="text-white/50 text-sm">USDC</p>
-        </div>
-    </div>
-
-</div>
-
-<div class="border-b border-white/50 mt-4 w-full"></div>
-
-
-<div class="flex flex-col md:flex-row md:justify-between gap-4 mt-6">
-
-    <div>
-        <h4 class="text-white text-sm">Total Amount</h4>
-        <p class="text-xs text-white">
-            Amount you will pay for this task (reward + service fees)
-        </p>
-    </div>
-
-    <div class="flex flex-col gap-1 w-full md:w-[260px]">
-        <p class="text-xs text-white">
-            Total balance: <span class="font-semibold text-sm">0.0000 USDC</span>
-        </p>
-
-        <div class="flex items-center justify-between border border-white rounded-lg bg-[#2D2D2D] w-full h-8 px-4">
-            <input type="number" min="0" step="0.01" placeholder="0.00"
-                class="bg-transparent outline-none text-white text-sm w-full">
-
-            <p class="text-white/50 text-sm">USDC</p>
-        </div>
-    </div>
-
-</div>
             </div>
 
+            <div class="border-b border-white/50 mt-4 w-full"></div>
+
+
+            <div class="flex flex-col md:flex-row md:justify-between gap-4 mt-6">
+
+                <div>
+                    <h4 class="text-white text-sm">Service fees</h4>
+                    <a href="" class="text-xs text-blue-700 hover:underline">Learn more</a>
+                </div>
+
+                <div class="flex flex-col gap-1 w-full md:w-[260px]">
+                    <p class="text-xs text-white">
+                        Total balance: <span class="font-semibold text-sm">0.0000 USDC</span>
+                    </p>
+
+                    <div
+                        class="flex items-center justify-between border border-white rounded-lg bg-[#2D2D2D] w-full h-8 px-4">
+                        <input type="number" min="0" step="0.01" placeholder="0.00"
+                            class="bg-transparent outline-none text-white text-sm w-full">
+
+                        <p class="text-white/50 text-sm">USDC</p>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="border-b border-white/50 mt-4 w-full"></div>
+
+
+            <div class="flex flex-col md:flex-row md:justify-between gap-4 mt-6">
+
+                <div>
+                    <h4 class="text-white text-sm">Total Amount</h4>
+                    <p class="text-xs text-white">
+                        Amount you will pay for this task (reward + service fees)
+                    </p>
+                </div>
+
+                <div class="flex flex-col gap-1 w-full md:w-[260px]">
+                    <p class="text-xs text-white">
+                        Total balance: <span class="font-semibold text-sm">0.0000 USDC</span>
+                    </p>
+
+                    <div
+                        class="flex items-center justify-between border border-white rounded-lg bg-[#2D2D2D] w-full h-8 px-4">
+                        <input type="number" min="0" step="0.01" placeholder="0.00"
+                            class="bg-transparent outline-none text-white text-sm w-full">
+
+                        <p class="text-white/50 text-sm">USDC</p>
+                    </div>
+                </div>
+
+            </div>
         </div>
+
+    </div>
     </div>
 
 
