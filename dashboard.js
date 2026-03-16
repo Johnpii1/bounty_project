@@ -37,6 +37,7 @@ if (sort && menu1) {
 const plus = document.querySelector(".plusbtn");
 const plusMenu = document.querySelector(".plusmenu");
 
+//FOR PROFILE
 const profile = document.querySelector(".profile");
 const profileMenu = document.querySelector(".profilemenu");
 

@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profile</title>
+</head>
+
+<!-- TAILWIND -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- ICONS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+
+    <!-- FONT -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <!-- FONT -->
+    <link href="https://fonts.googleapis.com/css2?family=IM+Fell+DW+Pica+SC&family=Irish+Grover&display=swap"
+        rel="stylesheet">
+
+</head>
+
+<body class="bg-black overflow-x-hidden font">
+
+     <!-- HEADER -->
+  <div
+    class="flex justify-between items-center p-2 md:p-6 bg-[#2D2D2D] h-[55px] border border-white/40 w-full sticky top-0 z-50">
+    <div>
+      <a href="./user_dashboard.html">
+        <img class="h-[100px] mt-2.5 object-contain" src="./image/HappyBounty.png" />
+      </a>
+    </div>
+
+    <div class="flex flex-row items-center gap-2 font-semibold text-white">
+
+      <!-- PLUS   -->
+      <button class="relative plusbtn"><i class="bi bi-plus text-2xl"></i>
+
+        <div
+          class="plusmenu hidden absolute border boredr-[#2D2D2D] min-w-[240px] max-w-[650px] bg-white h-auto py-2 top-[2.4rem] right-0 rounded-lg text-black flex flex-col text-start px-2 z-50 text-sm">
+          <a class="text-black hover:bg-gray-200 rounded-lg  py-1 px-2" href="./create.html">Create</a>
+          <div class="text-black hover:bg-gray-200 rounded-lg  py-1 px-2">Active</div>
+          <div class="text-black hover:bg-gray-200 rounded-lg  py-1 px-2">Completed</div>
+        </div>
+
+      </button>
+
+
+
+
+
+      <!-- PEOFILE -->
+      <div class="bg-white rounded-full h-[30px] w-[30px]"></div>
+
+      <!-- DROPDOWN -->
+      <button class="relative profile"><i class="bi bi-caret-down-fill text-2xl"></i>
+
+        <div
+          class="profilemenu hidden absolute border boredr-[#2D2D2D] min-w-[240px] max-w-[650px] bg-white h-auto py-2 top-[2.4rem] right-0 rounded-lg text-black flex flex-col text-start px-2 z-50 text-sm">
+          <a class="text-black hover:bg-gray-200 rounded-lg  py-1 px-2" href="./profile.html">Profile</a>
+          <div class="text-black hover:bg-gray-200 rounded-lg  py-1 px-2">logout</div>
+        </div>
+      </button>
+
+    </div>
+  </div>
+
+    
+    <h2 class="text-center font-bold text-2xl text-white mt-6">Profile</h2>
+
+    <!-- HEADER -->
+
+    <div class="md:flex md:justify-center md:items-center">
+<div class="border boredr-white/40 mt-2 m-2  min-w-[240px] md:w-[1200px] bg-[#2D2D2D] h-auto py-2  rounded-lg md:m-6">
+
+    <!-- IMAGE AND WALLET -->
+    <div class="flex flex-row gap-4 px-4 py-6">
+        <!-- IMAGE -->
+<div class="w-[50px] h-[50px] bg-white rounded-full md:w-[100px] md:h-[100px]"></div>
+<!-- TEXT -->
+<div class="flex flex-col gap-1 text-white md:py-3">
+<div class="w-fit px-2 h-auto py-1 rounded-lg border border-white bg-[#2D2D2D] text-md md:text-lg"><h3>Wallet address</h3></div>
+<h3 class="text-lg md:text-xl">Reputation score: 0</h3>
+</div>
+</div>
+
+<!-- BUTTON -->
+ <div class="flex justify-around items-center">
+
+    <!-- BOX1 -->
+<div class="flex flex-col gap-1 items-center">
+<p class="text-white text-xs md:text-sm">Total Earnings</p>
+<div class="border border-white rounded-lg bg-[#2D2D2D] py-1 w-20 text-white text-lg md:text-2xl text-center md:w-40">0</div>
+</div>
+
+ <!-- BOX2 -->
+<div class="flex flex-col gap-1 items-center">
+<p class="text-white text-xs md:text-sm">Created Tasks</p>
+<div class="border border-white rounded-lg bg-[#2D2D2D] py-1 w-20 text-white text-lg md:text-2xl text-center md:w-40">0</div>
+</div>
+
+ <!-- BOX3 -->
+<div class="flex flex-col gap-1 items-center">
+<p class="text-white text-xs md:text-sm">Total completed task</p>
+<div class="border border-white rounded-lg bg-[#2D2D2D] py-1 w-20 text-white text-lg md:text-2xl text-center md:w-40">0</div>
+</div>
+
+ </div>
+
+ <!-- BORDER 1 -->
+  <div class="flex justify-center items-center mt-8">
+ <div class="border boredr-white/20 min-w-[90%] md:w-[1150px]"></div>
+</div>
+
+<!-- BOUNTIES -->
+<div class="flex flex-row items-center gap-7 text-white mt-6 m-4 md:m-6 md:mt-10 md:gap-16">
+<h4 class="text-[80%] md:text-3xl font-semibold mb-8 md:mb-9">My bounties:</h4>
+
+<!-- ACTIVE -->
+ <div class="flex flex-col items-center gap-2 text-white">
+<p class="md:text-2xl">Active</p>
+<p class="md:text-2xl">0</p>
+ </div>
+
+ <!-- CLAIMED -->
+ <div class="flex flex-col items-center gap-2 text-white">
+<p class="md:text-2xl">Claimed</p>
+<p class="md:text-2xl">0</p>
+ </div>
+
+ <!-- CLOSED -->
+ <div class="flex flex-col items-center gap-2 text-white">
+<p class="md:text-2xl">Closed</p>
+<p class="md:text-2xl">0</p>
+ </div>
+
+</div>
+
+<!-- BORDER 2 -->
+  <div class="flex justify-center items-center mt-6 md:mt-10">
+ <div class="border boredr-white/20 min-w-[90%] md:w-[1150px]"></div>
+</div>
+
+
+<!-- SUBMISSIONS -->
+<div class="flex flex-row items-center gap-[10.5px] text-white mt-6 m-4 md:m-6 md:mt-10 md:gap-12">
+<h4 class="text-[80%] md:text-3xl font-semibold mb-8 md:mb-9">My Submissions:</h4>
+
+<!-- ACTIVE -->
+ <div class="flex flex-col items-center gap-2 text-white">
+<p class="md:text-2xl">Pending</p>
+<p class="md:text-2xl">0</p>
+ </div>
+
+ <!-- ACTIVE -->
+ <div class="flex flex-col items-center gap-2 text-white">
+<p class="md:text-2xl">Accepted</p>
+<p class="md:text-2xl">0</p>
+ </div>
+
+ <!-- ACTIVE -->
+ <div class="flex flex-col items-center gap-2 text-white">
+<p class="md:text-2xl">Rejected</p>
+<p class="md:text-2xl">0</p>
+ </div>
+</div>
+</div>
+</div>
+
+<!-- FOOTER -->
+  <footer class="bg-[#111] text-white mt-20 p-10">
+    <div class="grid md:grid-cols-4 gap-8">
+      <div>
+        <h3 class="text-xl font-semibold mb-3">Happy Bounty</h3>
+
+        <p class="text-gray-400 text-sm">
+          Earn crypto by completing Web3 tasks and bounties.
+        </p>
+      </div>
+
+      <div>
+        <h4 class="font-semibold mb-3">Platform</h4>
+
+        <ul class="text-gray-400 space-y-2 text-sm">
+          <li>Browse Tasks</li>
+          <li>Categories</li>
+          <li>Leaderboard</li>
+          <li>Rewards</li>
+        </ul>
+      </div>
+
+      <div>
+        <h4 class="font-semibold mb-3">Resources</h4>
+
+        <ul class="text-gray-400 space-y-2 text-sm">
+          <li>Docs</li>
+          <li>Blog</li>
+          <li>Help Center</li>
+          <li>Community</li>
+        </ul>
+      </div>
+
+      <div>
+        <h4 class="font-semibold mb-3">Follow Us</h4>
+
+        <div class="flex gap-4 text-xl">
+          <i class="bi bi-twitter"></i>
+          <i class="bi bi-discord"></i>
+          <i class="bi bi-github"></i>
+        </div>
+      </div>
+    </div>
+
+    <div class="border-t border-white/20 mt-8 pt-4 text-center text-gray-500 text-sm">
+      © 2026 Happy Bounty. All rights reserved.
+    </div>
+  </footer>
+
+</body>
+<script type="module" src="./profile.js"></script>
+</html>
