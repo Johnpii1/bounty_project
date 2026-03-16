@@ -115,4 +115,8 @@ const profile1 = document.querySelector(".profilemenu ");
 
 profilem.addEventListener("click", () => {
   profile1.classList.toggle("hidden");
+
+  profile1.addEventListener("mouseleave", () => {
+    profile1.classList.add("hidden");
+  });
 });
