@@ -62,7 +62,7 @@
                 <div
                     class="profilemenu hidden absolute border boredr-[#2D2D2D] min-w-[240px] max-w-[650px] bg-white h-auto py-2 top-[2.4rem] right-0 rounded-lg text-black flex flex-col text-start px-2 z-50 text-sm">
                     <a class="text-black hover:bg-gray-200 rounded-lg  py-1 px-2" href="./profile.html">Profile</a>
-                    <div class="text-black hover:bg-gray-200 rounded-lg  py-1 px-2">logout</div>
+                    <div class="logout text-black hover:bg-gray-200 rounded-lg  py-1 px-2">logout</div>
                 </div>
             </button>
 
@@ -121,33 +121,35 @@
             <!-- FOR SELECT NETWORK -->
             <div class="text-white">
                 <p class="text-white text-sm">Select network</p>
-
-                <!-- FOR ALL NETWORK -->
-                <input list="networks" placeholder="Select network"
-                    class="border border-white w-[60%] md:w-[25vw] h-[40px] bg-[#1c1c1c] rounded-lg px-2">
-                <datalist id="networks">
-                    <option value="Injective">
-                    <option value="base">
-                    <option value="ethereun">
-                    <option value="bsc"></option>
-                </datalist>
+            
+                <!-- SELECT NETWORK -->
+                <select id="networks"
+                    class="border border-white w-[60%] md:w-[25vw] h-[40px] bg-[#1c1c1c] rounded-lg px-2 text-white">
+            
+                    <option value="injective" selected>Injective</option>
+                    <option value="base">Base</option>
+                    <option value="ethereum">Ethereum</option>
+                    <option value="bsc">BSC</option>
+            
+                </select>
             </div>
 
 
-            <!-- FOR SELECT categories -->
-            <div class="text-white">
-                <p class="text-white text-sm">Select categories</p>
-
-                <!-- FOR ALL NETWORK -->
-                <input list="categories" placeholder="Select categories"
-                    class="border border-white w-[60%] md:w-[25vw] h-[40px] bg-[#1c1c1c] rounded-lg px-2">
-                <datalist id="categories">
-                    <option value="Development">
-                    <option value="Design">
-                    <option value="Marketting / Referals">
-                    <option value="others"></option>
-                </datalist>
-            </div>
+                <!-- FOR SELECT CATEGORIES -->
+                <div class="text-white">
+                    <p class="text-white text-sm">Select categories</p>
+                
+                    <!-- SELECT CATEGORIES -->
+                    <select id="categories"
+                        class="border border-white w-[60%] md:w-[25vw] h-[40px] bg-[#1c1c1c] rounded-lg px-2 text-white">
+                
+                        <option value="development" selected>Development</option>
+                        <option value="design">Design</option>
+                        <option value="marketing">Marketing / Referrals</option>
+                        <option value="others">Others</option>
+                
+                    </select>
+                </div>
         </div>
 
     </div>
@@ -186,30 +188,52 @@
 
         <!-- TAGS -->
         <div class="flex flex-col gap-1 mt-4 px-4">
-            <p class="flex gap-1 items-center text-white">Tags <span class="text-red-900 mt-2">*</span></p>
-
-            <button class="relative border border-white min-w-[240px] max-w-[700px] h-[40px] bg-[#1c1c1c] rounded-lg">
-                <i class="bi bi-caret-down-fill absolute right-3 text-white top-2"></i>
-            </button>
+            <p class="flex gap-1 items-center text-white">
+                Tags <span class="text-red-900 mt-2">*</span>
+            </p>
+        
+            <div class="relative min-w-[240px] max-w-[700px]">
+            
+                <select id="tags"
+                    class="border border-white w-full h-[40px] bg-[#1c1c1c] rounded-lg px-2 text-white appearance-none">
+            
+                    <option value="smart-contract" selected>Smart Contract</option>
+                    <option value="frontend">Frontend</option>
+                    <option value="backend">Backend</option>
+                    <option value="ui-ux">UI / UX</option>
+                    <option value="marketing">Marketing</option>
+                    <option value="content">Content Creation</option>
+            
+                </select>
+            
+                <i class="bi bi-caret-down-fill absolute right-3 text-white top-2 pointer-events-none"></i>
+            
+            </div>
         </div>
+        
 
-
-        <!-- TIME -->
+        <!-- duration -->
         <div class="flex flex-col gap-1 mt-4 px-4">
-            <p class="flex gap-1 items-center text-white">Timeline <span class="text-red-900 mt-2">*</span></p>
-
+            <p class="flex gap-1 items-center text-white">
+                Timeline <span class="text-red-900 mt-2">*</span>
+            </p>
+        
             <div class="flex flex-row gap-3 items-center text-white">
-                <!-- FIRST  -->
-                <button
-                    class="flex items-center justify-center border border-white w-[15vw]  bg-[#1c1c1c]  rounded-lg text=sm">
-                    Start
-                </button>
-
-                <!-- SECOUND  -->
-                <button
-                    class=" flex items-center justify-center border border-white w-[15vw]  bg-[#1c1c1c] rounded-lg px-4 text=sm">
-                    Stop
-                </button>
+            
+                <!-- START DATE -->
+                <input 
+                    type="date"
+                    id="startDate"
+                    class="border border-white w-[15vw] h-[40px] bg-[#1c1c1c] rounded-lg px-2 text-white text-sm"
+                >
+            
+                <!-- END DATE -->
+                <input 
+                    type="date"
+                    id="endDate"
+                    class="border border-white w-[15vw] h-[40px] bg-[#1c1c1c] rounded-lg px-2 text-white text-sm"
+                >
+            
             </div>
         </div>
 
@@ -340,20 +364,20 @@
                 </div>
             </div>
 
-            <!-- FOR SELECT NETWORK -->
+            <!-- FOR SELECT TOKEN -->
             <div class="text-white mt-2 min-w-[280px] max-w-[500px]">
                 <p class="text-white text-sm">Select Token</p>
-
-                <!-- FOR ALL NETWORK -->
-                <input list="network1" placeholder="Select network"
-                    class="border border-white w-[60%] md:w-[25vw] h-[40px] bg-[#1c1c1c] rounded-lg px-2">
-                <datalist id="network1">
-                    <option value="INJ">
-                    <option value="wETH">
-                    <option value="USDT">
-                    <option value="USDC">
-                    </option>
-                </datalist>
+            
+                <!-- SELECT TOKEN -->
+                <select id="network1"
+                    class="border border-white w-[60%] md:w-[25vw] h-[40px] bg-[#1c1c1c] rounded-lg px-2 text-white">
+            
+                    <option value="INJ" selected>Injective (INJ)</option>
+                    <option value="wETH">Wrapped Injective (wINJ)</option>
+                    <option value="USDT">Tether (USDT)</option>
+                    <option value="USDC">USD Coin (USDC)</option>
+            
+                </select>
             </div>
 
             <div class="flex flex-col md:flex-row md:justify-between gap-4 mt-6">
@@ -367,7 +391,7 @@
 
                 <div class="flex flex-col gap-1 w-full md:w-[260px]">
                     <p class="text-xs text-white">
-                        Total balance: <span class="font-semibold text-sm">0.0000 USDC</span>
+                        Total balance: <span class="balance font-semibold text-sm">0.0000 USDC</span>
                     </p>
 
                     <div
@@ -375,7 +399,7 @@
                         <input type="number" min="0" step="0.01" placeholder="0.00"
                             class="bg-transparent outline-none text-white text-sm w-full">
 
-                        <p class="text-white/50 text-sm">USDC</p>
+                        <p class="tokenType text-white/50 text-sm">USDC</p>
                     </div>
                 </div>
 
@@ -392,16 +416,14 @@
                 </div>
 
                 <div class="flex flex-col gap-1 w-full md:w-[260px]">
-                    <p class="text-xs text-white">
-                        Total balance: <span class="font-semibold text-sm">0.0000 USDC</span>
-                    </p>
+
 
                     <div
                         class="flex items-center justify-between border border-white rounded-lg bg-[#2D2D2D] w-full h-8 px-4">
                         <input type="number" min="0" step="0.01" placeholder="0.00"
                             class="bg-transparent outline-none text-white text-sm w-full">
 
-                        <p class="text-white/50 text-sm">USDC</p>
+                        <p class="tokenType text-white/50 text-sm">USDC</p>
                     </div>
                 </div>
 
@@ -420,16 +442,14 @@
                 </div>
 
                 <div class="flex flex-col gap-1 w-full md:w-[260px]">
-                    <p class="text-xs text-white">
-                        Total balance: <span class="font-semibold text-sm">0.0000 USDC</span>
-                    </p>
+
 
                     <div
                         class="flex items-center justify-between border border-white rounded-lg bg-[#2D2D2D] w-full h-8 px-4">
                         <input type="number" min="0" step="0.01" placeholder="0.00"
                             class="bg-transparent outline-none text-white text-sm w-full">
 
-                        <p class="text-white/50 text-sm">USDC</p>
+                        <p class="tokenType text-white/50 text-sm">USDC</p>
                     </div>
                 </div>
 
