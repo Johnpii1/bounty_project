@@ -146,8 +146,9 @@ export function showToast(message, isError = false) {
 
 export function getConnectedWallet() {
   account = localStorage.getItem("connectedAccount");
-  console.log("getConnectedWallet:", account);
-  return account;
+  const shortAddr = account.slice(0, 6) + "..." + account.slice(-4);
+  console.log("getConnectedWallet:", shortAddr);
+  return shortAddr;
 }
 
 export function disconnectWallet() {
