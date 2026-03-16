@@ -1,3 +1,6 @@
+import { createBounty, showToast } from "./dashboard.js";
+import { getConnectedWallet } from "./wallet.js";
+
 let currentStep = 1;
 
 const steps = [
@@ -101,8 +104,6 @@ if (inf && inf1) {
   });
 }
 
-
-
 //FOR ADD
 const plus = document.querySelector(".plusbtn");
 const plusMenu = document.querySelector(".plusmenu");
@@ -118,7 +119,7 @@ plus.addEventListener("click", (e) => {
   profileMenu.classList.add("hidden"); // close profile menu
 });
 
-//FOR PROFILE 
+//FOR PROFILE
 profile.addEventListener("click", (e) => {
   e.stopPropagation();
 
@@ -130,3 +131,301 @@ document.addEventListener("click", () => {
   plusMenu.classList.add("hidden");
   profileMenu.classList.add("hidden");
 });
+
+// cj starts here
+/*
+// ==================== COLLECT BOUNTY DATA FROM FORM ====================
+function collectBountyData() {
+  // Step 1: Network & Category
+  const network = document.querySelector("input[list='networks']")?.value || "";
+  const category =
+    document.querySelector("input[list='categories']")?.value || "";
+
+  // Step 2: Task Details
+  const title =
+    document.querySelector("#page2 input[type='text']")?.value || "";
+  const description = document.querySelector("#page2 textarea")?.value || "";
+
+  // Tags - collect from your tag buttons
+  const tags = collectTags(); // You'll need to implement this based on your tag UI
+
+  // Timeline - get from date pickers
+  const startDate =
+    document.querySelector("#page2 button:contains('Start') + input")?.value ||
+    getDefaultStartDate();
+  const deadline =
+    document.querySelector("#page2 button:contains('Stop') + input")?.value ||
+    getDefaultDeadline();
+
+  // Origin Link
+  const originLink =
+    document.querySelector("#page2 input[type='url']")?.value || "";
+
+  // Step 3: Reward Info
+  const multipleWinner = document.getElementById("toggle")?.checked || false;
+  const payoutType = getPayoutType(); // "equal" or "percentage"
+  const percentages = getPercentages(); // Array if percentage split
+
+  const token =
+    document.querySelector("input[list='network1']")?.value || "USDC";
+  const rewardInput =
+    document.querySelector("#page3 input[type='number']")?.value || "0";
+  const reward = parseFloat(rewardInput);
+
+  // Validate required fields
+  if (!title || !description || !reward || reward <= 0) {
+    throw new Error("Please fill all required fields");
+  }
+
+  // Build the bounty data object
+  return {
+    // Basic Info
+    title,
+    description,
+    category,
+    tags,
+
+    // Timeline
+    startDate: new Date(startDate).toISOString(),
+    deadline: new Date(deadline).toISOString(),
+
+    // Links
+    originLink,
+
+    // Network
+    network,
+
+    // Reward
+    reward,
+    token,
+
+    // Winners
+    winnersAllowed: multipleWinner ? 2 : 1, // Default to 2 if multiple enabled
+    payoutType: multipleWinner ? payoutType : "single",
+    percentages:
+      multipleWinner && payoutType === "percentage" ? percentages : [],
+  };
+}
+
+// Helper: Collect tags (implement based on your UI)
+function collectTags() {
+  // Example: If you have tag buttons with class "tag-selected"
+  const tagElements = document.querySelectorAll(".tag-selected");
+  return Array.from(tagElements).map((el) => el.textContent);
+
+  // Or if you have an input with comma-separated tags:
+  // const tagInput = document.querySelector("#tags-input").value;
+  // return tagInput.split(",").map(t => t.trim()).filter(t => t);
+}
+
+// Helper: Get payout type from UI
+function getPayoutType() {
+  const activeButton = document.querySelector("#dropdown button.bg-pink-500");
+  if (activeButton) {
+    return activeButton.textContent.toLowerCase().includes("equal")
+      ? "equal"
+      : "percentage";
+  }
+  return "equal";
+}
+
+// Helper: Get percentages for split
+function getPercentages() {
+  // If you have percentage inputs, collect them
+  const percentageInputs = document.querySelectorAll(".percentage-input");
+  if (percentageInputs.length > 0) {
+    return Array.from(percentageInputs).map(
+      (input) => parseInt(input.value) || 0,
+    );
+  }
+  return [];
+}
+
+// Helper: Default dates
+function getDefaultStartDate() {
+  const date = new Date();
+  return date.toISOString().split("T")[0]; // YYYY-MM-DD
+}
+
+function getDefaultDeadline() {
+  const date = new Date();
+  date.setDate(date.getDate() + 30); // 30 days from now
+  return date.toISOString().split("T")[0];
+}
+
+// ==================== FORM SUBMISSION ====================
+async function submitBounty() {
+  try {
+    // Check if wallet is connected
+    const wallet = await getConnectedWallet();
+    if (!wallet) {
+      showToast("Please connect your wallet first", "warning");
+      return;
+    }
+
+    // Show loading state
+    const submitBtn = document.getElementById("nextBtn");
+    const originalText = submitBtn.textContent;
+    originalText = "Creating...";
+    submitBtn.disabled = true;
+
+    // Collect form data
+    const bountyData = collectBountyData();
+
+    // Add creator wallet
+    bountyData.creator = wallet;
+
+    console.log("📦 Submitting bounty data:", bountyData);
+
+    // Send to backend
+    const result = await createBounty(bountyData);
+
+    if (result.success) {
+      // Success message and redirect handled in createBounty
+    }
+  } catch (error) {
+    console.error("❌ Error:", error);
+    showToast(error.message || "Failed to create bounty", "error");
+
+    // Reset button
+    const submitBtn = document.getElementById("nextBtn");
+    submitBtn.textContent = "Next";
+    submitBtn.disabled = false;
+  }
+}
+
+// ==================== STEP NAVIGATION ====================
+document
+  .getElementById("nextBtn")
+  ?.addEventListener("click", async function (e) {
+    e.preventDefault();
+
+    const totalSteps = 4;
+
+    if (currentStep < totalSteps) {
+      // Validate current step before proceeding
+      if (!validateStep(currentStep)) {
+        return;
+      }
+
+      // Hide current page, show next
+      document.getElementById(`page${currentStep}`).classList.add("hidden");
+      currentStep++;
+      document.getElementById(`page${currentStep}`).classList.remove("hidden");
+
+      // Update progress bar
+      updateProgress(currentStep);
+
+      // Update button text on last step
+      if (currentStep === totalSteps) {
+        this.textContent = "Create Bounty";
+      }
+    } else {
+      // On last step, submit the bounty
+      await submitBounty();
+    }
+  });
+
+document.getElementById("backBtn")?.addEventListener("click", function (e) {
+  e.preventDefault();
+
+  if (currentStep > 1) {
+    document.getElementById(`page${currentStep}`).classList.add("hidden");
+    currentStep--;
+    document.getElementById(`page${currentStep}`).classList.remove("hidden");
+
+    updateProgress(currentStep);
+
+    // Update button text
+    const nextBtn = document.getElementById("nextBtn");
+    nextBtn.textContent = currentStep === 4 ? "Create Bounty" : "Next";
+  }
+});
+
+// ==================== STEP VALIDATION ====================
+function validateStep(step) {
+  switch (step) {
+    case 1:
+      const network = document.querySelector("input[list='networks']")?.value;
+      const category = document.querySelector(
+        "input[list='categories']",
+      )?.value;
+      if (!network || !category) {
+        showToast("Please select network and category", "warning");
+        return false;
+      }
+      break;
+
+    case 2:
+      const title = document.querySelector("#page2 input[type='text']")?.value;
+      const description = document.querySelector("#page2 textarea")?.value;
+      if (!title || !description) {
+        showToast("Please enter title and description", "warning");
+        return false;
+      }
+      break;
+
+    case 3:
+      const reward = document.querySelector(
+        "#page3 input[type='number']",
+      )?.value;
+      const token = document.querySelector("input[list='network1']")?.value;
+      if (!reward || parseFloat(reward) <= 0 || !token) {
+        showToast("Please enter valid reward amount and token", "warning");
+        return false;
+      }
+      break;
+  }
+  return true;
+}
+
+// ==================== UPDATE PROGRESS BAR ====================
+function updateProgress(step) {
+  for (let i = 1; i <= 4; i++) {
+    const progressEl = document.getElementById(`step${i}`);
+    if (progressEl) {
+      if (i <= step) {
+        progressEl.classList.remove("bg-gray-800");
+        progressEl.classList.add("bg-pink-500");
+      } else {
+        progressEl.classList.remove("bg-pink-500");
+        progressEl.classList.add("bg-gray-800");
+      }
+    }
+  }
+}
+
+// ==================== MULTIPLE WINNERS TOGGLE ====================
+document.getElementById("toggle")?.addEventListener("change", function (e) {
+  const dropdown = document.getElementById("dropdown");
+  if (dropdown) {
+    if (this.checked) {
+      dropdown.classList.remove("hidden");
+    } else {
+      dropdown.classList.add("hidden");
+    }
+  }
+});
+
+// ==================== INFO BUTTON TOOLTIP ====================
+document.getElementById("infom")?.addEventListener("click", function (e) {
+  e.stopPropagation();
+  const menu = document.getElementById("infomenu");
+  if (menu) {
+    menu.classList.toggle("hidden");
+  }
+});
+
+// Close info menu when clicking outside
+document.addEventListener("click", function () {
+  const menu = document.getElementById("infomenu");
+  if (menu && !menu.classList.contains("hidden")) {
+    menu.classList.add("hidden");
+  }
+});
+
+// Initialize on page load
+document.addEventListener("DOMContentLoaded", () => {
+  // Show first page
+  updateProgress(1);
+});*/

@@ -5,7 +5,7 @@ import {
   http,
 } from "https://esm.sh/viem";
 
-import { EXPECTED_CHAIN, INJECTIVE_CHAIN } from "./networkConfig.js";
+import { INJECTIVE_CHAIN } from "./networkConfig.js";
 import { closeW } from "./index.js";
 
 let walletClient;
@@ -28,17 +28,24 @@ export async function switchNetwork() {
       try {
         console.log("Adding network to wallet...");
 
+        // Prepare chain parameters
+        const addChainParams = {
+          chainId: `0x${INJECTIVE_CHAIN.id.toString(16)}`,
+          chainName: INJECTIVE_CHAIN.name,
+          rpcUrls: [INJECTIVE_CHAIN.rpcUrl], // Array of strings ✅
+          nativeCurrency: INJECTIVE_CHAIN.nativeCurrency,
+        };
+
+        // Only add blockExplorerUrls if it exists and is a string
+        if (INJECTIVE_CHAIN.blockExplorerUrls) {
+          addChainParams.blockExplorerUrls = [
+            INJECTIVE_CHAIN.blockExplorerUrls,
+          ]; // Array of strings ✅
+        }
+
         await window.ethereum.request({
           method: "wallet_addEthereumChain",
-          params: [
-            {
-              chainId: `0x${INJECTIVE_CHAIN.id.toString(16)}`,
-              chainName: INJECTIVE_CHAIN.name,
-              rpcUrls: [INJECTIVE_CHAIN.rpcUrl], // Make sure this is an array
-              nativeCurrency: INJECTIVE_CHAIN.nativeCurrency,
-              blockExplorerUrls: [INJECTIVE_CHAIN.blockExplorerUrls], // Optional: add if you have one
-            },
-          ],
+          params: [addChainParams],
         });
 
         console.log("Network added successfully");
@@ -65,7 +72,7 @@ export async function connectWallet() {
     }
 
     walletClient = createWalletClient({
-      chain: EXPECTED_CHAIN,
+      chain: INJECTIVE_CHAIN,
       transport: custom(window.ethereum),
     });
 
@@ -74,8 +81,17 @@ export async function connectWallet() {
 
     // console.log("Connected chain ID:", chainId);
 
+    // Check if we're on the right network (compare with INJECTIVE_CHAIN)
     if (chainId !== INJECTIVE_CHAIN.id) {
-      throw new Error("WRONG_NETWORK");
+      // Try to switch network automatically
+      try {
+        await switchNetwork();
+        // After switching, we need to reconnect/refresh
+        showToast("✅ Network switched. Please click connect again.");
+        return; // Stop here, user needs to click connect again
+      } catch (switchErr) {
+        throw new Error("WRONG_NETWORK");
+      }
     }
 
     console.log("Network is correct, proceeding with connection...");
@@ -86,29 +102,33 @@ export async function connectWallet() {
     const shortAddr = account.slice(0, 6) + "..." + account.slice(-4);
 
     showToast(`✅ Connected to ${shortAddr}`);
-    closeW();
-    location.href = "user_dashboard.html";
+
+    // Check if closeW exists before calling
+    if (typeof closeW === "function") {
+      closeW();
+    }
+
+    // Redirect to dashboard
+    setTimeout(() => {
+      location.href = "user_dashboard.html";
+    }, 500);
 
     return account;
   } catch (err) {
+    console.error("Error in connectWallet:", err);
     if (err.message === "NO_WALLET") {
       showToast(
         "❌ No wallet detected. Please install a wallet extension.",
         true,
       );
     } else if (err.message === "WRONG_NETWORK") {
-      console.log("Attempting to switch network...");
-      await switchNetwork()
-        .then(() => {
-          showToast("✅ Network switched. Please connect again.");
-        })
-        .catch((switchErr) => {
-          showToast(`❌ ${switchErr.shortMessage}`, true);
-        });
-      //   showToast("✅ Network switched. Please connect again.");
+      showToast("❌ Please switch to Injective network in your wallet", true);
+    } else {
+      // Handle other errors
+      const errorMessage = err.shortMessage || err.message || "Unknown error";
+      showToast(`❌ ${errorMessage}`, true);
     }
-    showToast(`❌ ${err.shortMessage || err.message}`, true);
-    console.error("Connection error:", err);
+    return null;
   }
 }
 
@@ -122,4 +142,25 @@ export function showToast(message, isError = false) {
   setTimeout(() => {
     toast.style.opacity = "0";
   }, 2500);
+}
+
+export function getConnectedWallet() {
+  account = localStorage.getItem("connectedAccount");
+  console.log("getConnectedWallet:", account);
+  return account;
+}
+
+export function disconnectWallet() {
+  localStorage.removeItem("connectedAccount");
+  account = null;
+  showToast("✅ Disconnected", false);
+
+  setTimeout(() => {
+    location.href = "index.html";
+  }, 500);
+}
+
+// Helper function to check if wallet is connected
+export function isWalletConnected() {
+  return !!localStorage.getItem("connectedAccount");
 }

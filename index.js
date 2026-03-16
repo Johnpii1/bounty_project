@@ -88,13 +88,21 @@ if (modal3) {
 const dropdown = document.querySelector(".dropdown");
 const menu2 = document.querySelector(".Categories");
 
-dropdown.addEventListener("mouseenter", () => {
-  menu2.classList.remove("hidden");
-});
+if (window.location.href.endsWith("index.html")) {
+  dropdown.addEventListener("mouseenter", () => {
+    menu2.classList.remove("hidden");
+  });
 
-dropdown.addEventListener("mouseleave", () => {
-  menu2.classList.add("hidden");
-});
+  dropdown.addEventListener("mouseleave", () => {
+    menu2.classList.add("hidden");
+  });
+
+  // link to get wallet
+  const getWallet = document.querySelector(".walletLink");
+  getWallet.addEventListener("click", () => {
+    location.href = "https://metamask.io/en-GB/download";
+  });
+}
 
 // ==========================
 // WALLET MODAL (DESKTOP)
@@ -161,11 +169,6 @@ buttons.forEach((button) => {
 // Wallet connection
 // =========================
 
-const getWallet = document.querySelector(".walletLink");
-getWallet.addEventListener("click", () => {
-  location.href = "https://metamask.io/en-GB/download";
-});
-
 (function () {
   /* ------------------------------
      CONNECT WALLET
@@ -188,43 +191,37 @@ ATTACH BUTTON LISTENERS
   // END
 })();
 
-//FOR FEATURE ANIMATION
-const bountySection = document.getElementById("bountySection");
+if (window.location.href.endsWith("index.html")) {
+  //FOR FEATURE ANIMATION
+  const bountySection = document.getElementById("bountySection");
 
-window.addEventListener("scroll", () => {
-  if (window.scrollY < 100) {
-    bountySection.classList.add("scale-90");
-  } else {
-    bountySection.classList.remove("scale-90");
-  }
-});
-
-
-//FOR HOW IT WORK ANIMATION 
-const cards = document.querySelectorAll(".bounty-card");
-const section = document.querySelector("#bounty");
-
-const observer = new IntersectionObserver((entries) => {
-  entries.forEach((entry) => {
-    if (entry.isIntersecting) {
-      cards.forEach((card, index) => {
-        setTimeout(() => {
-          card.classList.remove("opacity-0", "translate-y-10");
-        }, index * 300);
-      });
+  window.addEventListener("scroll", () => {
+    if (window.scrollY < 100) {
+      bountySection.classList.add("scale-90");
     } else {
-      cards.forEach((card) => {
-        card.classList.add("opacity-0", "translate-y-10");
-      });
+      bountySection.classList.remove("scale-90");
     }
   });
-});
 
-observer.observe(section);
+  //FOR HOW IT WORK ANIMATION
+  const cards = document.querySelectorAll(".bounty-card");
+  const section = document.querySelector("#bounty");
 
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((entry) => {
+      if (entry.isIntersecting) {
+        cards.forEach((card, index) => {
+          setTimeout(() => {
+            card.classList.remove("opacity-0", "translate-y-10");
+          }, index * 300);
+        });
+      } else {
+        cards.forEach((card) => {
+          card.classList.add("opacity-0", "translate-y-10");
+        });
+      }
+    });
+  });
 
-
-
-
-
-
+  observer.observe(section);
+}
