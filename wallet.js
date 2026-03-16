@@ -99,7 +99,7 @@ export async function connectWallet() {
     const addresses = await walletClient.requestAddresses();
     account = addresses[0];
     localStorage.setItem("connectedAccount", account);
-    const shortAddr = account.slice(0, 6) + "..." + account.slice(-4);
+    const shortAddr = shortenAddress(account);
 
     showToast(`✅ Connected to ${shortAddr}`);
 
@@ -132,6 +132,10 @@ export async function connectWallet() {
   }
 }
 
+export function shortenAddress(addr) {
+  return addr.slice(0, 6) + "..." + addr.slice(-4);
+}
+
 export function showToast(message, isError = false) {
   const toast = document.getElementById("toast");
 
@@ -146,7 +150,8 @@ export function showToast(message, isError = false) {
 
 export function getConnectedWallet() {
   account = localStorage.getItem("connectedAccount");
-  const shortAddr = account.slice(0, 6) + "..." + account.slice(-4);
+  validateConnection(account);
+  const shortAddr = account ? shortenAddress(account) : null;
   console.log("getConnectedWallet:", shortAddr);
   return shortAddr;
 }
@@ -154,7 +159,7 @@ export function getConnectedWallet() {
 export function disconnectWallet() {
   localStorage.removeItem("connectedAccount");
   account = null;
-  showToast("✅ Disconnected", false);
+  // showToast("✅ Disconnected", false);
 
   setTimeout(() => {
     location.href = "index.html";
@@ -164,4 +169,20 @@ export function disconnectWallet() {
 // Helper function to check if wallet is connected
 export function isWalletConnected() {
   return !!localStorage.getItem("connectedAccount");
+}
+
+// ==================== VALIDATE EXISTING CONNECTION ====================
+async function validateConnection(address) {
+  try {
+    if (!window.ethereum) return false;
+
+    // Check if we can still access accounts
+    const accounts = await window.ethereum.request({
+      method: "eth_accounts", // This doesn't prompt user
+    });
+
+    return accounts && accounts.includes(address);
+  } catch (error) {
+    return false;
+  }
 }

@@ -1,5 +1,5 @@
 // frontend/dashboard.js - Connect HTML to backend
-import { getConnectedWallet } from "./wallet.js"; // Your wallet connection function
+import { getConnectedWallet, disconnectWallet } from "./wallet.js"; // Your wallet connection function
 
 getConnectedWallet(); // Check if wallet is connected on page load
 
@@ -369,6 +369,16 @@ document.addEventListener("DOMContentLoaded", () => {
   const status = urlParams.get("status") || "all";
   loadBounties(status);
 });*/
+
+const logout = document.querySelector(".logout");
+
+logout.addEventListener("click", () => {
+  disconnectWallet();
+  // Optionally redirect to homepage
+  setTimeout(() => {
+    window.location.href = "./index.html";
+  }, 1500);
+});
 
 // Jp handling starts here
 
