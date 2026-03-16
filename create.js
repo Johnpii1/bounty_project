@@ -101,22 +101,31 @@ if (inf && inf1) {
   });
 }
 
-//FOR PLUS NAV BTN
-const plus = document.querySelector(".plusbtn");
-const minus = document.querySelector(".plusmenu");
 
-plus.addEventListener("click", () => {
-  minus.classList.toggle("hidden");
+
+//FOR ADD
+const plus = document.querySelector(".plusbtn");
+const plusMenu = document.querySelector(".plusmenu");
+
+const profile = document.querySelector(".profile");
+const profileMenu = document.querySelector(".profilemenu");
+
+plus.addEventListener("click", (e) => {
+  e.stopPropagation();
+
+  plusMenu.classList.toggle("hidden");
+  profileMenu.classList.add("hidden"); // close profile menu
 });
 
-//FOR PLUS NAV BTN
-const profilem = document.querySelector(".profile");
-const profile1 = document.querySelector(".profilemenu ");
+//FOR PROFILE 
+profile.addEventListener("click", (e) => {
+  e.stopPropagation();
 
-profilem.addEventListener("click", () => {
-  profile1.classList.toggle("hidden");
+  profileMenu.classList.toggle("hidden");
+  plusMenu.classList.add("hidden"); // close plus menu
+});
 
-  profile1.addEventListener("mouseleave", () => {
-    profile1.classList.add("hidden");
-  });
+document.addEventListener("click", () => {
+  plusMenu.classList.add("hidden");
+  profileMenu.classList.add("hidden");
 });
