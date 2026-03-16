@@ -1,0 +1,26 @@
+{
+  "name": "bounty_project",
+  "version": "1.0.0",
+  "description": "A secure and flexible **on-chain bounty payout system** built in Solidity. This contract allows users to **create bounties in ETH or USDC**, specify how rewards should be distributed, and enables **winners to claim their rewards individually**.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Johnpii1/bounty_project.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/Johnpii1/bounty_project/issues"
+  },
+  "homepage": "https://github.com/Johnpii1/bounty_project#readme",
+  "dependencies": {
+    "cors": "^2.8.6",
+    "express": "^5.2.1",
+    "mongodb": "^7.1.0"
+  }
+}
