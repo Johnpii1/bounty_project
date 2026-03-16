@@ -404,3 +404,5 @@ bountyABI = [
   },
   { stateMutability: "payable", type: "receive" },
 ];
+
+export { bountyAddress, bountyABI, network };
