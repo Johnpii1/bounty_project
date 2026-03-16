@@ -33,6 +33,9 @@ if (sort && menu1) {
   }
 }
 
+
+
+
 //FOR ADD
 const plus = document.querySelector(".plusbtn");
 const plusMenu = document.querySelector(".plusmenu");
@@ -60,3 +63,75 @@ document.addEventListener("click", () => {
   plusMenu.classList.add("hidden");
   profileMenu.classList.add("hidden");
 });
+
+//FOR CREAT
+const boxes = document.querySelectorAll(".task-box");
+
+const perPage = 4;
+const totalPages = Math.ceil(boxes.length / perPage);
+
+let currentPage = 1;
+const visibleButtons = 4;
+
+const container = document.getElementById("pagination");
+
+function showBoxes(page){
+
+  const start = (page - 1) * perPage;
+  const end = page * perPage;
+
+  boxes.forEach((box, index)=>{
+
+    if(index >= start && index < end){
+      box.style.display = "block";
+    }else{
+      box.style.display = "none";
+    }
+
+  });
+
+}
+
+function renderButtons(){
+
+  container.innerHTML = "";
+
+  let start = Math.max(1, currentPage - 2);
+  let end = start + visibleButtons - 1;
+
+  if(end > totalPages){
+    end = totalPages;
+    start = Math.max(1, end - visibleButtons + 1);
+  }
+
+  for(let i = start; i <= end; i++){
+
+    const btn = document.createElement("button");
+
+    btn.textContent = i;
+
+    btn.className =
+      "text-white border border-white bg-gray-800 rounded-lg px-3 h-[30px]";
+
+    if(i === currentPage){
+      btn.classList.remove("bg-gray-800");
+      btn.classList.add("bg-pink-600");
+    }
+
+    btn.onclick = () => {
+
+      currentPage = i;
+
+      renderButtons();
+      showBoxes(currentPage);
+
+    };
+
+    container.appendChild(btn);
+
+  }
+
+}
+
+renderButtons();
+showBoxes(1);
