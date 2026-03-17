@@ -437,8 +437,8 @@ const percentBtn = document.getElementById("percentBtn");
 const equalModal = document.getElementById("equalModal");
 const percentModal = document.getElementById("percentModal");
 
-const equalConfirm = document.getElementById("equalConfirm");
-const percentConfirm = document.getElementById("percentConfirm");
+const equalConfirm = document.getElementById("closeEqual");
+const percentConfirm = document.getElementById("closePercent");
 
 // Open modals
 equalBtn.addEventListener("click", () => {
@@ -456,4 +456,62 @@ equalConfirm.addEventListener("click", () => {
 
 percentConfirm.addEventListener("click", () => {
   percentModal.classList.add("hidden");
+});
+
+const presetButtons = document.querySelectorAll(".preset-btn");
+
+presetButtons.forEach((btn) => {
+  btn.addEventListener("click", () => {
+    const selected = btn.dataset.value; // get the data-value
+    console.log("Selected preset:", selected);
+    // you can now store it or update an input
+  });
+});
+
+// Get the selected token value (this returns "INJ", "wETH", "USDT", or "USDC")
+
+document.addEventListener("DOMContentLoaded", function () {
+  const tokenSelect = document.getElementById("network1");
+
+  // Only proceed if token select exists on this page
+  if (!tokenSelect) return;
+
+  // Map token values to display symbols
+  const tokenSymbolMap = {
+    INJ: "INJ",
+    wETH: "wINJ",
+    USDT: "USDT",
+    USDC: "USDC",
+  };
+
+  // Function to update token displays - ONLY runs when value changes
+  function updateTokenDisplay() {
+    const selectedValue = tokenSelect.value;
+    const displaySymbol = tokenSymbolMap[selectedValue] || "USDC";
+
+    console.log(`Token changed to: ${displaySymbol}`);
+
+    // Update all token type elements
+    const tokenElements = document.querySelectorAll(
+      ".tokenType, .token-symbol",
+    );
+    tokenElements.forEach((el) => {
+      el.textContent = displaySymbol;
+    });
+
+    // Update balance displays (preserve the number)
+    const balanceElements = document.querySelectorAll(".balance");
+    balanceElements.forEach((el) => {
+      // Extract number if it exists, otherwise use default
+      const match = el.textContent.match(/[\d.]+/);
+      const number = match ? match[0] : "0.0000";
+      el.textContent = `${number} ${displaySymbol}`;
+    });
+  }
+
+  // ONLY run when the select value changes - THIS IS THE KEY
+  tokenSelect.addEventListener("change", updateTokenDisplay);
+
+  // Initial update (runs once when page loads)
+  updateTokenDisplay();
 });

@@ -285,169 +285,169 @@
         <div class="flex flex-col  justify-center gap-4 mt-8 m-4">
             <div class="flex flex-col justify-center gap-4 mt-8 m-4">
 
-    <!-- Toggle Switch -->
-    <div class="flex flex-row items-center gap-2">
-        <h3 class="text-white text-md">Multiple winner</h3>
+        <!-- Toggle Switch -->
+        <div class="flex flex-row items-center gap-2">
+            <h3 class="text-white text-md">Multiple winner</h3>
 
-        <label class="relative inline-flex items-center cursor-pointer">
-            <input type="checkbox" id="toggle" class="sr-only peer">
-            <div class="w-12 h-6 bg-gray-300 rounded-full peer-checked:bg-[#FF1AC69E] transition-all"></div>
-            <div class="absolute left-1 top-1 w-4 h-4 bg-white rounded-full peer-checked:translate-x-6 transition-all"></div>
-        </label>
-    </div>
+            <label class="relative inline-flex items-center cursor-pointer">
+                <input type="checkbox" id="toggle" class="sr-only peer">
+                <div class="w-12 h-6 bg-gray-300 rounded-full peer-checked:bg-[#FF1AC69E] transition-all"></div>
+                <div class="absolute left-1 top-1 w-4 h-4 bg-white rounded-full peer-checked:translate-x-6 transition-all"></div>
+            </label>
+        </div>
 
 
-    <!-- Dropdown -->
-    <div id="dropdown"
-        class="hidden bg-[#2D2D2D] border border-white rounded-lg w-fit h-auto py-1 px-4 text-black shadow-lg flex flex-row gap-2 items-center">
+        <!-- Dropdown -->
+        <div id="dropdown"
+            class="hidden bg-[#2D2D2D] border border-white rounded-lg w-fit h-auto py-1 px-4 text-black shadow-lg flex flex-row gap-2 items-center">
 
-        <!-- Equal Split -->
-        <button id="equalBtn"
-            class="border border-white rounded-lg w-fit h-auto py-1 px-2 text-white text-[11px] md:text-sm">
-            Equal Split
-        </button>
+            <!-- Equal Split -->
+            <button id="equalBtn"
+                class="border border-white rounded-lg w-fit h-auto py-1 px-2 text-white text-[11px] md:text-sm">
+                Equal Split
+            </button>
 
-        <!-- Percentage Split -->
-        <button id="percentBtn"
-            class="border border-white rounded-lg w-fit h-auto py-1 px-2 text-white text-[11px] md:text-sm">
-            % Split
-        </button>
+            <!-- Percentage Split -->
+            <button id="percentBtn"
+                class="border border-white rounded-lg w-fit h-auto py-1 px-2 text-white text-[11px] md:text-sm">
+                % Split
+            </button>
 
-        <!-- INFO BUTTON -->
-        <button id="infom" class="relative">
-            <i class="bi bi-info-circle text-white text-sm"></i>
+            <!-- INFO BUTTON -->
+            <button id="infom" class="relative">
+                <i class="bi bi-info-circle text-white text-sm"></i>
 
-            <div class="relative">
+                <div class="relative">
 
-                <!-- INFO MENU -->
-                <div id="infomenu"
-                    class="absolute bg-white border border-[#2D2D2D] left-[-190%] md:left-[5%] w-[60vw] max-w-[380px] md:w-[24vw] h-auto top-2 z-50 rounded-lg hidden text-start px-3 py-2 break-words left-1/2 -translate-x-1/2">
+                    <!-- INFO MENU -->
+                    <div id="infomenu"
+                        class="absolute bg-white border border-[#2D2D2D] left-[-190%] md:left-[5%] w-[60vw] max-w-[380px] md:w-[24vw] h-auto top-2 z-50 rounded-lg hidden text-start px-3 py-2 break-words left-1/2 -translate-x-1/2">
 
-                    <p class="text-xs text-black mt-2">
-                        For equal split; Reward is split equally among winners.
-                    </p>
+                        <p class="text-xs text-black mt-2">
+                            For equal split; Reward is split equally among winners.
+                        </p>
 
-                    <p class="text-xs text-black mt-2">
-                        For % split: Reward is distributed according to custom percentages.
-                    </p>
+                        <p class="text-xs text-black mt-2">
+                            For % split: Reward is distributed according to custom percentages.
+                        </p>
 
-                    <div class="mt-2 flex flex-col gap-1">
-                        <p class="text-xs text-black font-semibold">Supported configurations:</p>
+                        <div class="mt-2 flex flex-col gap-1">
+                            <p class="text-xs text-black font-semibold">Supported configurations:</p>
 
-                        <div class="text-xs flex flex-col gap-1">
-                            <span>[40, 30, 20, 5, 5]</span>
-                            <span>[40, 30, 20, 10]</span>
-                            <span>[50, 30, 20]</span>
-                            <span>[50, 50]</span>
+                            <div class="text-xs flex flex-col gap-1">
+                                <span>[40, 30, 20, 5, 5]</span>
+                                <span>[40, 30, 20, 10]</span>
+                                <span>[50, 30, 20]</span>
+                                <span>[50, 50]</span>
+                            </div>
                         </div>
+
+                        <div class="mt-2 flex flex-col gap-1">
+                            <p class="text-xs text-black font-semibold">Rules:</p>
+
+                            <ul class="text-xs text-black list-disc pl-5 space-y-1">
+                                <li>Minimum winners: 2</li>
+                                <li>Maximum winners: 5</li>
+                                <li>Percentages must sum to 100</li>
+                            </ul>
+                        </div>
+
                     </div>
-
-                    <div class="mt-2 flex flex-col gap-1">
-                        <p class="text-xs text-black font-semibold">Rules:</p>
-
-                        <ul class="text-xs text-black list-disc pl-5 space-y-1">
-                            <li>Minimum winners: 2</li>
-                            <li>Maximum winners: 5</li>
-                            <li>Percentages must sum to 100</li>
-                        </ul>
-                    </div>
-
                 </div>
+            </button>
+
+        </div>
+    </div>
+
+
+
+            <!-- ================================= -->
+            <!-- EQUAL SPLIT MODAL -->
+            <!-- ================================= -->
+
+            <div id="equalModal"
+                class="fixed inset-0 bg-black/70 flex items-center justify-center hidden z-50">
+
+                <div class="bg-[#2D2D2D] border border-white rounded-lg w-[90%] max-w-[350px] p-6 flex flex-col gap-4 text-white">
+                
+                    <h3 class="text-md font-semibold">Equal Split</h3>
+                
+                    <p class="text-xs text-gray-300">
+                        Enter the number of winners. Maximum winners allowed is 5.
+                    </p>
+                
+                    <input type="number"
+                        min="2"
+                        max="5"
+                        placeholder="Number of winners"
+                        class="border border-white bg-[#1c1c1c] rounded-lg px-3 h-[40px] text-white">
+                
+                    <button id="closeEqual"
+                        class="border border-white rounded-lg py-2 text-sm hover:bg-white hover:text-black transition">
+                        Confirm
+                    </button>
+                
+                </div>
+            
             </div>
-        </button>
-
-    </div>
-</div>
 
 
 
-<!-- ================================= -->
-<!-- EQUAL SPLIT MODAL -->
-<!-- ================================= -->
+            <!-- ================================= -->
+            <!-- PERCENTAGE SPLIT MODAL -->
+            <!-- ================================= -->
 
-<div id="equalModal"
-    class="fixed inset-0 bg-black/70 flex items-center justify-center hidden z-50">
+            <div id="percentModal"
+                class="fixed inset-0 bg-black/70 flex items-center justify-center hidden z-50">
 
-    <div class="bg-[#2D2D2D] border border-white rounded-lg w-[90%] max-w-[350px] p-6 flex flex-col gap-4 text-white">
-
-        <h3 class="text-md font-semibold">Equal Split</h3>
-
-        <p class="text-xs text-gray-300">
-            Enter the number of winners. Maximum winners allowed is 5.
-        </p>
-
-        <input type="number"
-            min="2"
-            max="5"
-            placeholder="Number of winners"
-            class="border border-white bg-[#1c1c1c] rounded-lg px-3 h-[40px] text-white">
-
-        <button id="closeEqual"
-            class="border border-white rounded-lg py-2 text-sm hover:bg-white hover:text-black transition">
-            Confirm
-        </button>
-
-    </div>
-
-</div>
-
-
-
-<!-- ================================= -->
-<!-- PERCENTAGE SPLIT MODAL -->
-<!-- ================================= -->
-
-<div id="percentModal"
-    class="fixed inset-0 bg-black/70 flex items-center justify-center hidden z-50">
-
-    <div class="bg-[#2D2D2D] border border-white rounded-lg w-[90%] max-w-[420px] p-6 flex flex-col gap-4 text-white">
-
-        <h3 class="text-md font-semibold">% Split</h3>
-
-        <p class="text-xs text-gray-300">
-            Select a preset distribution or choose custom percentages.
-        </p>
-
-        <!-- PRESET OPTIONS -->
-        <div class="flex flex-col gap-2">
-
-            <button class="border border-white rounded-lg px-3 py-2 text-sm">
-                [40, 30, 20, 5, 5]
-            </button>
-
-            <button class="border border-white rounded-lg px-3 py-2 text-sm">
-                [40, 30, 20, 10]
-            </button>
-
-            <button class="border border-white rounded-lg px-3 py-2 text-sm">
-                [50, 30, 20]
-            </button>
-
-            <button class="border border-white rounded-lg px-3 py-2 text-sm">
-                [50, 50]
-            </button>
-
-        </div>
-
-        <!-- CUSTOM OPTION -->
-        <div class="flex flex-col gap-2">
-
-            <p class="text-xs text-gray-300">Custom percentages</p>
-
-            <input type="text"
-                placeholder="Example: 40,30,20,10"
-                class="border border-white bg-[#1c1c1c] rounded-lg px-3 h-[40px] text-white">
-
-        </div>
-
-        <button id="closePercent"
-            class="border border-white rounded-lg py-2 text-sm hover:bg-white hover:text-black transition">
-            Confirm
-        </button>
-
-    </div>
-
-</div>
+                <div class="bg-[#2D2D2D] border border-white rounded-lg w-[90%] max-w-[420px] p-6 flex flex-col gap-4 text-white">
+                
+                    <h3 class="text-md font-semibold">% Split</h3>
+                
+                    <p class="text-xs text-gray-300">
+                        Select a preset distribution or choose custom percentages.
+                    </p>
+                
+                    <!-- PRESET OPTIONS -->
+                    <div class="flex flex-col gap-2">
+                    
+                        <button data-value="[40,30,20,5,5]" class="preset-btn border border-white rounded-lg px-3 py-2 text-sm">
+                            [40, 30, 20, 5, 5]
+                        </button>
+                    
+                        <button data-value="[40,30,20,10]" class="preset-btn border border-white rounded-lg px-3 py-2 text-sm">
+                            [40, 30, 20, 10]
+                        </button>
+                    
+                        <button data-value="[50,30,20]" class="preset-btn border border-white rounded-lg px-3 py-2 text-sm">
+                            [50, 30, 20]
+                        </button>
+                    
+                        <button data-value="[50,50]" class="preset-btn  border border-white rounded-lg px-3 py-2 text-sm">
+                            [50, 50]
+                        </button>
+                    
+                    </div>
+                
+                    <!-- CUSTOM OPTION -->
+                    <div class="flex flex-col gap-2">
+                    
+                        <p class="text-xs text-gray-300">Custom percentages</p>
+                    
+                        <input type="text"
+                            placeholder="Example: 40,30,20,10"
+                            class="border border-white bg-[#1c1c1c] rounded-lg px-3 h-[40px] text-white">
+                    
+                    </div>
+                
+                    <button id="closePercent"
+                        class="border border-white rounded-lg py-2 text-sm hover:bg-white hover:text-black transition">
+                        Confirm
+                    </button>
+                
+                </div>
+            
+            </div>
 
 
             <p class="text-xs text-white">By creating a task with multiple winners you allow the curators to distribute
