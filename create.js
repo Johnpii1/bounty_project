@@ -1,5 +1,5 @@
-import { createBounty, showToast } from "./dashboard.js";
-import { getConnectedWallet } from "./wallet.js";
+// import { createBounty, showToast } from "./dashboard.js";
+// import { getConnectedWallet } from "./wallet.js";
 
 let currentStep = 1;
 
