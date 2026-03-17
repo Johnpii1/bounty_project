@@ -429,3 +429,31 @@ document.addEventListener("DOMContentLoaded", () => {
   // Show first page
   updateProgress(1);
 });*/
+
+// Get buttons and modals
+const equalBtn = document.getElementById("equalBtn");
+const percentBtn = document.getElementById("percentBtn");
+
+const equalModal = document.getElementById("equalModal");
+const percentModal = document.getElementById("percentModal");
+
+const equalConfirm = document.getElementById("equalConfirm");
+const percentConfirm = document.getElementById("percentConfirm");
+
+// Open modals
+equalBtn.addEventListener("click", () => {
+  equalModal.classList.remove("hidden");
+});
+
+percentBtn.addEventListener("click", () => {
+  percentModal.classList.remove("hidden");
+});
+
+// Close modals on confirm
+equalConfirm.addEventListener("click", () => {
+  equalModal.classList.add("hidden");
+});
+
+percentConfirm.addEventListener("click", () => {
+  percentModal.classList.add("hidden");
+});
