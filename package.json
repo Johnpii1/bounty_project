@@ -5,18 +5,20 @@
   "main": "backend/server.js",
   "type": "module",
   "scripts": {
-    "start": "node backend/server.js",
-    "dev": "nodemon backend/server.js",
-    "test": "forge test",
-    "build": "forge build",
-    "deploy:local": "forge script script/Deploy.s.sol --broadcast --rpc-url localhost",
-    "db:start": "mongod",
-    "dev:full": "concurrently \"npm run dev\" \"npm run db:start\""
-  },
+  "start": "node backend/server.js",
+  "dev": "nodemon backend/server.js",
+  "test": "forge test",
+  "build": "echo \"No build step needed\"",
+  "deploy:local": "forge script script/Deploy.s.sol --broadcast --rpc-url localhost",
+  "db:start": "mongod",
+  "dev:full": "concurrently \"npm run dev\" \"npm run db:start\""
+},
+
   "repository": {
     "type": "git",
     "url": "git+https://github.com/Johnpii1/bounty_project.git"
   },
+  
   "keywords": [
     "solidity",
     "ethereum",
