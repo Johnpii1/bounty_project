@@ -13,12 +13,10 @@
   "db:start": "mongod",
   "dev:full": "concurrently \"npm run dev\" \"npm run db:start\""
 },
-
   "repository": {
     "type": "git",
     "url": "git+https://github.com/Johnpii1/bounty_project.git"
   },
-  
   "keywords": [
     "solidity",
     "ethereum",
