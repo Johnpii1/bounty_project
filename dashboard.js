@@ -370,14 +370,20 @@ document.addEventListener("DOMContentLoaded", () => {
   loadBounties(status);
 });*/
 
-const logout = document.querySelector(".logout");
+document.addEventListener("DOMContentLoaded", () => {
 
-logout.addEventListener("click", () => {
-  disconnectWallet();
-  // Optionally redirect to homepage
-  setTimeout(() => {
-    window.location.href = "./index.html";
-  }, 1500);
+  const logout = document.querySelector(".logout");
+
+  if (logout) {
+    logout.addEventListener("click", () => {
+      disconnectWallet();
+
+      setTimeout(() => {
+        window.location.href = "./index.html";
+      }, 1500);
+    });
+  }
+
 });
 
 // Jp handling starts here
@@ -441,6 +447,8 @@ document.addEventListener("click", () => {
   plusMenu.classList.add("hidden");
   profileMenu.classList.add("hidden");
 });
+
+
 
 //FOR CREAT
 const boxes = document.querySelectorAll(".task-box");

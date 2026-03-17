@@ -104,13 +104,15 @@ if (inf && inf1) {
   });
 }
 
+
+
 //FOR ADD
 const plus = document.querySelector(".plusbtn");
-const plusMenu = document.querySelector(".plusmenu");
+const plusMenu = document.querySelectorAll(".plusmenu");
 
 //FOR PROFILE
 const profile = document.querySelector(".profile");
-const profileMenu = document.querySelector(".profilemenu");
+const profileMenu = document.querySelectorAll(".profilemenu");
 
 plus.addEventListener("click", (e) => {
   e.stopPropagation();
