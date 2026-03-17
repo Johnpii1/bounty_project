@@ -179,7 +179,7 @@
             <p class="flex gap-1 items-center text-white">Title <span class="text-red-900 mt-2">*</span></p>
 
             <!-- INPUT FORM -->
-            <input type="text"
+            <input type="text" id="bountyTitle"
                 class="border border-white rounded-lg min-w-[240px] max-w-[700px] py-1 p-4 bg-[#1c1c1c] text-white">
         </div>
 
@@ -189,7 +189,7 @@
             <p class="flex gap-1 items-center text-white">Description <span class="text-red-900 mt-2">*</span></p>
 
             <!-- INPUT FORM -->
-            <textarea
+            <textarea id="bountyDescription"
                 class="border border-white rounded-lg min-w-[240px] max-w-[700px] h-40 p-4 bg-[#1c1c1c] text-white resize-none"
                 placeholder="Enter description"></textarea>
         </div>
@@ -256,7 +256,7 @@
         <div class="flex flex-col gap-1 mt-4 px-4">
             <p class="flex gap-1 items-center text-white">Origin link <span class="text-red-900 mt-2">*</span></p>
 
-            <input type="url"
+            <input type="url" id="submissionLink"
                 class=" border border-white min-w-[240px] max-w-[700px] h-[40px] bg-[#1c1c1c] px-8 rounded-lg text-center text-xs"
                 placeholder="figma template or link to design">
             </button>
@@ -384,7 +384,7 @@
                         Enter the number of winners. Maximum winners allowed is 5.
                     </p>
                 
-                    <input type="number"
+                    <input type="number" id="equalWinnersInput"
                         min="2"
                         max="5"
                         placeholder="Number of winners"
@@ -443,7 +443,8 @@
                         <p class="text-xs text-gray-300">Custom percentages</p>
                     
                         <input type="text"
-                            placeholder="Example: 40,30,20,10"
+                            id="percentWinnersInput"
+                            placeholder="Number of winners"
                             class="border border-white bg-[#1c1c1c] rounded-lg px-3 h-[40px] text-white">
                     
                     </div>

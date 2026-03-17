@@ -2,6 +2,8 @@ import { createBounty, showToast } from "./dashboard.js";
 import { getConnectedWallet } from "./wallet.js";
 
 let currentStep = 1;
+let percentArray;
+let numberOfWinners;
 
 const steps = [
   document.getElementById("step1"),
@@ -135,38 +137,31 @@ document.addEventListener("click", () => {
 });
 
 // cj starts here
-/*
+
 // ==================== COLLECT BOUNTY DATA FROM FORM ====================
 function collectBountyData() {
   // Step 1: Network & Category
-  const network = document.querySelector("input[list='networks']")?.value || "";
-  const category =
-    document.querySelector("input[list='categories']")?.value || "";
+  const network = document.getElementById("networks").value;
+  const category = document.getElementById("categories").value || "Others"; // Default to "General"
 
   // Step 2: Task Details
-  const title =
-    document.querySelector("#page2 input[type='text']")?.value || "";
-  const description = document.querySelector("#page2 textarea")?.value || "";
+  const title = document.getElementById("bountyTitle");
+  const description = document.getElementById("bountyDescription");
 
   // Tags - collect from your tag buttons
   const tags = collectTags(); // You'll need to implement this based on your tag UI
 
   // Timeline - get from date pickers
-  const startDate =
-    document.querySelector("#page2 button:contains('Start') + input")?.value ||
-    getDefaultStartDate();
-  const deadline =
-    document.querySelector("#page2 button:contains('Stop') + input")?.value ||
-    getDefaultDeadline();
+  const startDate = getDefaultStartDate();
+  const deadline = getDefaultDeadline();
 
   // Origin Link
-  const originLink =
-    document.querySelector("#page2 input[type='url']")?.value || "";
+  const originLink = document.getElementById("submissionLink");
 
   // Step 3: Reward Info
   const multipleWinner = document.getElementById("toggle")?.checked || false;
   const payoutType = getPayoutType(); // "equal" or "percentage"
-  const percentages = getPercentages(); // Array if percentage split
+  const percentages = percentArray; // Array if percentage split
 
   const token =
     document.querySelector("input[list='network1']")?.value || "USDC";
@@ -212,8 +207,9 @@ function collectBountyData() {
 // Helper: Collect tags (implement based on your UI)
 function collectTags() {
   // Example: If you have tag buttons with class "tag-selected"
-  const tagElements = document.querySelectorAll(".tag-selected");
-  return Array.from(tagElements).map((el) => el.textContent);
+  const tagElements = document.getElementById("tag").value;
+  // return Array.from(tagElements).map((el) => el.textContent);
+  return tagElements;
 
   // Or if you have an input with comma-separated tags:
   // const tagInput = document.querySelector("#tags-input").value;
@@ -222,19 +218,23 @@ function collectTags() {
 
 // Helper: Get payout type from UI
 function getPayoutType() {
-  const activeButton = document.querySelector("#dropdown button.bg-pink-500");
-  if (activeButton) {
-    return activeButton.textContent.toLowerCase().includes("equal")
-      ? "equal"
-      : "percentage";
+  const isEqual = document.getElementById("equalBtn");
+  const isPercentage = document.getElementById("percentBtn");
+  const multipleWinner = document.getElementById("toggle")?.checked || false;
+  if (!multipleWinner) {
+    return "single";
   }
-  return "equal";
+  if (isEqual) {
+    return "equal";
+  } else if (isPercentage) {
+    return "percentage";
+  }
+  return "equal"; // Default to equal if multiple winners but no selection
 }
 
 // Helper: Get percentages for split
-function getPercentages() {
+function getPercentages(percentageInputs) {
   // If you have percentage inputs, collect them
-  const percentageInputs = document.querySelectorAll(".percentage-input");
   if (percentageInputs.length > 0) {
     return Array.from(percentageInputs).map(
       (input) => parseInt(input.value) || 0,
@@ -243,19 +243,37 @@ function getPercentages() {
   return [];
 }
 
+// Helper: Number of winners
+function getNumberOfWinners() {
+  const multipleWinner = document.getElementById("toggle")?.checked || false;
+  if (multipleWinner) {
+    const winnersEqual = document.getElementById("equalWinnersInput");
+    const winnersPercent = document.getElementById("percentWinnersInput");
+    if (winnersEqual) {
+      numberOfWinners = parseInt(winnersEqual.value) || 2; // Default to 2
+      return parseInt(winnersEqual.value) || 2; // Default to 2
+    } else if (winnersPercent) {
+      numberOfWinners = parseInt(winnersPercent.value) || 2; // Default to 2
+      return parseInt(winnersPercent.value) || 2; // Default to 2
+    }
+  }
+}
 // Helper: Default dates
 function getDefaultStartDate() {
-  const date = new Date();
-  return date.toISOString().split("T")[0]; // YYYY-MM-DD
+  const startDate = document.getElementById("startDate");
+  if (startDate) {
+    return startDate.value;
+  }
 }
 
 function getDefaultDeadline() {
-  const date = new Date();
-  date.setDate(date.getDate() + 30); // 30 days from now
-  return date.toISOString().split("T")[0];
+  const deadline = document.getElementById("endDate");
+  if (deadline) {
+    return deadline.value;
+  }
 }
 
-// ==================== FORM SUBMISSION ====================
+/* / ==================== FORM SUBMISSION ====================
 async function submitBounty() {
   try {
     // Check if wallet is connected
@@ -466,6 +484,7 @@ presetButtons.forEach((btn) => {
   btn.addEventListener("click", () => {
     const selected = btn.dataset.value; // get the data-value
     console.log("Selected preset:", selected);
+    percentArray = selected;
     // you can now store it or update an input
   });
 });
