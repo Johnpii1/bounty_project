@@ -203,7 +203,7 @@ if (window.location.href.endsWith("index.html")) {
     }
   });
 
-  //FOR HOW IT WORK ANIMATION.
+  //FOR HOW IT WORK ANIMATION
   const cards = document.querySelectorAll(".bounty-card");
   const section = document.querySelector("#bounty");
 
