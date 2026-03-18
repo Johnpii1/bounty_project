@@ -106,11 +106,11 @@ if (inf && inf1) {
 
 //FOR ADD
 const plus = document.querySelector(".plusbtn");
-const plusMenu = document.querySelectorAll(".plusmenu");
+const plusMenu = document.querySelector(".plusmenu");
 
 //FOR PROFILE
 const profile = document.querySelector(".profile");
-const profileMenu = document.querySelectorAll(".profilemenu");
+const profileMenu = document.querySelector(".profilemenu");
 
 plus.addEventListener("click", (e) => {
   e.stopPropagation();
