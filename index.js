@@ -191,6 +191,7 @@ ATTACH BUTTON LISTENERS
   // END
 })();
 
+
 if (window.location.href.endsWith("index.html")) {
   //FOR FEATURE ANIMATION
   const bountySection = document.getElementById("bountySection");
@@ -202,6 +203,8 @@ if (window.location.href.endsWith("index.html")) {
       bountySection.classList.remove("scale-90");
     }
   });
+
+
 
   //FOR HOW IT WORK ANIMATION
   const cards = document.querySelectorAll(".bounty-card");
