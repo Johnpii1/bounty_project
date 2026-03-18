@@ -51,6 +51,23 @@ if (modal2) {
   });
 }
 
+//FOR HOW TO EARN DROPDOWN
+const howBtn = document.querySelector(".howToEarnBtn");
+const howMenu = document.querySelector(".howToEarnMenu");
+
+if (howBtn && howMenu) {
+  howBtn.addEventListener("click", (e) => {
+    e.stopPropagation(); // prevents closing immediately
+    howMenu.classList.toggle("hidden");
+  });
+}
+
+// click outside to close
+document.addEventListener("click", () => {
+  howMenu?.classList.add("hidden");
+});
+
+
 // ==========================
 // DESKTOP LOGIN MODAL
 // ==========================
