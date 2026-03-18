@@ -174,3 +174,36 @@ if (window.location.href.endsWith("user_dashboard.html")) {
   renderButtons();
   showBoxes(1);
 }
+
+const views = document.querySelectorAll(".Details");
+const viewMenu = document.querySelector(".view");
+const closeviews = document.querySelector(".closeview");
+const modalBox = document.querySelector(".view > div");
+
+// OPEN MODAL FOR ANY CLICKED BUTTON
+views.forEach((view) => {
+  view.addEventListener("click", () => {
+    viewMenu.classList.remove("hidden");
+  });
+});
+
+// CLOSE BUTTON
+if (closeviews && viewMenu) {
+  closeviews.addEventListener("click", () => {
+    viewMenu.classList.add("hidden");
+  });
+}
+
+// CLOSE WHEN CLICKING OUTSIDE
+if (viewMenu) {
+  viewMenu.addEventListener("click", () => {
+    viewMenu.classList.add("hidden");
+  });
+}
+
+// PREVENT CLOSE WHEN CLICKING INSIDE
+if (modalBox) {
+  modalBox.addEventListener("click", (e) => {
+    e.stopPropagation();
+  });
+}
