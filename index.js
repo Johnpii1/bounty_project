@@ -88,21 +88,18 @@ if (modal3) {
 const dropdown = document.querySelector(".dropdown");
 const menu2 = document.querySelector(".Categories");
 
-if (window.location.href.endsWith("index.html")) {
+
+if (dropdown && menu2) {
   dropdown.addEventListener("mouseenter", () => {
-    menu2.classList.remove("hidden");
+    menu2.classList.toggle("hidden");
   });
-
-  dropdown.addEventListener("mouseleave", () => {
-    menu2.classList.add("hidden");
-  });
-
-  // link to get wallet
-  const getWallet = document.querySelector(".walletLink");
-  getWallet.addEventListener("click", () => {
-    location.href = "https://metamask.io/en-GB/download";
-  });
+  if (dropdown && menu2) {
+    dropdown.addEventListener("mouseleave", () => {
+      menu2.classList.add("hidden");
+    });
+  }
 }
+
 
 // ==========================
 // WALLET MODAL (DESKTOP)
@@ -152,7 +149,7 @@ if (closeWallet1 && walletModal1) {
   });
 }
 
-//CATIGORIES
+//CATIGORIES FOR MOBILE
 const buttons = document.querySelectorAll(".categories");
 
 buttons.forEach((button) => {
