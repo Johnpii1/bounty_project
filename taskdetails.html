@@ -4,55 +4,145 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>View Task</title>
-  <script src="https://cdn.tailwindcss.com"></script>
-</head>
-<body class="bg-gray-100 font-sans">
 
-  <!-- Header -->
-  <header class="bg-blue-600 text-white p-4">
-    <h1 class="text-xl font-bold">Task Details</h1>
-  </header>
+  <script src="https://cdn.tailwindcss.com"></script>
+
+
+   <!-- ICONS -->
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css"
+    />
+
+    <!-- FONT -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+
+    <!-- FONT -->
+    <link
+      href="https://fonts.googleapis.com/css2?family=IM+Fell+DW+Pica+SC&family=Irish+Grover&display=swap"
+      rel="stylesheet"
+    />
+
+    <link rel="stylesheet" href="style.css">
+
+</head>
+<body class="bg-black overflow-x-hidden font">
+
+   <!-- HEADER -->
+    <div
+      class="flex justify-between items-center p-2 md:p-6 bg-[#2D2D2D] h-[55px] border border-white/40 w-full sticky top-0 z-50"
+    >
+      <div>
+        <a href="./user_dashboard.html">
+          <img
+            class="h-[100px] mt-2.5 object-contain"
+            src="./image/HappyBounty.png"
+          />
+        </a>
+      </div>
+
+      <div class="flex flex-row items-center gap-2 font-semibold text-white">
+        <!-- PLUS   -->
+        <button class="relative plusbtn">
+          <i class="bi bi-plus text-2xl"></i>
+
+          <div
+            class="plusmenu hidden absolute border boredr-[#2D2D2D] min-w-[240px] max-w-[650px] bg-white h-auto py-2 top-[2.4rem] right-0 rounded-lg text-black flex flex-col text-start px-2 z-50 text-sm"
+          >
+
+<!-- CLOSE BTNS -->
+           <div class="close-btn text-black ml-auto hover:bg-gray-200 rounded-lg  py-1 px-2">X</div>
+
+            <a
+              class="text-black hover:bg-gray-200 rounded-lg py-1 px-2"
+              href="./create.html"
+              >Create</a
+            >
+            <div class="text-black hover:bg-gray-200 rounded-lg py-1 px-2">
+              Active
+            </div>
+            <div class="text-black hover:bg-gray-200 rounded-lg py-1 px-2">
+              Completed
+            </div>
+          </div>
+        </button>
+
+        <!-- PEOFILE -->
+        <div class="bg-white rounded-full h-[30px] w-[30px]"></div>
+
+        <!-- DROPDOWN -->
+        <button class="relative profile">
+          <i class="bi bi-caret-down-fill text-2xl"></i>
+
+          <div
+            class="profilemenu hidden absolute border boredr-[#2D2D2D] min-w-[240px] max-w-[650px] bg-white h-auto py-2 top-[2.4rem] right-0 rounded-lg text-black flex flex-col text-start px-2 z-50 text-sm"
+          >
+
+<!-- CLOSE BTNS -->
+           <div class="close-btn text-black ml-auto hover:bg-gray-200 rounded-lg  py-1 px-2">X</div>
+
+            <a
+              class="text-black hover:bg-gray-200 rounded-lg py-1 px-2"
+              href="./profile.html"
+              >Profile</a
+            >
+            <div
+              class="logout text-black hover:bg-gray-200 rounded-lg py-1 px-2"
+            >
+              logout
+            </div>
+          </div>
+        </button>
+      </div>
+    </div>
+
+
+
 
   <!-- Main Content -->
   <main class="p-6 max-w-3xl mx-auto">
 
     <!-- Task Card -->
-    <div class="bg-white shadow-md rounded-lg p-6 mb-6">
+    <div class="bg-[#2D2D2D] shadow-md rounded-lg p-6 mb-6 border border-white rounded-lg text-white">
       <h2 class="text-2xl font-semibold mb-2" id="taskTitle">Task Title Here</h2>
-      <p class="text-gray-700 mb-4" id="taskDescription">
+      <p class="text-gray-500 mb-4" id="taskDescription">
         Task description goes here. This can be several lines explaining the task in detail.
       </p>
 
       <!-- Task Info -->
-      <div class="flex flex-wrap gap-4 text-gray-600 mb-4">
+      <div class="flex flex-wrap gap-4 text-gray-600 mb-4 text-white">
         <span><strong>Due:</strong> <span id="taskDue">2026-03-20</span></span>
         <span><strong>Status:</strong> <span id="taskStatus" class="text-green-600">Pending</span></span>
         <span><strong>Assigned to:</strong> <span id="taskAssignee">John Doe</span></span>
       </div>
 
       <!-- Action Buttons -->
-      <div class="flex gap-3">
-        <button class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700" id="editTaskBtn">
+      <div class="flex gap-3 text-white">
+        <button class="bg-[#2D2D2D] text-white px-4 py-2 rounded-lg border boredr-white  hover:bg-[#FF1AC69E]" id="editTaskBtn">
           Edit Task
         </button>
-        <button class="bg-red-600 text-white px-4 py-2 rounded hover:bg-red-700" id="deleteTaskBtn">
+        <button class="bg-[#2D2D2D] text-white px-4 py-2 rounded-lg border boredr-white  px-4 py-2 rounded hover:bg-red-700" id="deleteTaskBtn">
           Delete Task
         </button>
       </div>
     </div>
 
+
+
+
     <!-- Comments Section -->
-    <section class="bg-white shadow-md rounded-lg p-6">
+    <section class="bg-[#2D2D2D] shadow-md rounded-lg p-6 mb-6 border border-white rounded-lg text-white">
       <h3 class="text-xl font-semibold mb-4">Comments</h3>
       <ul id="commentsList" class="space-y-3">
-        <li class="p-3 bg-gray-100 rounded">This task needs review before submission.</li>
-        <li class="p-3 bg-gray-100 rounded">Deadline has been moved to tomorrow.</li>
+        <li class="p-3 bg-[#2D2D2D] border border-white rounded-lg text-white">This task needs review before submission.</li>
+        <li class="p-3  bg-[#2D2D2D] border border-white rounded-lg text-white">Deadline has been moved to tomorrow.</li>
       </ul>
 
       <!-- Add Comment -->
       <div class="mt-4 flex gap-2">
-        <input type="text" placeholder="Add a comment..." class="flex-1 p-2 border rounded" id="newComment">
-        <button class="bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700" id="addCommentBtn">
+        <input type="text" placeholder="Add a comment..." class="flex-1 p-2 border rounded text-black" id="newComment">
+        <button class="bg-[#2D2D2D] text-white px-4 py-2 rounded-lg border boredr-white  hover:bg-[#FF1AC69E]" id="addCommentBtn">
           Add
         </button>
       </div>
@@ -61,4 +151,5 @@
   </main>
 
 </body>
+<script type="module" src="./task.js"></script>
 </html>
