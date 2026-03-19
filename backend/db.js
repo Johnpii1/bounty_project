@@ -4,9 +4,8 @@ const { MongoClient } = require("mongodb");
 
 let dbConnection;
 // adding for testing purpose only
-// let uri = process.env.MONGODB_URI;
-const uri =
-  "mongodb+srv://oselufortunatus2002_db_user:nb9WpKAOIanncY1s@cluster0.3y7d5qk.mongodb.net/";
+let uri = process.env.MONGODB_URI2;
+// const uri = process.env.MONGODB_URI;
 
 module.exports = {
   connectToDb: (callBack) => {

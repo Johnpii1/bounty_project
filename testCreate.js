@@ -471,7 +471,7 @@ function formatDate(dateString) {
   });
 }
 
-// ==================== SUBMISSION ====================
+// ==================== SUBMISSION ===================
 
 async function submitBounty() {
   try {
