@@ -245,3 +245,44 @@ if (window.location.href.endsWith("index.html")) {
 
   observer.observe(section);
 }
+
+
+// ===== LOGIN STATE (set to true for now) =====
+const isLoggedIn = true;
+
+
+// ===== SELECT ELEMENTS =====
+const buttons1 = document.querySelectorAll(".viewTaskBtn");
+const modal = document.getElementById("taskDetails");
+const closeBtn = document.getElementById("closeTask");
+
+
+// ===== OPEN MODAL =====
+buttons1.forEach((btn) => {
+  btn.addEventListener("click", () => {
+    if (!isLoggedIn) {
+      alert("Please log in first");
+      return;
+    }
+
+    modal.classList.remove("hidden");
+  });
+});
+
+
+// ===== CLOSE MODAL (BUTTON) =====
+if (closeBtn) {
+  closeBtn.addEventListener("click", () => {
+    modal.classList.add("hidden");
+  });
+}
+
+
+// ===== CLOSE MODAL (OUTSIDE CLICK) =====
+if (modal) {
+  modal.addEventListener("click", (e) => {
+    if (e.target === modal) {
+      modal.classList.add("hidden");
+    }
+  });
+}

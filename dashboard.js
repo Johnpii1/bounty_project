@@ -112,6 +112,8 @@ document.addEventListener("click", () => {
   profileMenu.classList.add("hidden");
 });
 
+
+
 //FOR CREAT
 const boxes = document.querySelectorAll(".task-box");
 
