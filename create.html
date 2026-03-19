@@ -384,7 +384,7 @@
                         Enter the number of winners. Maximum winners allowed is 5.
                     </p>
                 
-                    <input type="number" id="equalWinnersInput"
+                    <input id="equalWinnersInput"
                         min="2"
                         max="5"
                         placeholder="Number of winners"
@@ -531,7 +531,7 @@
 
                     <div
                         class="flex items-center justify-between border border-white rounded-lg bg-[#2D2D2D] w-full h-8 px-4">
-                        <input type="number" min="0" step="0.01" placeholder="0.00"
+                        <input id="feeInput" type="number" min="0" step="0.01" placeholder="0.00"
                             class="bg-transparent outline-none text-white text-sm w-full">
 
                         <p class="tokenType text-white/50 text-sm">USDC</p>
@@ -557,7 +557,7 @@
 
                     <div
                         class="flex items-center justify-between border border-white rounded-lg bg-[#2D2D2D] w-full h-8 px-4">
-                        <input type="number" min="0" step="0.01" placeholder="0.00"
+                        <input id="totalInput" type="number" min="0" step="0.01" placeholder="0.00"
                             class="bg-transparent outline-none text-white text-sm w-full">
 
                         <p class="tokenType text-white/50 text-sm">USDC</p>
@@ -642,7 +642,7 @@
 
                 <!-- Origin Link -->
                 <div class="flex justify-between items-center gap-6 mt-2 px-6">
-                    <h4 class="text-white text-sm">Origin Link </h4>
+                    <h4 class="text-white text-sm">Task-Detail-Link</h4>
                     <h4 class="text-white text-sm">Link to a template</h4>
                 </div>
 
@@ -665,8 +665,21 @@
 
                 <!-- Total Amount -->
                 <div class="flex justify-between items-center gap-6 mt-2 px-6">
-                    <h4 class="text-white text-sm">Total Amount </h4>
-                    <h4 class="text-white text-sm">$1000</h4>
+                    <h4 class="text-white text-sm">Reward</h4>
+                    <h4 class="text-white text-sm">$Amount</h4>
+                </div>
+
+
+
+                                <!-- 7.1 -->
+                <div class="flex justify-center items-center">
+                    <div class="border-b border-white/90 mt-4 w-[98%] flex items-center  "></div>
+                </div>
+
+                <!-- Total Amount -->
+                <div class="flex justify-between items-center gap-6 mt-2 px-6">
+                    <h4 class="text-white text-sm">Total</h4>
+                    <h4 class="text-white text-sm">$Amount</h4>
                 </div>
 
 
@@ -678,9 +691,9 @@
                 <!-- Multiple Winners -->
                 <div class="flex flex-row justify-between gap-6 mt-2 px-6">
                     <h4 class="text-white text-sm whitespace-nowrap">Multiple Winners </h4>
-                    <h4 class="text-white text-[10px] md:text-sm">yes / no (if yes, it should display tht type; equal
+                    <h4 class="text-white text-[10px] md:text-sm">yes / no ; equal
                         split
-                        or % split)
+                        or % split
                     </h4>
                 </div>
             </div>
@@ -794,6 +807,6 @@
     </footer>
 
 </body>
-<script src="./create.js" type="module"></script>
+<script src="./testCreate.js" type="module"></script>
 
 </html>
