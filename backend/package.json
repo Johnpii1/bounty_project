@@ -7,6 +7,8 @@
   "type": "commonjs",
   "main": "appII.js",
   "scripts": {
+    "start": "node appII.js",
+    "vercel-build": "echo 'No build step required'",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "dependencies": {
