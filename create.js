@@ -104,32 +104,43 @@ if (inf && inf1) {
   });
 }
 
-//FOR ADD
-const plus = document.querySelector(".plusbtn");
-const plusMenu = document.querySelector(".plusmenu");
+document.addEventListener("DOMContentLoaded", () => {
+  function closeAllMenus() {
+    document.querySelectorAll(".plusmenu, .profilemenu").forEach((menu) => {
+      menu.classList.add("hidden");
+    });
+  }
 
-//FOR PROFILE
-const profile = document.querySelector(".profile");
-const profileMenu = document.querySelector(".profilemenu");
+  // OPEN PLUS MENU
+  document.querySelectorAll(".plusbtn").forEach((btn) => {
+    btn.addEventListener("click", (e) => {
+      e.stopPropagation();
+      closeAllMenus(); // close others first
+      const menu = btn.closest(".plus-wrapper").querySelector(".plusmenu");
+      menu.classList.remove("hidden");
+    });
+  });
 
-plus.addEventListener("click", (e) => {
-  e.stopPropagation();
+  // OPEN PROFILE MENU
+  document.querySelectorAll(".profile").forEach((btn) => {
+    btn.addEventListener("click", (e) => {
+      e.stopPropagation();
+      closeAllMenus(); // close others first
+      const menu = btn.closest(".profile-wrapper").querySelector(".profilemenu");
+      menu.classList.remove("hidden");
+    });
+  });
 
-  plusMenu.classList.toggle("hidden");
-  profileMenu.classList.add("hidden"); // close profile menu
-});
+  // CLOSE BUTTONS
+  document.querySelectorAll(".close-btn").forEach((btn) => {
+    btn.addEventListener("click", (e) => {
+      e.stopPropagation();
+      btn.parentElement.classList.add("hidden");
+    });
+  });
 
-//FOR PROFILE
-profile.addEventListener("click", (e) => {
-  e.stopPropagation();
-
-  profileMenu.classList.toggle("hidden");
-  plusMenu.classList.add("hidden"); // close plus menu
-});
-
-document.addEventListener("click", () => {
-  plusMenu.classList.add("hidden");
-  profileMenu.classList.add("hidden");
+  // CLICK OUTSIDE closes all
+  document.addEventListener("click", closeAllMenus);
 });
 
 // cj starts here

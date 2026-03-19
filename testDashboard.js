@@ -171,9 +171,9 @@ function createBountyCard(bounty) {
                 </h3>
 
                 <div class="flex justify-between items-center px-2">
-                    <button class="Details-btn hover:border hover:border-white hover:bg-[#FF1AC69E] rounded-lg px-2 py-1 text-white text-xs">
+                    <a href="./taskdetails.html" class="Details-btn hover:border hover:border-white hover:bg-[#FF1AC69E] rounded-lg px-2 py-1 text-white text-xs">
                         ➤ View Details |
-                    </button>
+                    </a>
 
                     <button class="start-task-btn hover:border hover:border-white hover:bg-[#FF1AC69E] rounded-lg px-4 py-1 text-white text-xs">
                         Start Task

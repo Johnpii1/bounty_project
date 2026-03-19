@@ -23,6 +23,10 @@
     <link href="https://fonts.googleapis.com/css2?family=IM+Fell+DW+Pica+SC&family=Irish+Grover&display=swap"
         rel="stylesheet">
 
+
+        <!-- CSS -->
+        <link rel="stylesheet" href="./style.css">
+
 </head>
 
 
@@ -46,6 +50,10 @@
 
         <div
           class="plusmenu hidden absolute border boredr-[#2D2D2D] min-w-[240px] max-w-[650px] bg-white h-auto py-2 top-[2.4rem] right-0 rounded-lg text-black flex flex-col text-start px-2 z-50 text-sm">
+            
+          <!-- CLOSE BTNS -->
+           <div class="close-btn text-black ml-auto hover:bg-gray-200 rounded-lg  py-1 px-2">X</div>
+          
           <a class="text-black hover:bg-gray-200 rounded-lg  py-1 px-2" href="./create.html">Create</a>
           <div class="text-black hover:bg-gray-200 rounded-lg  py-1 px-2">Active</div>
           <div class="text-black hover:bg-gray-200 rounded-lg  py-1 px-2">Completed</div>
@@ -65,6 +73,10 @@
 
         <div
           class="profilemenu hidden absolute border border-[#2D2D2D] min-w-[240px] max-w-[650px] bg-white h-auto py-2 top-[2.4rem] right-0 rounded-lg text-black flex flex-col text-start px-2 z-50 text-sm">
+          
+          <!-- CLOSE BTNS -->
+           <div class="close-btn text-black ml-auto hover:bg-gray-200 rounded-lg  py-1 px-2">X</div>
+
           <a class="text-black hover:bg-gray-200 rounded-lg  py-1 px-2" href="./profile.html">Profile</a>
           <div class="text-black hover:bg-gray-200 rounded-lg  py-1 px-2">logout</div>
         </div>
@@ -257,7 +269,7 @@
             <p class="flex gap-1 items-center text-white">Origin link <span class="text-red-900 mt-2">*</span></p>
 
             <input type="url" id="submissionLink"
-                class=" border border-white min-w-[240px] max-w-[700px] h-[40px] bg-[#1c1c1c] px-8 rounded-lg text-center text-xs"
+                class=" border border-white min-w-[240px] max-w-[700px] h-[40px] bg-[#1c1c1c] px-8 rounded-lg text-center text-xs text-blue-700 md:text-md"
                 placeholder="figma template or link to design">
             </button>
         </div>
