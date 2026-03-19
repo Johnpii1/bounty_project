@@ -8,7 +8,7 @@ const cors = require("cors");
 const app = express();
 app.use(express.json());
 app.use(cors());
-const port = process.env.PORT;
+const port = 5000;
 
 // connect to the database before starting the server
 let db;

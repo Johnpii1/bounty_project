@@ -3,7 +3,10 @@ require("dotenv").config();
 const { MongoClient } = require("mongodb");
 
 let dbConnection;
-let uri = process.env.MONGODB_URI;
+// adding for testing purpose only
+// let uri = process.env.MONGODB_URI;
+const uri =
+  "mongodb+srv://oselufortunatus2002_db_user:nb9WpKAOIanncY1s@cluster0.3y7d5qk.mongodb.net/";
 
 module.exports = {
   connectToDb: (callBack) => {
