@@ -31,6 +31,7 @@ initClients();
 export async function createBountyOnChain(bountyData, creator) {
   try {
     // Get wallet client
+    console.log(`getting wallet client`);
     const wallet = getWalletClient();
     const [account] = await wallet.getAddresses();
     console.log(`connected account ${account}`);
@@ -56,19 +57,13 @@ export async function createBountyOnChain(bountyData, creator) {
     let feeWei;
     let totalWei;
 
-    if (bountyData.token === "WINJ") {
-      // USDT/USDC has 6 decimals
-      rewardWei = parseUnits(bountyData.reward.toString(), 6);
-      const fee = bountyData.reward * 0.05;
-      feeWei = parseUnits(fee.toString(), 6);
-      totalWei = parseUnits((bountyData.reward + fee).toString(), 6);
-    } else {
-      // Native token (INJ) has 18 decimals
-      rewardWei = parseEther(bountyData.reward.toString());
-      const fee = bountyData.reward * 0.05;
-      feeWei = parseEther(fee.toString());
-      totalWei = parseEther((bountyData.reward + fee).toString());
-    }
+    // Native token (INJ) has 18 decimals
+    rewardWei = parseEther(bountyData.reward.toString());
+    console.log(`reward ${rewardWei}`);
+    const fee = bountyData.reward * 0.05;
+    feeWei = parseEther(fee.toString());
+    console.log(`fee ${feeWei}`);
+    totalWei = rewardWei + feeWei;
 
     // For wINJ, check balance first
     if (bountyData.token === "WINJ") {
