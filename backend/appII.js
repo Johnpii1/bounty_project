@@ -123,7 +123,7 @@ app.get("/task", async (req, res) => {
   try {
     const { status, category, tags, page = 0, limit = 4 } = req.query;
 
-    // Build filter object
+    // Build base filter
     let filter = {};
 
     if (category) {
@@ -135,44 +135,64 @@ app.get("/task", async (req, res) => {
       filter.tags = { $in: tagArray };
     }
 
-    // DON'T filter by status in the database query
-    // Instead, fetch all bounties and calculate status in real-time
-
     const pageNum = parseInt(page);
     const limitNum = parseInt(limit);
     const skip = pageNum * limitNum;
+    const now = new Date();
 
-    // Get total count
-    const totalCount = await db.collection("bounty").countDocuments(filter);
+    // Build status filter based on current date
+    let statusFilter = {};
+    if (status && status !== "all") {
+      if (status === "active") {
+        statusFilter = {
+          startDate: { $lte: now.toISOString() },
+          deadline: { $gte: now.toISOString() },
+        };
+      } else if (status === "upcoming") {
+        statusFilter = {
+          startDate: { $gt: now.toISOString() },
+        };
+      } else if (status === "completed") {
+        statusFilter = {
+          deadline: { $lt: now.toISOString() },
+        };
+      }
+    }
 
-    // Fetch all bounties matching other filters (but not status)
+    // Combine filters
+    const finalFilter = { ...filter, ...statusFilter };
+
+    // Get total count with filter
+    const totalCount = await db
+      .collection("bounty")
+      .countDocuments(finalFilter);
+
+    // Fetch paginated bounties
     const bounties = await db
       .collection("bounty")
-      .find(filter)
+      .find(finalFilter)
       .sort({ createdAt: -1 })
       .skip(skip)
       .limit(limitNum)
       .toArray();
 
-    // Calculate current status for each bounty in REAL TIME
-    const now = new Date();
-    const bountiesWithRealTimeStatus = bounties.map((bounty) => {
+    // Calculate and update real-time status for fetched bounties
+    const bountiesWithStatus = bounties.map((bounty) => {
       const startDate = new Date(bounty.startDate);
       const deadline = new Date(bounty.deadline);
+      const currentNow = new Date();
 
-      // Calculate status based on current date
       let currentStatus;
-      if (now < startDate) {
+      if (currentNow < startDate) {
         currentStatus = "upcoming";
-      } else if (now >= startDate && now <= deadline) {
+      } else if (currentNow >= startDate && currentNow <= deadline) {
         currentStatus = "active";
       } else {
         currentStatus = "completed";
       }
 
-      // Optionally update the database if status has changed
+      // Update database if needed
       if (bounty.status !== currentStatus) {
-        // Update in background (don't await to avoid slowing response)
         db.collection("bounty")
           .updateOne({ _id: bounty._id }, { $set: { status: currentStatus } })
           .catch((err) => console.error("Status update error:", err));
@@ -180,25 +200,22 @@ app.get("/task", async (req, res) => {
 
       return {
         ...bounty,
-        status: currentStatus, // Override with real-time status
+        status: currentStatus,
       };
     });
 
-    // NOW filter by status if requested
-    let filteredBounties = bountiesWithRealTimeStatus;
-    if (status && status !== "all") {
-      filteredBounties = bountiesWithRealTimeStatus.filter(
-        (bounty) => bounty.status === status,
-      );
-    }
+    const totalPages = Math.ceil(totalCount / limitNum);
 
     res.status(200).json({
-      bounties: filteredBounties,
+      bounties: bountiesWithStatus,
       pagination: {
         page: pageNum,
         limit: limitNum,
-        total: filteredBounties.length, // This might need adjustment
-        pages: Math.ceil(filteredBounties.length / limitNum),
+        total: totalCount,
+        pages: totalPages,
+        currentPage: pageNum,
+        hasNext: pageNum + 1 < totalPages,
+        hasPrev: pageNum > 0,
       },
     });
   } catch (err) {

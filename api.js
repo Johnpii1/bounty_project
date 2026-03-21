@@ -1,32 +1,14 @@
-// export async function createBounty(formData) {
-//   try {
-//     const response = await fetch("http://localhost:5000/task", {
-//       method: "POST",
-//       headers: {
-//         "Content-Type": "application/json",
-//       },
-//       body: JSON.stringify(formData),
-//     });
-
-//     const data = await response.json();
-
-//     if (!response.ok) {
-//       throw new Error(data.error || "Failed to create bounty");
-//     }
-
-//     console.log("Success:", data);
-//     return data;
-//   } catch (error) {
-//     console.error("Error:", error.message);
-//   }
-// }
-
 // api.js - Frontend functions to interact with your backend yh
+import {
+  createBountyOnChain,
+  getBountyDetails,
+  getAllBounties,
+} from "./contractService.js";
 
 const API_BASE = "http://localhost:5000";
 
 /**
- * 1. Fetch bounties with filters
+ * 1. Fetch bounties with filters (combines backend + blockchain data)
  * @param {Object} filters - { status, category, tags, page, limit }
  */
 export async function fetchBounties(filters = {}) {
@@ -46,6 +28,23 @@ export async function fetchBounties(filters = {}) {
 
     if (!response.ok) throw new Error(data.error);
 
+    // For each bounty, add blockchain data if available
+    if (data.bounties && data.bounties.length > 0) {
+      for (let bounty of data.bounties) {
+        try {
+          if (bounty.blockchainId) {
+            const chainData = await getBountyDetails(bounty.blockchainId);
+            bounty.chainData = chainData;
+          }
+        } catch (error) {
+          console.warn(
+            `Could not fetch blockchain data for bounty ${bounty._id}:`,
+            error,
+          );
+        }
+      }
+    }
+
     return data;
   } catch (error) {
     console.error("Error fetching bounties:", error);
@@ -54,30 +53,62 @@ export async function fetchBounties(filters = {}) {
 }
 
 /**
- * 2. Create a new bounty
+ * 2. Create a new bounty (backend + blockchain)
  * @param {Object} bountyData - The bounty object
  */
-export async function createBounty(bountyData) {
+export async function createBounty(backendData) {
   try {
+    // Validate required fields
+    if (!backendData.txHash) {
+      throw new Error("Missing transaction hash");
+    }
+
+    if (!backendData.blockchainId && backendData.blockchainId !== null) {
+      console.warn("Bounty created without blockchain ID");
+    }
+
+    // Log the data to verify no BigInts remain
+    const safeData = JSON.parse(
+      JSON.stringify(backendData, (key, value) => {
+        if (typeof value === "bigint") {
+          return Number(value);
+        }
+        return value;
+      }),
+    );
+
+    console.log("Sending to backend:", safeData);
+
     const response = await fetch(`${API_BASE}/task`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(bountyData),
+      body: JSON.stringify(safeData),
     });
 
     const data = await response.json();
 
-    if (!response.ok) throw new Error(data.error);
+    if (!response.ok) {
+      // If database save fails, the blockchain transaction is already confirmed
+      // We should still inform the user that blockchain transaction succeeded
+      console.error("Database save failed:", data.error);
+      throw new Error(
+        `Blockchain transaction succeeded but database save failed: ${data.error}`,
+      );
+    }
 
-    return data;
+    return {
+      ...data,
+      chainTxHash: backendData.txHash,
+      blockchainConfirmed: true,
+    };
   } catch (error) {
-    console.error("Error creating bounty:", error);
+    console.error("Error creating bounty in database:", error);
     throw error;
   }
 }
 
 /**
- * 3. Get a single bounty by ID
+ * 3. Get a single bounty by ID (with blockchain data)
  * @param {string} id - Bounty ID
  */
 export async function getBountyById(id) {
@@ -87,6 +118,16 @@ export async function getBountyById(id) {
 
     if (!response.ok) throw new Error(data.error);
 
+    // Fetch blockchain data if available
+    if (data.blockchainId) {
+      try {
+        const chainData = await getBountyDetails(data.blockchainId);
+        data.chainData = chainData;
+      } catch (error) {
+        console.warn(`Could not fetch blockchain data:`, error);
+      }
+    }
+
     return data;
   } catch (error) {
     console.error("Error fetching bounty:", error);
@@ -95,7 +136,7 @@ export async function getBountyById(id) {
 }
 
 /**
- * 4. Get user profile by wallet address
+ * 4. Get user profile by wallet address (with blockchain data)
  * @param {string} wallet - Wallet address
  */
 export async function getUserProfile(wallet) {
@@ -104,6 +145,20 @@ export async function getUserProfile(wallet) {
     const data = await response.json();
 
     if (!response.ok) throw new Error(data.error);
+
+    // Add blockchain data for user's bounties
+    if (data.bounties && data.bounties.length > 0) {
+      for (let bounty of data.bounties) {
+        if (bounty.blockchainId) {
+          try {
+            const chainData = await getBountyDetails(bounty.blockchainId);
+            bounty.chainData = chainData;
+          } catch (error) {
+            console.warn(`Could not fetch blockchain data:`, error);
+          }
+        }
+      }
+    }
 
     return data;
   } catch (error) {
@@ -121,7 +176,12 @@ export async function createSubmission(submissionData) {
     const response = await fetch(`${API_BASE}/submission`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(submissionData),
+      body: JSON.stringify(submissionData, (key, value) => {
+        if (typeof value === "bigint") {
+          return Number(value);
+        }
+        return value;
+      }),
     });
 
     const data = await response.json();
@@ -215,7 +275,12 @@ export async function updateBounty(id, updates) {
     const response = await fetch(`${API_BASE}/task/${id}`, {
       method: "PATCH",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(updates),
+      body: JSON.stringify(updates, (key, value) => {
+        if (typeof value === "bigint") {
+          return Number(value);
+        }
+        return value;
+      }),
     });
 
     const data = await response.json();

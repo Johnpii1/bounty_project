@@ -1,6 +1,7 @@
 // create.js
 import { createBounty, getCategories, getTags } from "./api.js";
-import { getConnectedWallet } from "./wallet.js";
+import { getConnectedWallet, shortenAddress } from "./wallet.js";
+import { createBountyOnChain } from "./contractService.js";
 
 // ==================== STATE MANAGEMENT ====================
 let currentStep = 1;
@@ -50,7 +51,7 @@ document.addEventListener("DOMContentLoaded", async () => {
   console.log("Create page loaded");
 
   // Check if wallet is connected
-  const wallet = await getConnectedWallet();
+  const wallet = getConnectedWallet();
   if (!wallet) {
     showToast("Please connect your wallet first", "warning");
     setTimeout(() => {
@@ -277,7 +278,7 @@ function setupTokenDisplay() {
   };
 
   tokenSelect.addEventListener("change", function () {
-    const symbol = tokenSymbols[this.value] || "USDC";
+    const symbol = tokenSymbols[this.value] || "wINJ";
     document.querySelectorAll(".tokenType").forEach((el) => {
       el.textContent = symbol;
     });
@@ -477,7 +478,7 @@ async function submitBounty() {
   try {
     // Show loading state
     nextBtn.disabled = true;
-    nextBtn.textContent = "Creating...";
+    nextBtn.textContent = "Creating on Blockchain...";
 
     // Prepare final bounty data
     const finalBountyData = {
@@ -497,25 +498,65 @@ async function submitBounty() {
       creator: bountyData.creator,
     };
 
-    console.log("Submitting bounty:", finalBountyData);
+    console.log("Creating bounty on blockchain...", finalBountyData);
 
-    // Call API to create bounty
-    const result = await createBounty(finalBountyData);
+    // Show transaction pending message
+    showToast("📝 Please confirm transaction in your wallet...", "info");
 
-    if (result && result._id) {
-      showToast("✅ Bounty created successfully!", "success");
+    // Call blockchain to create bounty
+    console.log(`creator ${bountyData.creator}`);
+    const chainResult = await createBountyOnChain(
+      finalBountyData,
+      bountyData.creator,
+    );
 
-      // Store the created bounty ID
-      sessionStorage.setItem("createdBountyId", result._id);
+    if (chainResult.success) {
+      showToast(
+        `✅ Transaction confirmed! TX: ${chainResult.txHash.slice(0, 10)}...`,
+        "success",
+      );
 
-      // Redirect to dashboard after 2 seconds
-      setTimeout(() => {
-        window.location.href = "./user_dashboard.html";
-      }, 2000);
+      // Now save to backend
+      nextBtn.textContent = "Saving to Database...";
+
+      // Then save to backend with blockchain info
+      const backendData = {
+        ...bountyData,
+        blockchainId: chainResult.bountyId
+          ? Number(chainResult.bountyId)
+          : null, // Convert BigInt to Number,
+        txHash: chainResult.txHash,
+        blockNumber: chainResult.blockNumber
+          ? Number(chainResult.blockNumber)
+          : null, // Convert BigInt to Number,
+        isOnChain: true,
+      };
+
+      const result = await createBounty(backendData);
+
+      if (result && result._id) {
+        showToast("✅ Bounty created successfully!", "success");
+
+        // Store the created bounty ID
+        sessionStorage.setItem("createdBountyId", result._id);
+
+        // Redirect to dashboard after 3 seconds
+        setTimeout(() => {
+          window.location.href = "./user_dashboard.html";
+        }, 3000);
+      }
+    } else {
+      throw new Error("Blockchain transaction failed");
     }
   } catch (error) {
     console.error("Error creating bounty:", error);
-    showToast(error.message || "Failed to create bounty", "error");
+
+    // Handle user rejection
+    if (error.message.includes("rejected") || error.code === 4001) {
+      showToast("❌ Transaction rejected by user", "error");
+    } else {
+      showToast(error.message || "Failed to create bounty", "error");
+    }
 
     // Reset button
     nextBtn.disabled = false;
@@ -572,6 +613,19 @@ document.addEventListener("click", () => {
   document.querySelector(".plusmenu")?.classList.add("hidden");
   document.querySelector(".profilemenu")?.classList.add("hidden");
 });
+
+// ==================== CHECK WALLET BALANCE ====================
+async function checkWalletBalance(tokenSymbol, amount) {
+  try {
+    // Implement balance check here
+    // You'll need to fetch the user's balance for the selected token
+    console.log(`Checking ${tokenSymbol} balance...`);
+    return true; // Placeholder
+  } catch (error) {
+    console.error("Error checking balance:", error);
+    return false;
+  }
+}
 
 // ==================== EXPORT FOR DEBUGGING ====================
 // For debugging in console

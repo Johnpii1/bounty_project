@@ -67,10 +67,14 @@ async function loadBounties(filter = "all", page = 0) {
       updatePagination(response.pagination);
       updateTotalTasksCount(totalBounties);
 
-      console.log(`Loaded ${bounties.length} bounties`);
+      console.log(
+        `Loaded ${bounties.length} bounties, Total: ${totalBounties}`,
+      );
+      console.log("Pagination:", response.pagination);
     } else {
       // If no bounties, show empty state
       renderEmptyState();
+      updatePagination(null); // Clear pagination
     }
   } catch (error) {
     console.error("Error loading bounties:", error);
@@ -303,7 +307,8 @@ function updateTotalTasksCount(total) {
 function updatePagination(pagination) {
   if (!paginationContainer) return;
 
-  if (!pagination || pagination.pages <= 1) {
+  // Don't show pagination if there's only one page or no bounties
+  if (!pagination || pagination.pages <= 1 || pagination.total === 0) {
     paginationContainer.innerHTML = "";
     return;
   }
@@ -312,38 +317,48 @@ function updatePagination(pagination) {
 
   // Previous button
   paginationHTML += `
-        <button class="page-btn px-3 py-1 rounded bg-gray-700 text-white ${pagination.page === 0 ? "opacity-50 cursor-not-allowed" : ""}"
-            ${pagination.page === 0 ? "disabled" : ""} data-page="${pagination.page - 1}">
-            ←
-        </button>
-    `;
+    <button class="page-btn px-3 py-1 rounded bg-gray-700 text-white ${!pagination.hasPrev ? "opacity-50 cursor-not-allowed" : ""}"
+      ${!pagination.hasPrev ? "disabled" : ""} data-page="${pagination.page - 1}">
+      ←
+    </button>
+  `;
 
-  // Page numbers
-  for (let i = 0; i < pagination.pages; i++) {
+  // Page numbers - show limited number of pages
+  const maxVisiblePages = 5;
+  let startPage = Math.max(
+    0,
+    pagination.page - Math.floor(maxVisiblePages / 2),
+  );
+  let endPage = Math.min(pagination.pages - 1, startPage + maxVisiblePages - 1);
+
+  if (endPage - startPage + 1 < maxVisiblePages) {
+    startPage = Math.max(0, endPage - maxVisiblePages + 1);
+  }
+
+  for (let i = startPage; i <= endPage; i++) {
     paginationHTML += `
-            <button class="page-btn px-3 py-1 rounded ${i === pagination.page ? "bg-pink-500" : "bg-gray-700"} text-white"
-                data-page="${i}">
-                ${i + 1}
-            </button>
-        `;
+      <button class="page-btn px-3 py-1 rounded ${i === pagination.page ? "bg-pink-500" : "bg-gray-700"} text-white"
+        data-page="${i}">
+        ${i + 1}
+      </button>
+    `;
   }
 
   // Next button
   paginationHTML += `
-        <button class="page-btn px-3 py-1 rounded bg-gray-700 text-white ${pagination.page === pagination.pages - 1 ? "opacity-50 cursor-not-allowed" : ""}"
-            ${pagination.page === pagination.pages - 1 ? "disabled" : ""} data-page="${pagination.page + 1}">
-            →
-        </button>
-    `;
+    <button class="page-btn px-3 py-1 rounded bg-gray-700 text-white ${!pagination.hasNext ? "opacity-50 cursor-not-allowed" : ""}"
+      ${!pagination.hasNext ? "disabled" : ""} data-page="${pagination.page + 1}">
+      →
+    </button>
+  `;
 
   paginationContainer.innerHTML = paginationHTML;
 
-  // Add event listeners to pagination buttons
-  document.querySelectorAll(".page-btn").forEach((btn) => {
+  // Add event listeners
+  document.querySelectorAll(".page-btn:not([disabled])").forEach((btn) => {
     btn.addEventListener("click", (e) => {
-      if (btn.disabled) return;
       const page = parseInt(btn.dataset.page);
-      if (!isNaN(page)) {
+      if (!isNaN(page) && page !== pagination.page) {
         currentPage = page;
         loadBounties(currentFilter, currentPage);
         window.scrollTo({ top: 0, behavior: "smooth" });
