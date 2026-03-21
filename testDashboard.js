@@ -141,7 +141,7 @@ function createBountyCard(bounty) {
       : bounty.description || "No description provided";
 
   cardDiv.innerHTML = `
-        <div class="bg-[#2D2D2D] rounded-[17px] border border-white/50 h-full flex flex-col justify-between">
+        <div class="bg-[#2D2D2D] rounded-[17px] border border-white/50 h-auto flex flex-col justify-between min-w-[260px]">
             <div class="flex justify-between items-center px-4">
                 <h3 class="text-white text-sm md:text-[18px]">
                     ${bounty.category || "Uncategorized"}
