@@ -5,7 +5,7 @@ import {
   getAllBounties,
 } from "./contractService.js";
 
-const API_BASE = "https://happy-bounty.onrender.com/task";
+const API_BASE = "https://happy-bounty.onrender.com";
 
 /**
  * 1. Fetch bounties with filters (combines backend + blockchain data)
