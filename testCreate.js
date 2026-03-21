@@ -300,29 +300,29 @@ function calculateFees() {
   // Calculate fee (5%) and total
   const fee = reward * 0.05;
   const total = reward + fee;
-  const symbol = bountyData.token || "USDC";
+  const symbol = bountyData.token || "WINJ";
 
   console.log(`Calculating: Reward=${reward}, Fee=${fee}, Total=${total}`);
 
   // Update fee input (if it exists)
   if (feeInput) {
-    feeInput.value = fee.toFixed(2);
+    feeInput.value = fee.toFixed(4);
   } else {
     // Fallback to old method
     const inputs = document.querySelectorAll('#page3 input[type="number"]');
     if (inputs.length >= 2) {
-      inputs[1].value = fee.toFixed(2);
+      inputs[1].value = fee.toFixed(4);
     }
   }
 
   // Update total input (if it exists)
   if (totalInput) {
-    totalInput.value = total.toFixed(2);
+    totalInput.value = total.toFixed(4);
   } else {
     // Fallback to old method
     const inputs = document.querySelectorAll('#page3 input[type="number"]');
     if (inputs.length >= 3) {
-      inputs[2].value = total.toFixed(2);
+      inputs[2].value = total.toFixed(4);
     }
   }
 

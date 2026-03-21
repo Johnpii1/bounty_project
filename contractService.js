@@ -91,7 +91,7 @@ export async function createBountyOnChain(bountyData, creator) {
     // Prepare transaction
     let tx;
 
-    if (tokenType === TokenType.ETH && bountyData.token !== "WINJ") {
+    if (tokenType === TokenType.ETH && bountyData.token !== TokenType.WINJ) {
       // For ETH/INJ bounty, send value
       tx = {
         address: CONTRACT_ADDRESS,
@@ -102,7 +102,6 @@ export async function createBountyOnChain(bountyData, creator) {
         account,
       };
     } else {
-      // For ERC20 tokens (USDT, wINJ), need to approve first
       // For wINJ token, need to approve first
       console.log(`Processing ${bountyData.token} token...`);
 
@@ -114,20 +113,17 @@ export async function createBountyOnChain(bountyData, creator) {
         account,
       );
 
-      console.log(`is this the problem?`);
-      if (!approvalTx) {
-        throw new Error("Token approval failed or was rejected");
+      if (approvalTx) {
+        console.log(`Waiting for approval confirmation...`);
+
+        const approvalReceipt = await publicClient.waitForTransactionReceipt({
+          hash: approvalTx,
+        });
+
+        console.log(
+          `Approval confirmed in block: ${approvalReceipt.blockNumber}`,
+        );
       }
-
-      console.log(`Approval successful. Waiting for confirmation...`);
-
-      // STEP 2: Wait for approval to be confirmed
-      const approvalReceipt = await publicClient.waitForTransactionReceipt({
-        hash: approvalTx,
-      });
-      console.log(
-        `Approval confirmed in block: ${approvalReceipt.blockNumber}`,
-      );
 
       // Small delay to ensure the approval is registered
       await new Promise((resolve) => setTimeout(resolve, 2000));
@@ -205,48 +201,34 @@ export async function createBountyOnChain(bountyData, creator) {
 
 // =========== Erc20 Approve function ============
 // =========== Erc20 Approve function ============
-async function approveToken(
-  tokenSymbol, // ERC20 token address
-  amount, //human-readable amount will be converted to base units
-  owner, // token holder address eg msg.sender
-) {
+async function approveToken(tokenSymbol, amount, owner) {
   console.log(`Approving ${tokenSymbol} for contract...`);
 
-  try {
-    //   const amountWei = parseUnits(amount.toString());
-    const wallet = getWalletClient();
-    const tokenAddress = TOKEN_ADDRESSES[tokenSymbol];
+  const wallet = getWalletClient();
 
-    // check allowance
-    const allowance = await publicClient.readContract({
-      address: TOKEN_ADDRESSES.WINJ,
-      abi: wINJAbi, // standard ERC20 ABI with allowance function
-      functionName: "allowance",
-      args: [owner, CONTRACT_ADDRESS],
-    });
+  const allowance = await publicClient.readContract({
+    address: TOKEN_ADDRESSES.WINJ,
+    abi: wINJAbi,
+    functionName: "allowance",
+    args: [owner, CONTRACT_ADDRESS],
+  });
 
-    if (allowance >= amount) return; // already approved
-
-    // prompt wallet approval
-    const hash = await wallet.writeContract({
-      address: TOKEN_ADDRESSES.WINJ,
-      abi: wINJAbi,
-      functionName: "approve",
-      args: [CONTRACT_ADDRESS, amount], // approve max to avoid repeated approvals
-      account: owner,
-    });
-
-    const omo = await publicClient.waitForTransactionReceipt({ hash });
-    const receipt = await waitForTransactionConfirmation(hash);
-    console.log("Transaction confirmed in block:", receipt.blockNumber);
-    console.log("Transaction confirmed in block:", omo.blockNumber);
-
-    delay(200);
-
-    console.log(`Token approval confirmed: ${hash}`);
-  } catch (err) {
-    console.error(`approval error ${err}`);
+  if (allowance >= amount) {
+    console.log("Already approved");
+    return null; // important
   }
+
+  const hash = await wallet.writeContract({
+    address: TOKEN_ADDRESSES.WINJ,
+    abi: wINJAbi,
+    functionName: "approve",
+    args: [CONTRACT_ADDRESS, amount],
+    account: owner,
+  });
+
+  console.log("Approval tx hash:", hash);
+
+  return hash; // ✅ THIS IS THE FIX
 }
 
 // delay
