@@ -1,4 +1,4 @@
-import { getConnectedWallet } from "./wallet.js";
+import { getConnectedWallet, shortenAddress } from "./wallet.js";
 
 //FOR PROFILE
 // const profile = document.querySelector(".profile");
@@ -9,7 +9,7 @@ function displayWalletAddress() {
   const walletAddressElem = document.getElementById("walletAddress");
   const connectedWallet = getConnectedWallet();
   if (connectedWallet) {
-    walletAddressElem.textContent = connectedWallet;
+    walletAddressElem.textContent = shortenAddress(connectedWallet);
   } else {
     walletAddressElem.textContent = "Not connected";
   }
