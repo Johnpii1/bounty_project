@@ -192,7 +192,8 @@ function createBountyCard(bounty) {
   const startBtn = cardDiv.querySelector(".start-task-btn");
 
   detailsBtn.addEventListener("click", () => showBountyDetails(bounty));
-  startBtn.addEventListener("click", () => startBounty(bounty._id));
+  startBtn.addEventListener("click", () => showBountyDetails(bounty));
+  // startBtn.addEventListener("click", () => startBounty(bounty._id));
 
   return cardDiv;
 }

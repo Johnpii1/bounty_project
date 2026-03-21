@@ -192,7 +192,8 @@ async function checkUserEnrollment() {
   try {
     // Check if user has already submitted to this bounty
     const response = await fetch(
-      `http://localhost:5000/submissions/user/${currentUser}`,
+      // `http://localhost:5000/submissions/user/${currentUser}`,
+      `https://happy-bounty.onrender.com/submissions/user/${currentUser}`,
     );
     const data = await response.json();
 
