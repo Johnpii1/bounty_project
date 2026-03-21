@@ -704,3 +704,52 @@ document.addEventListener("click", () => {
   document.querySelector(".plusmenu")?.classList.add("hidden");
   document.querySelector(".profilemenu")?.classList.add("hidden");
 });
+
+
+const openBtn = document.getElementById("openSubmit");
+const modal = document.getElementById("submitModal");
+const closeBtn = document.getElementById("closeSubmit");
+const form = document.getElementById("submitForm");
+
+// OPEN
+openBtn.addEventListener("click", () => {
+  modal.classList.remove("hidden");
+  modal.classList.add("flex");
+});
+
+// CLOSE
+closeBtn.addEventListener("click", () => {
+  modal.classList.add("hidden");
+});
+
+// CLOSE OUTSIDE
+modal.addEventListener("click", (e) => {
+  if (e.target === modal) {
+    modal.classList.add("hidden");
+  }
+});
+
+// FORM SUBMIT
+form.addEventListener("submit", (e) => {
+  e.preventDefault();
+
+  const image = document.getElementById("image").files[0];
+  const description = document.getElementById("description").value;
+  const link = document.getElementById("link").value;
+
+  if (!image || !description || !link) {
+    alert("Please fill all fields");
+    return;
+  }
+
+  console.log({
+    image,
+    description,
+    link
+  });
+
+  alert("Submitted successfully 🚀");
+
+  modal.classList.add("hidden");
+  form.reset();
+});

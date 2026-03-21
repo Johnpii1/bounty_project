@@ -166,11 +166,67 @@
           </button>
           <!-- SUBMIT BUTTON-->
           <button
-            id="distributeRewardBtn"
+            id="openSubmit"
             class="bg-[#2D2D2D] text-white px-6 py-2 rounded-lg border border-white hover:bg-[#FF1AC69E] transition disabled:opacity-50 disabled:cursor-not-allowed"
           >
             📝submit
           </button>
+
+           <!-- SUBMIT MODAL -->
+
+            <!-- OVERLAY -->
+<div id="submitModal"
+  class="fixed inset-0 bg-black/60 hidden items-center justify-center z-50">
+
+  <!-- MODAL BOX -->
+  <div class="bg-[#2D2D2D] text-white w-[90%] md:w-[500px] rounded-2xl p-6 relative">
+
+    <!-- CLOSE -->
+    <button id="closeSubmit"
+      class="absolute top-3 right-4 text-xl">✖</button>
+
+    <h2 class="text-xl font-semibold mb-4">Submit Task</h2>
+
+    <!-- FORM -->
+    <form id="submitForm" class="space-y-4">
+
+      <!-- FILE INPUT -->
+      <div>
+        <label class="text-sm block mb-1">Upload Image</label>
+        <input type="file" id="image"
+          class="w-full p-2 bg-black border border-white/30 rounded-lg"
+          required>
+      </div>
+
+      <!-- DESCRIPTION -->
+      <div>
+        <label class="text-sm block mb-1">Description</label>
+        <input type="text" id="description"
+          placeholder="What did you do?"
+          class="w-full p-3 bg-black border border-white/30 rounded-lg"
+          required>
+      </div>
+
+      <!-- LINK -->
+      <div>
+        <label class="text-sm block mb-1">Proof Link</label>
+        <input type="text" id="link"
+          placeholder="https://..."
+          class="w-full p-3 bg-black border border-white/30 rounded-lg"
+          required>
+      </div>
+
+      <!-- SUBMIT -->
+      <button type="submit"
+        class="w-full bg-white text-black py-3 rounded-lg hover:bg-gray-200">
+        📤 Submit
+      </button>
+
+    </form>
+
+  </div>
+</div>
+
           <button
             id="distributeRewardBtn"
             class="bg-[#2D2D2D] text-white px-6 py-2 rounded-lg border border-white hover:bg-[#FF1AC69E] transition disabled:opacity-50 disabled:cursor-not-allowed"
