@@ -497,7 +497,8 @@ async function searchBounties(term) {
 function showBountyDetails(bounty) {
   // Store bounty in session storage for details page
   sessionStorage.setItem("viewBounty", JSON.stringify(bounty));
-  window.location.href = `./bounty-details.html?id=${bounty._id}`;
+  console.log(`Bounty id ${bounty._id}`);
+  // window.location.href = `./bounty-details.html?id=${bounty._id}`;
 }
 
 function startBounty(bountyId) {

@@ -470,3 +470,67 @@ export function listenToRewardClaimed(callback) {
     },
   });
 }
+
+// Add this function to your contractService.js
+
+/**
+ * Assign winners for a bounty (single or multiple)
+ * @param {number} bountyId - Bounty ID
+ * @param {string[]} winners - Array of winner addresses
+ * @param {number[]} percentages - Array of percentages (for percentage split, optional)
+ */
+export async function assignWinners(bountyId, winners, percentages = []) {
+  try {
+    const wallet = getWalletClient();
+    const [account] = await wallet.getAddresses();
+
+    // Get bounty details first to determine payout type
+    const bounty = await getBountyDetails(bountyId);
+
+    let tx;
+
+    if (winners.length === 1) {
+      // Single winner
+      tx = {
+        address: CONTRACT_ADDRESS,
+        abi: BOUNTY_ABI,
+        functionName: "assignSingleWinner",
+        args: [BigInt(bountyId), winners[0]],
+        account,
+      };
+    } else {
+      // Multiple winners
+      if (percentages.length > 0) {
+        // Percentage split
+        tx = {
+          address: CONTRACT_ADDRESS,
+          abi: BOUNTY_ABI,
+          functionName: "assignMultipleWinners",
+          args: [BigInt(bountyId), winners, percentages.map((p) => BigInt(p))],
+          account,
+        };
+      } else {
+        // Equal split
+        tx = {
+          address: CONTRACT_ADDRESS,
+          abi: BOUNTY_ABI,
+          functionName: "assignMultipleWinners",
+          args: [BigInt(bountyId), winners, []],
+          account,
+        };
+      }
+    }
+
+    const hash = await wallet.writeContract(tx);
+    const receipt = await publicClient.waitForTransactionReceipt({ hash });
+
+    return {
+      success: true,
+      txHash: hash,
+      blockNumber: receipt.blockNumber,
+    };
+  } catch (error) {
+    console.error("Error assigning winners:", error);
+    throw error;
+  }
+}

@@ -314,3 +314,69 @@ export async function deleteBounty(id) {
     throw error;
   }
 }
+
+// Add these functions to your existing api.js
+
+/**
+ * 12. Add a comment to a bounty
+ * @param {string} bountyId - Bounty ID
+ * @param {string} user - User wallet address
+ * @param {string} comment - Comment text
+ */
+export async function addComment(bountyId, user, comment) {
+  try {
+    const response = await fetch(`${API_BASE}/task/${bountyId}/comment`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ user, comment }),
+    });
+
+    const data = await response.json();
+
+    if (!response.ok) throw new Error(data.error);
+
+    return data;
+  } catch (error) {
+    console.error("Error adding comment:", error);
+    throw error;
+  }
+}
+
+/**
+ * 13. Get comments for a bounty
+ * @param {string} bountyId - Bounty ID
+ */
+export async function getComments(bountyId) {
+  try {
+    const response = await fetch(`${API_BASE}/task/${bountyId}/comments`);
+    const data = await response.json();
+
+    if (!response.ok) throw new Error(data.error);
+
+    return data.comments || [];
+  } catch (error) {
+    console.error("Error fetching comments:", error);
+    return [];
+  }
+}
+
+/**
+ * 14. Check if user is enrolled in bounty
+ * @param {string} bountyId - Bounty ID
+ * @param {string} user - User wallet address
+ */
+export async function checkEnrollment(bountyId, user) {
+  try {
+    const response = await fetch(
+      `${API_BASE}/task/${bountyId}/enrollment/${user}`,
+    );
+    const data = await response.json();
+
+    if (!response.ok) throw new Error(data.error);
+
+    return data.enrolled || false;
+  } catch (error) {
+    console.error("Error checking enrollment:", error);
+    return false;
+  }
+}
