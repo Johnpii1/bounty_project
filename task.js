@@ -5,7 +5,13 @@ import {
   createSubmission,
   getUserProfile,
 } from "./api.js";
-import { getConnectedWallet, shortenAddress } from "./wallet.js";
+import {
+  disconnectWallet,
+  getConnectedWallet,
+  shortenAddress,
+} from "./wallet.js";
+import { initProfile } from "./initProfile.js";
+
 import {
   claimReward,
   getBountyDetails,
@@ -45,8 +51,7 @@ document.addEventListener("DOMContentLoaded", async () => {
   if (storedBounty) {
     const bounty = JSON.parse(storedBounty);
     bountyId = bounty._id;
-    // console.log(`bountyid ${bountyId}`);
-    // Optionally clear it after use
+    await initProfile(); // Optionally clear it after use
     // sessionStorage.removeItem("viewBounty");
   }
 
@@ -58,6 +63,14 @@ document.addEventListener("DOMContentLoaded", async () => {
     showToast("No bounty ID provided", "error");
     // setTimeout(() => (window.location.href = "./user_dashboard.html"), 2000);
     return;
+  }
+
+  // Logout functionality
+  const logoutBtn = document.querySelector(".logout");
+  if (logoutBtn) {
+    logoutBtn.addEventListener("click", () => {
+      disconnectWallet();
+    });
   }
 
   // Get connected wallet
@@ -705,7 +718,6 @@ document.addEventListener("click", () => {
   document.querySelector(".profilemenu")?.classList.add("hidden");
 });
 
-
 const openBtn = document.getElementById("openSubmit");
 const modal = document.getElementById("submitModal");
 const closeBtn = document.getElementById("closeSubmit");
@@ -745,7 +757,7 @@ form.addEventListener("submit", (e) => {
   console.log({
     image,
     description,
-    link
+    link,
   });
 
   alert("Submitted successfully 🚀");
