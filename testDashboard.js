@@ -1,6 +1,7 @@
 // dashboard.js
 import { fetchBounties } from "./api.js";
-import { getConnectedWallet, shortenAddress } from "./wallet.js";
+import { getConnectedWallet } from "./wallet.js";
+import { initProfile } from "./initProfile.js";
 
 // ==================== STATE MANAGEMENT ====================
 let currentPage = 0;
@@ -24,6 +25,9 @@ const paginationContainer = document.getElementById("pagination");
 // ==================== INITIALIZATION ====================
 document.addEventListener("DOMContentLoaded", async () => {
   console.log("Dashboard loaded");
+
+  // Initialize profile circle
+  await initProfile();
 
   // Check wallet connection
   const wallet = getConnectedWallet();
@@ -260,10 +264,12 @@ function showLoading() {
 }
 
 // ==================== LOAD DASHBOARD STATS ====================
-async function loadDashboardStats(wallet) {
+export async function loadDashboardStats(wallet) {
   try {
     // You'll need to implement this endpoint in your backend
-    const response = await fetch(`http://localhost:5000/dashboard/${wallet}`);
+    const response = await fetch(
+      `https://happy-bounty.onrender.com/dashboard/${wallet}`,
+    );
     const data = await response.json();
 
     if (data) {
@@ -486,7 +492,9 @@ function setupEventListeners() {
 async function searchBounties(term) {
   try {
     showLoading();
-    const response = await fetch(`http://localhost:5000/task?search=${term}`);
+    const response = await fetch(
+      `https://happy-bounty.onrender.com/task?search=${term}`,
+    );
     const bounties = await response.json();
     renderBounties(bounties);
   } catch (error) {

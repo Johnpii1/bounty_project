@@ -2,6 +2,7 @@
 import { createBounty, getCategories, getTags } from "./api.js";
 import { getConnectedWallet, shortenAddress } from "./wallet.js";
 import { createBountyOnChain } from "./contractService.js";
+import { initProfile } from "./initProfile.js";
 
 // ==================== STATE MANAGEMENT ====================
 let currentStep = 1;
@@ -61,6 +62,9 @@ document.addEventListener("DOMContentLoaded", async () => {
   }
 
   bountyData.creator = wallet;
+
+  // Initialize profile circle
+  await initProfile();
 
   // Set minimum dates for date inputs
   setMinDates();

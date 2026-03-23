@@ -59,21 +59,34 @@
 
 
       <!-- PEOFILE -->
-      <div class="bg-white rounded-full h-[30px] w-[30px]"></div>
+<div id="profileCircle" class="rounded-full h-[30px] w-[30px] cursor-pointer"></div>
 
       <!-- DROPDOWN -->
-      <button class="relative profile"><i class="bi bi-caret-down-fill text-2xl"></i>
+      <button class="relative profile">
+          <i class="bi bi-caret-down-fill text-2xl"></i>
 
-        <div
-          class="profilemenu hidden absolute border boredr-[#2D2D2D] min-w-[240px] max-w-[650px] bg-white h-auto py-2 top-[2.4rem] right-0 rounded-lg text-black flex flex-col text-start px-2 z-50 text-sm">
-          
-           <!-- CLOSE BTNS -->
-           <div class="close-btn text-black ml-auto hover:bg-gray-200 rounded-lg  py-1 px-2">X</div>
-          
-          <a class="text-black hover:bg-gray-200 rounded-lg  py-1 px-2" href="./profile.html">Profile</a>
-          <div class="text-black hover:bg-gray-200 rounded-lg  py-1 px-2">logout</div>
-        </div>
-      </button>
+          <div
+            class="profilemenu hidden absolute border boredr-[#2D2D2D] min-w-[240px] max-w-[650px] bg-white h-auto py-2 top-[2.4rem] right-0 rounded-lg text-black flex flex-col text-start px-2 z-50 text-sm"
+          >
+            <!-- CLOSE BTNS -->
+            <div
+              class="close-btn text-black ml-auto hover:bg-gray-200 rounded-lg py-1 px-2"
+            >
+              X
+            </div>
+
+            <a
+              class="text-black hover:bg-gray-200 rounded-lg py-1 px-2"
+              href="./profile.html"
+              >Profile</a
+            >
+            <div
+              class="logout text-black hover:bg-gray-200 rounded-lg py-1 px-2"
+            >
+              logout
+            </div>
+          </div>
+        </button>
 
     </div>
   </div>
@@ -84,99 +97,100 @@
     <!-- HEADER -->
 
     <div class="md:flex md:justify-center md:items-center">
-<div class="border boredr-white/40 mt-2 m-2  min-w-[240px] md:w-[1200px] bg-[#2D2D2D] h-auto py-2  rounded-lg md:m-6">
-
+<!-- Update your profile page HTML with these IDs -->
+<div class="border boredr-white/40 mt-2 m-2 min-w-[240px] md:w-[1200px] bg-[#2D2D2D] h-auto py-2 rounded-lg md:m-6">
+    
     <!-- IMAGE AND WALLET -->
     <div class="flex flex-row gap-4 px-4 py-6">
-        <!-- IMAGE -->
-<div class="w-[50px] h-[50px] bg-white rounded-full md:w-[100px] md:h-[100px]"></div>
-<!-- TEXT -->
-<div class="flex flex-col gap-1 text-white md:py-3">
-<div class="w-fit px-2 h-auto py-1 rounded-lg border border-white bg-[#2D2D2D] text-md md:text-lg"><h3 id="walletAddress">Wallet address</h3></div>
-<h3 class="text-lg md:text-xl">Reputation score: 0</h3>
-</div>
-</div>
+        <!-- IMAGE with ID -->
+        <div id="profileImage" class="w-[50px] h-[50px] bg-white rounded-full md:w-[100px] md:h-[100px]"></div>
+        
+        <!-- TEXT -->
+        <div class="flex flex-col gap-1 text-white md:py-3">
+            <div class="w-fit px-2 h-auto py-1 rounded-lg border border-white bg-[#2D2D2D] text-md md:text-lg">
+                <h3 id="walletAddress">Wallet address</h3>
+            </div>
+            <h3 id="reputationScore" class="text-lg md:text-xl">Reputation score: 0</h3>
+        </div>
+    </div>
 
-<!-- BUTTON -->
- <div class="flex justify-around items-center">
+    <!-- BUTTON -->
+    <div class="flex justify-around items-center">
+        
+        <!-- BOX1 - Total Earnings -->
+        <div class="flex flex-col gap-1 items-center">
+            <p class="text-white text-xs md:text-sm">Total Earnings</p>
+            <div id="totalEarnings" class="border border-white rounded-lg bg-[#2D2D2D] py-1 w-20 text-white text-lg md:text-2xl text-center md:w-40">0</div>
+        </div>
+        
+        <!-- BOX2 - Created Tasks -->
+        <div class="flex flex-col gap-1 items-center">
+            <p class="text-white text-xs md:text-sm">Created Tasks</p>
+            <div id="createdTasks" class="border border-white rounded-lg bg-[#2D2D2D] py-1 w-20 text-white text-lg md:text-2xl text-center md:w-40">0</div>
+        </div>
+        
+        <!-- BOX3 - Total Completed -->
+        <div class="flex flex-col gap-1 items-center">
+            <p class="text-white text-xs md:text-sm">Total completed task</p>
+            <div id="totalCompleted" class="border border-white rounded-lg bg-[#2D2D2D] py-1 w-20 text-white text-lg md:text-2xl text-center md:w-40">0</div>
+        </div>
+    </div>
 
-    <!-- BOX1 -->
-<div class="flex flex-col gap-1 items-center">
-<p class="text-white text-xs md:text-sm">Total Earnings</p>
-<div class="border border-white rounded-lg bg-[#2D2D2D] py-1 w-20 text-white text-lg md:text-2xl text-center md:w-40">0</div>
-</div>
+    <!-- BORDER -->
+    <div class="flex justify-center items-center mt-8">
+        <div class="border boredr-white/20 min-w-[90%] md:w-[1150px]"></div>
+    </div>
 
- <!-- BOX2 -->
-<div class="flex flex-col gap-1 items-center">
-<p class="text-white text-xs md:text-sm">Created Tasks</p>
-<div class="border border-white rounded-lg bg-[#2D2D2D] py-1 w-20 text-white text-lg md:text-2xl text-center md:w-40">0</div>
-</div>
+    <!-- BOUNTIES -->
+    <div class="flex flex-row items-center gap-7 text-white mt-6 m-4 md:m-6 md:mt-10 md:gap-16">
+        <h4 class="text-[80%] md:text-3xl font-semibold mb-8 md:mb-9">My bounties:</h4>
+        
+        <!-- ACTIVE -->
+        <div class="flex flex-col items-center gap-2 text-white">
+            <p class="md:text-2xl">Active</p>
+            <p id="activeBounties" class="md:text-2xl">0</p>
+        </div>
+        
+        <!-- CLAIMED -->
+        <div class="flex flex-col items-center gap-2 text-white">
+            <p class="md:text-2xl">Claimed</p>
+            <p id="claimedBounties" class="md:text-2xl">0</p>
+        </div>
+        
+        <!-- CLOSED -->
+        <div class="flex flex-col items-center gap-2 text-white">
+            <p class="md:text-2xl">Closed</p>
+            <p id="closedBounties" class="md:text-2xl">0</p>
+        </div>
+    </div>
 
- <!-- BOX3 -->
-<div class="flex flex-col gap-1 items-center">
-<p class="text-white text-xs md:text-sm">Total completed task</p>
-<div class="border border-white rounded-lg bg-[#2D2D2D] py-1 w-20 text-white text-lg md:text-2xl text-center md:w-40">0</div>
-</div>
+    <!-- BORDER -->
+    <div class="flex justify-center items-center mt-6 md:mt-10">
+        <div class="border boredr-white/20 min-w-[90%] md:w-[1150px]"></div>
+    </div>
 
- </div>
-
- <!-- BORDER 1 -->
-  <div class="flex justify-center items-center mt-8">
- <div class="border boredr-white/20 min-w-[90%] md:w-[1150px]"></div>
-</div>
-
-<!-- BOUNTIES -->
-<div class="flex flex-row items-center gap-7 text-white mt-6 m-4 md:m-6 md:mt-10 md:gap-16">
-<h4 class="text-[80%] md:text-3xl font-semibold mb-8 md:mb-9">My bounties:</h4>
-
-<!-- ACTIVE -->
- <div class="flex flex-col items-center gap-2 text-white">
-<p class="md:text-2xl">Active</p>
-<p class="md:text-2xl">0</p>
- </div>
-
- <!-- CLAIMED -->
- <div class="flex flex-col items-center gap-2 text-white">
-<p class="md:text-2xl">Claimed</p>
-<p class="md:text-2xl">0</p>
- </div>
-
- <!-- CLOSED -->
- <div class="flex flex-col items-center gap-2 text-white">
-<p class="md:text-2xl">Closed</p>
-<p class="md:text-2xl">0</p>
- </div>
-
-</div>
-
-<!-- BORDER 2 -->
-  <div class="flex justify-center items-center mt-6 md:mt-10">
- <div class="border boredr-white/20 min-w-[90%] md:w-[1150px]"></div>
-</div>
-
-
-<!-- SUBMISSIONS -->
-<div class="flex flex-row items-center gap-[10.5px] text-white mt-6 m-4 md:m-6 md:mt-10 md:gap-12">
-<h4 class="text-[80%] md:text-3xl font-semibold mb-8 md:mb-9">My Submissions:</h4>
-
-<!-- ACTIVE -->
- <div class="flex flex-col items-center gap-2 text-white">
-<p class="md:text-2xl">Pending</p>
-<p class="md:text-2xl">0</p>
- </div>
-
- <!-- ACTIVE -->
- <div class="flex flex-col items-center gap-2 text-white">
-<p class="md:text-2xl">Accepted</p>
-<p class="md:text-2xl">0</p>
- </div>
-
- <!-- ACTIVE -->
- <div class="flex flex-col items-center gap-2 text-white">
-<p class="md:text-2xl">Rejected</p>
-<p class="md:text-2xl">0</p>
- </div>
-</div>
+    <!-- SUBMISSIONS -->
+    <div class="flex flex-row items-center gap-[10.5px] text-white mt-6 m-4 md:m-6 md:mt-10 md:gap-12">
+        <h4 class="text-[80%] md:text-3xl font-semibold mb-8 md:mb-9">My Submissions:</h4>
+        
+        <!-- PENDING -->
+        <div class="flex flex-col items-center gap-2 text-white">
+            <p class="md:text-2xl">Pending</p>
+            <p id="pendingSubmissions" class="md:text-2xl">0</p>
+        </div>
+        
+        <!-- ACCEPTED -->
+        <div class="flex flex-col items-center gap-2 text-white">
+            <p class="md:text-2xl">Accepted</p>
+            <p id="acceptedSubmissions" class="md:text-2xl">0</p>
+        </div>
+        
+        <!-- REJECTED -->
+        <div class="flex flex-col items-center gap-2 text-white">
+            <p class="md:text-2xl">Rejected</p>
+            <p id="rejectedSubmissions" class="md:text-2xl">0</p>
+        </div>
+    </div>
 </div>
 </div>
 
