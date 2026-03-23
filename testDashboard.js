@@ -183,9 +183,9 @@ function createBountyCard(bounty) {
                         ➤ View Details |
                     </a>
 
-                    <button class="start-task-btn hover:border hover:border-white hover:bg-[#FF1AC69E] rounded-lg px-4 py-1 text-white text-xs">
+                    <a href="./taskdetails.html" class="start-task-btn hover:border hover:border-white hover:bg-[#FF1AC69E] rounded-lg px-4 py-1 text-white text-xs">
                         Start Task
-                    </button>
+                    </a>
                 </div>
             </div>
         </div>
