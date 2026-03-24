@@ -172,60 +172,85 @@
             📝submit
           </button>
 
-           <!-- SUBMIT MODAL -->
+          <!-- SUBMIT MODAL -->
 
-            <!-- OVERLAY -->
-<div id="submitModal"
-  class="fixed inset-0 bg-black/60 hidden items-center justify-center z-50">
+          <!-- OVERLAY -->
+          <div
+            id="submitModal"
+            class="fixed inset-0 bg-black/60 hidden items-center justify-center z-50"
+          >
+            <!-- MODAL BOX -->
+            <div
+              class="bg-[#2D2D2D] text-white w-[90%] md:w-[500px] rounded-2xl p-6 relative"
+            >
+              <!-- CLOSE -->
+              <button id="closeSubmit" class="absolute top-3 right-4 text-xl">
+                ✖
+              </button>
 
-  <!-- MODAL BOX -->
-  <div class="bg-[#2D2D2D] text-white w-[90%] md:w-[500px] rounded-2xl p-6 relative">
+              <h2 class="text-xl font-semibold mb-4">Submit Task</h2>
 
-    <!-- CLOSE -->
-    <button id="closeSubmit"
-      class="absolute top-3 right-4 text-xl">✖</button>
+              <!-- FORM -->
+              <form id="submitForm" class="space-y-4">
+                <!-- FILE INPUT -->
+                <div>
+                  <label class="text-sm block mb-1"
+                    >Upload Image (Max 5MB)</label
+                  >
+                  <input
+                    type="file"
+                    id="image"
+                    accept="image/*"
+                    class="w-full p-2 bg-black border border-white/30 rounded-lg"
+                    required
+                  />
+                  <div id="imagePreview" class="mt-2 hidden">
+                    <img
+                      id="previewImg"
+                      class="max-h-32 rounded-lg"
+                      alt="Preview"
+                    />
+                    <p
+                      id="imageSizeWarning"
+                      class="text-xs text-yellow-500 mt-1"
+                    ></p>
+                  </div>
+                </div>
 
-    <h2 class="text-xl font-semibold mb-4">Submit Task</h2>
+                <!-- DESCRIPTION -->
+                <div>
+                  <label class="text-sm block mb-1">Description</label>
+                  <input
+                    type="text"
+                    id="description"
+                    placeholder="What did you do?"
+                    class="w-full p-3 bg-black border border-white/30 rounded-lg"
+                    required
+                  />
+                </div>
 
-    <!-- FORM -->
-    <form id="submitForm" class="space-y-4">
+                <!-- LINK -->
+                <div>
+                  <label class="text-sm block mb-1">Proof Link</label>
+                  <input
+                    type="text"
+                    id="link"
+                    placeholder="https://..."
+                    class="w-full p-3 bg-black border border-white/30 rounded-lg"
+                    required
+                  />
+                </div>
 
-      <!-- FILE INPUT -->
-      <div>
-        <label class="text-sm block mb-1">Upload Image</label>
-        <input type="file" id="image"
-          class="w-full p-2 bg-black border border-white/30 rounded-lg"
-          required>
-      </div>
-
-      <!-- DESCRIPTION -->
-      <div>
-        <label class="text-sm block mb-1">Description</label>
-        <input type="text" id="description"
-          placeholder="What did you do?"
-          class="w-full p-3 bg-black border border-white/30 rounded-lg"
-          required>
-      </div>
-
-      <!-- LINK -->
-      <div>
-        <label class="text-sm block mb-1">Proof Link</label>
-        <input type="text" id="link"
-          placeholder="https://..."
-          class="w-full p-3 bg-black border border-white/30 rounded-lg"
-          required>
-      </div>
-
-      <!-- SUBMIT -->
-      <button type="submit"
-        class="w-full bg-white text-black py-3 rounded-lg hover:bg-gray-200">
-        📤 Submit
-      </button>
-
-    </form>
-
-  </div>
-</div>
+                <!-- SUBMIT -->
+                <button
+                  type="submit"
+                  class="w-full bg-white text-black py-3 rounded-lg hover:bg-gray-200"
+                >
+                  📤 Submit
+                </button>
+              </form>
+            </div>
+          </div>
 
           <button
             id="distributeRewardBtn"
@@ -263,7 +288,7 @@
           <input
             type="text"
             placeholder="Add a comment..."
-            class="flex-1  border rounded text-black text-sm px-1"
+            class="flex-1 border rounded text-black text-sm px-1"
             id="newComment"
           />
           <button

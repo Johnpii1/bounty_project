@@ -7,8 +7,27 @@ const cors = require("cors");
 // init app & midware
 const app = express();
 app.use(express.json());
-app.use(cors());
+// app.use(cors());
 const port = process.env.PORT;
+
+app.use(
+  cors({
+    origin: [
+      "http://127.0.0.1:5501",
+      "http://localhost:5501",
+      "http://127.0.0.1:5500",
+      "http://localhost:5500",
+      "https://happy-bounty.onrender.com",
+    ],
+    credentials: true,
+    methods: ["GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"],
+    allowedHeaders: ["Content-Type", "Authorization"],
+  }),
+);
+
+// Increase payload limit for large base64 images
+app.use(express.json({ limit: "50mb" }));
+app.use(express.urlencoded({ extended: true, limit: "50mb" }));
 
 // connect to the database before starting the server
 let db;
@@ -243,6 +262,9 @@ app.get("/task/:id", async (req, res) => {
       return res.status(404).json({ error: "Bounty not found" });
     }
 
+    // Convert ObjectId to string
+    bounty._id = bounty._id.toString();
+
     // Update status in real-time
     bounty.status = calculateBountyStatus(bounty.startDate, bounty.deadline);
 
@@ -321,6 +343,359 @@ app.delete("/task/:id", async (req, res) => {
   }
 });
 
+// ==================== REWARD DISTRIBUTION ROUTE ====================
+
+/**
+ * 13. DISTRIBUTE REWARDS to winners
+ */
+app.post("/task/:id/distribute", async (req, res) => {
+  const id = req.params.id;
+  const { winners, payoutType, percentages, txHash } = req.body;
+
+  if (!ObjectId.isValid(id)) {
+    return res.status(400).json({ error: "Invalid bounty ID" });
+  }
+
+  if (!winners || !Array.isArray(winners) || winners.length === 0) {
+    return res.status(400).json({ error: "Winners array is required" });
+  }
+
+  try {
+    const bounty = await db
+      .collection("bounty")
+      .findOne({ _id: new ObjectId(id) });
+
+    if (!bounty) {
+      return res.status(404).json({ error: "Bounty not found" });
+    }
+
+    // Check if rewards are already distributed
+    if (bounty.winners?.assigned && bounty.winners.assigned.length > 0) {
+      return res.status(400).json({ error: "Rewards already distributed" });
+    }
+
+    // Calculate reward amounts for each winner
+    const rewardAmount = bounty.reward;
+    const winnerDetails = [];
+
+    if (winners.length === 1) {
+      // Single winner
+      winnerDetails.push({
+        address: winners[0],
+        amount: rewardAmount,
+        percentage: 100,
+      });
+    } else if (payoutType === "equal") {
+      // Equal split
+      const share = rewardAmount / winners.length;
+      winners.forEach((winner) => {
+        winnerDetails.push({
+          address: winner,
+          amount: share,
+          percentage: 100 / winners.length,
+        });
+      });
+    } else if (payoutType === "percentage" && percentages) {
+      // Percentage split
+      if (percentages.length !== winners.length) {
+        return res.status(400).json({
+          error: "Percentages array length must match winners length",
+        });
+      }
+
+      let totalPercentage = 0;
+      for (let i = 0; i < winners.length; i++) {
+        const percentage = percentages[i];
+        totalPercentage += percentage;
+        const amount = (rewardAmount * percentage) / 100;
+        winnerDetails.push({
+          address: winners[i],
+          amount: amount,
+          percentage: percentage,
+        });
+      }
+
+      if (totalPercentage !== 100) {
+        return res.status(400).json({ error: "Percentages must sum to 100" });
+      }
+    } else {
+      return res.status(400).json({ error: "Invalid payout configuration" });
+    }
+
+    // Update bounty with winners
+    const updateData = {
+      winners: {
+        assigned: winnerDetails,
+        claimed: [],
+        assignedAt: new Date().toISOString(),
+        distributionTxHash: txHash || null,
+        payoutType: payoutType,
+      },
+      rewardsAssignedOnChain: true,
+      updatedAt: new Date().toISOString(),
+    };
+
+    const result = await db
+      .collection("bounty")
+      .updateOne({ _id: new ObjectId(id) }, { $set: updateData });
+
+    if (result.matchedCount === 0) {
+      return res.status(404).json({ error: "Bounty not found" });
+    }
+
+    // Update user stats for each winner
+    for (const winner of winnerDetails) {
+      await db.collection("users").updateOne(
+        { walletAddress: winner.address },
+        {
+          $inc: { totalEarnings: winner.amount },
+          $set: { lastUpdated: new Date().toISOString() },
+          $push: {
+            earnedFrom: {
+              bountyId: id,
+              bountyTitle: bounty.title,
+              amount: winner.amount,
+              percentage: winner.percentage,
+              earnedAt: new Date().toISOString(),
+            },
+          },
+        },
+        { upsert: true },
+      );
+    }
+
+    res.status(200).json({
+      message: "Rewards distributed successfully",
+      winners: winnerDetails,
+      distributionTxHash: txHash,
+    });
+  } catch (err) {
+    console.error("Failed to distribute rewards:", err);
+    res.status(500).json({ error: "Failed to distribute rewards" });
+  }
+});
+
+/**
+ * GET user's claimable amount for a bounty
+ * GET /task/:id/claimable/:userAddress
+ */
+app.get("/task/:id/claimable/:userAddress", async (req, res) => {
+  const id = req.params.id;
+  const userAddress = req.params.userAddress;
+
+  if (!ObjectId.isValid(id)) {
+    return res.status(400).json({ error: "Invalid bounty ID" });
+  }
+
+  if (!userAddress || !userAddress.startsWith("0x")) {
+    return res.status(400).json({ error: "Invalid user address" });
+  }
+
+  try {
+    const bounty = await db
+      .collection("bounty")
+      .findOne({ _id: new ObjectId(id) });
+
+    if (!bounty) {
+      return res.status(404).json({ error: "Bounty not found" });
+    }
+
+    if (!bounty.winners?.assigned || bounty.winners.assigned.length === 0) {
+      return res
+        .status(200)
+        .json({ claimable: 0, message: "Rewards not yet distributed" });
+    }
+
+    const winner = bounty.winners.assigned.find(
+      (w) => w.address.toLowerCase() === userAddress.toLowerCase(),
+    );
+
+    if (!winner) {
+      return res.status(200).json({ claimable: 0, message: "Not a winner" });
+    }
+
+    const alreadyClaimed = bounty.winners.claimed?.some(
+      (c) => c.address.toLowerCase() === userAddress.toLowerCase(),
+    );
+
+    if (alreadyClaimed) {
+      return res.status(200).json({ claimable: 0, message: "Already claimed" });
+    }
+
+    res.status(200).json({
+      claimable: winner.amount,
+      message: "Reward available to claim",
+    });
+  } catch (err) {
+    console.error("Failed to get claimable amount:", err);
+    res.status(500).json({ error: "Failed to get claimable amount" });
+  }
+});
+
+/**
+ * 14. CLAIM REWARD for a winner
+ */
+app.post("/task/:id/claim", async (req, res) => {
+  const id = req.params.id;
+  const { winnerAddress, txHash } = req.body;
+
+  if (!ObjectId.isValid(id)) {
+    return res.status(400).json({ error: "Invalid bounty ID" });
+  }
+
+  if (!winnerAddress) {
+    return res.status(400).json({ error: "Winner address is required" });
+  }
+
+  try {
+    const bounty = await db
+      .collection("bounty")
+      .findOne({ _id: new ObjectId(id) });
+
+    if (!bounty) {
+      return res.status(404).json({ error: "Bounty not found" });
+    }
+
+    // Check if rewards have been distributed
+    if (!bounty.winners?.assigned || bounty.winners.assigned.length === 0) {
+      return res.status(400).json({ error: "Rewards not yet distributed" });
+    }
+
+    // Find the winner
+    const winner = bounty.winners.assigned.find(
+      (w) => w.address.toLowerCase() === winnerAddress.toLowerCase(),
+    );
+
+    if (!winner) {
+      return res.status(404).json({ error: "You are not a winner" });
+    }
+
+    // Check if already claimed
+    const alreadyClaimed = bounty.winners.claimed?.some(
+      (c) => c.address.toLowerCase() === winnerAddress.toLowerCase(),
+    );
+
+    if (alreadyClaimed) {
+      return res.status(400).json({ error: "Reward already claimed" });
+    }
+
+    // Mark as claimed
+    const updateData = {
+      $push: {
+        "winners.claimed": {
+          address: winnerAddress,
+          amount: winner.amount,
+          claimedAt: new Date().toISOString(),
+          txHash: txHash,
+        },
+      },
+      $set: { updatedAt: new Date().toISOString() },
+    };
+
+    const result = await db
+      .collection("bounty")
+      .updateOne({ _id: new ObjectId(id) }, updateData);
+
+    if (result.matchedCount === 0) {
+      return res.status(404).json({ error: "Bounty not found" });
+    }
+
+    // Update user's claimed rewards
+    await db.collection("users").updateOne(
+      { walletAddress: winnerAddress },
+      {
+        $push: {
+          claimedRewards: {
+            bountyId: id,
+            bountyTitle: bounty.title,
+            amount: winner.amount,
+            claimedAt: new Date().toISOString(),
+          },
+        },
+      },
+      { upsert: true },
+    );
+
+    res.status(200).json({
+      message: "Reward claimed successfully",
+      amount: winner.amount,
+      claimedAt: new Date().toISOString(),
+    });
+  } catch (err) {
+    console.error("Failed to claim reward:", err);
+    res.status(500).json({ error: "Failed to claim reward" });
+  }
+});
+
+/**
+ * GET if user has claimed reward
+ * GET /task/:id/has-claimed/:userAddress
+ */
+app.get("/task/:id/has-claimed/:userAddress", async (req, res) => {
+  const id = req.params.id;
+  const userAddress = req.params.userAddress;
+
+  if (!ObjectId.isValid(id)) {
+    return res.status(400).json({ error: "Invalid bounty ID" });
+  }
+
+  if (!userAddress || !userAddress.startsWith("0x")) {
+    return res.status(400).json({ error: "Invalid user address" });
+  }
+
+  try {
+    const bounty = await db
+      .collection("bounty")
+      .findOne({ _id: new ObjectId(id) });
+
+    if (!bounty) {
+      return res.status(404).json({ error: "Bounty not found" });
+    }
+
+    const hasClaimed =
+      bounty.winners?.claimed?.some(
+        (c) => c.address.toLowerCase() === userAddress.toLowerCase(),
+      ) || false;
+
+    res.status(200).json({ hasClaimed });
+  } catch (err) {
+    console.error("Failed to check claim status:", err);
+    res.status(500).json({ error: "Failed to check claim status" });
+  }
+});
+
+/**
+ * 15. GET winners for a bounty
+ */
+app.get("/task/:id/winners", async (req, res) => {
+  const id = req.params.id;
+
+  if (!ObjectId.isValid(id)) {
+    return res.status(400).json({ error: "Invalid bounty ID" });
+  }
+
+  try {
+    const bounty = await db
+      .collection("bounty")
+      .findOne({ _id: new ObjectId(id) });
+
+    if (!bounty) {
+      return res.status(404).json({ error: "Bounty not found" });
+    }
+
+    res.status(200).json({
+      winners: bounty.winners?.assigned || [],
+      claimed: bounty.winners?.claimed || [],
+      distributedAt: bounty.winners?.assignedAt || null,
+      isDistributed: bounty.winners?.assigned?.length > 0,
+      payoutType: bounty.winners?.payoutType || null,
+    });
+  } catch (err) {
+    console.error("Failed to fetch winners:", err);
+    res.status(500).json({ error: "Failed to fetch winners" });
+  }
+});
+
 // ==================== USER ROUTES ====================
 
 /**
@@ -346,6 +721,8 @@ app.get("/user/:wallet", async (req, res) => {
           tasksCompleted: 0,
           submissions: { pending: 0, accepted: 0, rejected: 0 },
         },
+        earnedFrom: [],
+        claimedRewards: [],
       };
 
       const result = await db.collection("users").insertOne(newUser);
@@ -383,12 +760,74 @@ app.get("/user/:wallet", async (req, res) => {
   }
 });
 
+// ==================== ENROLLMENT ROUTES ====================
+
+// CREATE enrollment (start task)
+app.post("/enroll", async (req, res) => {
+  const { bountyId, user } = req.body;
+
+  if (!bountyId || !user) {
+    return res.status(400).json({ error: "Missing bountyId or user" });
+  }
+
+  try {
+    // Check if already enrolled
+    const existing = await db.collection("enrollments").findOne({
+      bountyId: new ObjectId(bountyId),
+      user,
+    });
+
+    if (existing) {
+      return res.status(400).json({ error: "Already enrolled" });
+    }
+
+    const enrollment = {
+      bountyId: new ObjectId(bountyId),
+      user,
+      enrolledAt: new Date().toISOString(),
+    };
+
+    const result = await db.collection("enrollments").insertOne(enrollment);
+
+    res.status(201).json({
+      message: "Enrolled successfully",
+      _id: result.insertedId,
+    });
+  } catch (err) {
+    console.error("Enrollment error:", err);
+    res.status(500).json({ error: "Failed to enroll" });
+  }
+});
+
+// GET enrollments by user
+app.get("/enrollments/user/:wallet", async (req, res) => {
+  const wallet = req.params.wallet;
+
+  try {
+    const enrollments = await db
+      .collection("enrollments")
+      .find({ user: wallet })
+      .toArray();
+
+    const formatted = enrollments.map((e) => ({
+      ...e,
+      _id: e._id.toString(),
+      bountyId: e.bountyId.toString(),
+    }));
+
+    res.status(200).json({ enrollments: formatted });
+  } catch (err) {
+    console.error("Error fetching enrollments:", err);
+    res.status(500).json({ error: "Failed to fetch enrollments" });
+  }
+});
+
 // ==================== SUBMISSION ROUTES ====================
 
 /**
  * 7. CREATE a submission
  */
-app.post("/submission", async (req, res) => {
+app.post("/submission", express.json({ limit: "50mb" }), async (req, res) => {
   const { bountyId, user, description, projectLink, image } = req.body;
 
   if (!bountyId || !user || !description || !projectLink) {
@@ -409,6 +848,7 @@ app.post("/submission", async (req, res) => {
     const existingSubmission = await db.collection("submissions").findOne({
       bountyId: new ObjectId(bountyId),
       user: user,
+      isSubmitted: true,
     });
 
     if (existingSubmission) {
@@ -426,6 +866,7 @@ app.post("/submission", async (req, res) => {
       projectLink,
       image: image || "",
       status: "pending",
+      isSubmitted: true,
       submittedAt: new Date().toISOString(),
     };
 
@@ -463,15 +904,25 @@ app.get("/submissions/user/:wallet", async (req, res) => {
       .sort({ submittedAt: -1 })
       .toArray();
 
+    // Convert ObjectId to string for easier frontend comparison
+    const formattedSubmissions = submissions.map((sub) => ({
+      ...sub,
+      _id: sub._id.toString(),
+      bountyId: sub.bountyId.toString(), // Convert ObjectId to string
+    }));
+
     // Calculate stats
     const stats = {
-      pending: submissions.filter((s) => s.status === "pending").length,
-      accepted: submissions.filter((s) => s.status === "accepted").length,
-      rejected: submissions.filter((s) => s.status === "rejected").length,
+      pending: formattedSubmissions.filter((s) => s.status === "pending")
+        .length,
+      accepted: formattedSubmissions.filter((s) => s.status === "accepted")
+        .length,
+      rejected: formattedSubmissions.filter((s) => s.status === "rejected")
+        .length,
     };
 
     res.status(200).json({
-      submissions,
+      formattedSubmissions,
       stats,
     });
   } catch (err) {
@@ -493,6 +944,7 @@ app.get("/dashboard/:wallet", async (req, res) => {
     const user = await db
       .collection("users")
       .findOne({ walletAddress: wallet });
+
 
     // Get user's bounties
     const createdBounties = await db

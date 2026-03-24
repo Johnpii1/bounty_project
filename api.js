@@ -5,7 +5,7 @@ import {
   getAllBounties,
 } from "./contractService.js";
 
-const API_BASE = "https://happy-bounty.onrender.com";
+export const API_BASE = "https://happy-bounty.onrender.com";
 
 /**
  * 1. Fetch bounties with filters (combines backend + blockchain data)
@@ -312,6 +312,144 @@ export async function deleteBounty(id) {
   } catch (error) {
     console.error("Error deleting bounty:", error);
     throw error;
+  }
+}
+
+// ==================== REWARD DISTRIBUTION FUNCTIONS ====================
+
+/**
+ * 12. Distribute rewards to winners
+ * @param {string} bountyId - Bounty ID
+ * @param {Object} distributionData - { winners, payoutType, percentages, txHash }
+ */
+export async function distributeRewards(bountyId, distributionData) {
+  try {
+    const response = await fetch(`${API_BASE}/task/${bountyId}/distribute`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(distributionData, (key, value) => {
+        if (typeof value === "bigint") {
+          return Number(value);
+        }
+        return value;
+      }),
+    });
+
+    const data = await response.json();
+
+    if (!response.ok) throw new Error(data.error);
+
+    return data;
+  } catch (error) {
+    console.error("Error distributing rewards:", error);
+    throw error;
+  }
+}
+
+/**
+ * 13. Claim reward for a winner
+ * @param {string} bountyId - Bounty ID
+ * @param {Object} claimData - { winnerAddress, txHash }
+ */
+export async function claimRewardOffChain(bountyId, claimData) {
+  try {
+    const response = await fetch(`${API_BASE}/task/${bountyId}/claim`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(claimData, (key, value) => {
+        if (typeof value === "bigint") {
+          return Number(value);
+        }
+        return value;
+      }),
+    });
+
+    const data = await response.json();
+
+    if (!response.ok) throw new Error(data.error);
+
+    return data;
+  } catch (error) {
+    console.error("Error claiming reward:", error);
+    throw error;
+  }
+}
+
+/**
+ * 14. Get winners for a bounty
+ * @param {string} bountyId - Bounty ID
+ */
+export async function getWinners(bountyId) {
+  try {
+    const response = await fetch(`${API_BASE}/task/${bountyId}/winners`);
+    if (!response.ok) {
+      throw new Error(`HTTP ${response.status}`);
+    }
+    const data = await response.json();
+    try {
+      return JSON.parse(data);
+    } catch {
+      console.error("Non-JSON response:", data);
+      return { winners: [], claimed: [], isDistributed: false };
+    }
+  } catch (error) {
+    console.error("Error fetching winners:", error);
+    return { winners: [], claimed: [], isDistributed: false };
+  }
+}
+
+/**
+ * 15. Check if user has claimed reward
+ * @param {string} bountyId - Bounty ID
+ * @param {string} userAddress - User wallet address
+ */
+export async function hasUserClaimedReward(bountyId, userAddress) {
+  try {
+    const winnersData = await getWinners(bountyId);
+
+    if (!winnersData.claimed || winnersData.claimed.length === 0) {
+      return false;
+    }
+
+    return winnersData.claimed.some(
+      (claim) => claim.address.toLowerCase() === userAddress.toLowerCase(),
+    );
+  } catch (error) {
+    console.error("Error checking if user claimed:", error);
+    return false;
+  }
+}
+
+/**
+ * 16. Get user's claimable amount
+ * @param {string} bountyId - Bounty ID
+ * @param {string} userAddress - User wallet address
+ */
+export async function getUserClaimableAmount(bountyId, userAddress) {
+  try {
+    const winnersData = await getWinners(bountyId);
+
+    if (!winnersData.winners || winnersData.winners.length === 0) {
+      return 0;
+    }
+
+    const winner = winnersData.winners.find(
+      (w) => w.address.toLowerCase() === userAddress.toLowerCase(),
+    );
+
+    if (!winner) {
+      return 0;
+    }
+
+    // Check if already claimed
+    const alreadyClaimed = winnersData.claimed?.some(
+      (c) => c.address.toLowerCase() === userAddress.toLowerCase(),
+    );
+
+    return alreadyClaimed ? 0 : winner.amount;
+  } catch (error) {
+    console.error("Error getting claimable amount:", error);
+    return 0;
   }
 }
 

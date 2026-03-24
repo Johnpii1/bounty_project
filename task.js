@@ -5,6 +5,12 @@ import {
   createSubmission,
   getUserProfile,
   getUserSubmissions,
+  distributeRewards,
+  claimRewardOffChain,
+  getWinners,
+  getUserClaimableAmount,
+  hasUserClaimedReward,
+  API_BASE,
 } from "./api.js";
 import {
   disconnectWallet,
@@ -14,7 +20,7 @@ import {
 import { initProfile } from "./initProfile.js";
 
 import {
-  claimReward,
+  claimReward as claimRewardOnChain,
   getBountyDetails,
   getClaimableReward,
   hasClaimed,
@@ -23,7 +29,7 @@ import {
 
 // ==================== STATE MANAGEMENT ====================
 let bountyData = null;
-let currentUser = null;
+export let currentUser = null;
 let userEnrolled = false;
 let isCreator = false;
 let claimableAmount = 0;
@@ -31,6 +37,7 @@ let hasUserClaimed = false;
 let hasUserSubmitted = false;
 let userSubmissionData = null; // Store full submission data
 let comments = [];
+let winnersData = null; // Store winners data
 
 // ==================== DOM ELEMENTS ====================
 const loadingState = document.getElementById("loadingState");
@@ -50,6 +57,12 @@ const winnersInputsDiv = document.getElementById("winnersInputs");
 const submitModal = document.getElementById("submitModal");
 const closeSubmitBtn = document.getElementById("closeSubmit");
 const submitForm = document.getElementById("submitForm");
+
+// Image preview elements
+const imageInput = document.getElementById("image");
+const imagePreview = document.getElementById("imagePreview");
+const previewImg = document.getElementById("previewImg");
+const imageSizeWarning = document.getElementById("imageSizeWarning");
 
 // ==================== INITIALIZATION ====================
 document.addEventListener("DOMContentLoaded", async () => {
@@ -98,9 +111,39 @@ document.addEventListener("DOMContentLoaded", async () => {
   // Initialize profile
   await initProfile();
 
+  // Setup image preview
+  setupImagePreview();
+
   // Load bounty details
   await loadBountyDetails(bountyId);
 });
+
+// ==================== IMAGE PREVIEW SETUP ====================
+function setupImagePreview() {
+  if (imageInput) {
+    imageInput.addEventListener("change", (e) => {
+      const file = e.target.files[0];
+      if (file) {
+        if (file.size > 5 * 1024 * 1024) {
+          imageSizeWarning.textContent =
+            "⚠️ Image is too large! Maximum 5MB. Your image will be compressed.";
+          imageSizeWarning.classList.remove("hidden");
+        } else {
+          imageSizeWarning.classList.add("hidden");
+        }
+
+        const reader = new FileReader();
+        reader.onload = (event) => {
+          previewImg.src = event.target.result;
+          imagePreview.classList.remove("hidden");
+        };
+        reader.readAsDataURL(file);
+      } else {
+        imagePreview.classList.add("hidden");
+      }
+    });
+  }
+}
 
 // ==================== LOAD BOUNTY DETAILS ====================
 async function loadBountyDetails(bountyId) {
@@ -122,6 +165,9 @@ async function loadBountyDetails(bountyId) {
     // Check if user has already submitted
     await checkUserSubmission();
 
+    // Load winners data
+    await loadWinnersData();
+
     // Check if rewards are claimable
     if (!isCreator && userEnrolled) {
       await checkClaimableReward();
@@ -133,6 +179,11 @@ async function loadBountyDetails(bountyId) {
     // Display submission status if exists
     if (hasUserSubmitted && userSubmissionData) {
       displaySubmissionStatus();
+    }
+
+    // Display winners info if rewards distributed
+    if (winnersData && winnersData.isDistributed) {
+      displayWinnersInfo();
     }
 
     // Load comments
@@ -158,47 +209,151 @@ async function loadBountyDetails(bountyId) {
   }
 }
 
-// ==================== CHECK USER SUBMISSION ====================
-async function checkUserSubmission() {
+// ==================== LOAD WINNERS DATA ====================
+async function loadWinnersData() {
   try {
-    const response = await fetch(
-      `https://happy-bounty.onrender.com/submissions/user/${currentUser}`,
+    winnersData = await getWinners(bountyData._id);
+    console.log("Winners data loaded:", winnersData);
+
+    // Check if current user has claimed
+    if (winnersData.isDistributed) {
+      const hasClaimed = await hasUserClaimedReward(
+        bountyData._id,
+        currentUser,
+      );
+      hasUserClaimed = hasClaimed;
+
+      // Get claimable amount for current user
+      const amount = await getUserClaimableAmount(bountyData._id, currentUser);
+      if (amount > 0) {
+        claimableAmount = amount;
+      }
+    }
+  } catch (error) {
+    console.error("Error loading winners data:", error);
+    winnersData = { winners: [], claimed: [], isDistributed: false };
+  }
+}
+
+// ==================== DISPLAY WINNERS INFO ====================
+function displayWinnersInfo() {
+  let winnersDiv = document.getElementById("winnersInfo");
+
+  if (!winnersDiv) {
+    winnersDiv = document.createElement("div");
+    winnersDiv.id = "winnersInfo";
+    winnersDiv.className =
+      "mt-4 p-4 rounded-lg border border-green-600 bg-green-900/20";
+
+    const actionButtons = document.querySelector(".flex.flex-wrap.gap-3");
+    if (actionButtons && actionButtons.parentNode) {
+      actionButtons.insertAdjacentElement("afterend", winnersDiv);
+    }
+  }
+
+  const distributedDate = winnersData.distributedAt
+    ? new Date(winnersData.distributedAt).toLocaleDateString()
+    : "Unknown";
+
+  let winnersHtml = `
+    <div class="flex items-start gap-3">
+      <i class="bi bi-trophy-fill text-green-500 text-xl"></i>
+      <div class="flex-1">
+        <h4 class="font-semibold text-green-400 mb-2">🏆 Rewards Distributed (${distributedDate})</h4>
+        <div class="space-y-2">
+  `;
+
+  winnersData.winners.forEach((winner) => {
+    const isClaimed = winnersData.claimed?.some(
+      (c) => c.address === winner.address,
     );
+    const claimStatus = isClaimed ? "✅ Claimed" : "⏳ Pending";
+    const claimStatusClass = isClaimed ? "text-green-400" : "text-yellow-400";
+
+    winnersHtml += `
+      <div class="flex justify-between items-center text-sm border-b border-gray-700 pb-2">
+        <span class="font-mono">${shortenAddress(winner.address)}</span>
+        <div class="flex gap-4">
+          <span class="text-green-400">${winner.amount.toFixed(4)} ${bountyData.token}</span>
+          <span class="${claimStatusClass}">${claimStatus}</span>
+        </div>
+      </div>
+    `;
+  });
+
+  winnersHtml += `
+        </div>
+      </div>
+    </div>
+  `;
+
+  winnersDiv.innerHTML = winnersHtml;
+}
+
+// ==================== CHECK USER SUBMISSION ====================
+export async function checkUserSubmission() {
+  try {
+    const response = await fetch(`${API_BASE}/submissions/user/${currentUser}`);
     const data = await response.json();
 
-    if (data.submissions && data.submissions.length > 0) {
-      const existingSubmission = data.submissions.find(
-        (sub) => sub.bountyId === bountyData._id,
+    // ✅ CRITICAL FIX: correct key
+    const submissions = data.formattedSubmissions || [];
+
+    if (submissions.length > 0) {
+      const bountyIdString = bountyData._id.toString();
+
+      const existingSubmission = submissions.find(
+        (sub) => sub.bountyId === bountyIdString && sub.isSubmitted === true, // ✅ ONLY real submissions
       );
+
       if (existingSubmission) {
         hasUserSubmitted = true;
         userSubmissionData = existingSubmission;
-        console.log("User submission found:", userSubmissionData);
+        return;
       }
     }
+
+    hasUserSubmitted = false;
   } catch (error) {
     console.error("Error checking user submission:", error);
     hasUserSubmitted = false;
   }
 }
 
+// ==================== CHECK USER ENROLLMENT ====================
+export async function checkUserEnrollment() {
+  try {
+    const response = await fetch(`${API_BASE}/enrollments/user/${currentUser}`);
+    const data = await response.json();
+
+    const enrollments = data.enrollments || []; // ✅ FIX
+
+    if (enrollments.length > 0) {
+      const bountyIdString = bountyData._id.toString();
+
+      userEnrolled = enrollments.some((e) => e.bountyId === bountyIdString);
+    } else {
+      userEnrolled = false;
+    }
+  } catch (error) {
+    console.error("Error checking enrollment:", error);
+    userEnrolled = false;
+  }
+}
+
 // ==================== DISPLAY SUBMISSION STATUS ====================
 function displaySubmissionStatus() {
-  // Check if submission status display already exists
   let statusDiv = document.getElementById("submissionStatus");
 
   if (!statusDiv) {
-    // Create submission status element
     statusDiv = document.createElement("div");
     statusDiv.id = "submissionStatus";
     statusDiv.className = "mt-4 p-4 rounded-lg border";
 
-    // Insert after action buttons
     const actionButtons = document.querySelector(".flex.flex-wrap.gap-3");
     if (actionButtons && actionButtons.parentNode) {
       actionButtons.insertAdjacentElement("afterend", statusDiv);
     } else {
-      // Fallback: add after blockchain info
       const blockchainInfo = document.getElementById("blockchainInfo");
       if (blockchainInfo) {
         blockchainInfo.insertAdjacentElement("beforebegin", statusDiv);
@@ -206,7 +361,6 @@ function displaySubmissionStatus() {
     }
   }
 
-  // Get status and color
   const status = userSubmissionData.status || "pending";
   let statusConfig = {
     pending: {
@@ -232,8 +386,6 @@ function displaySubmissionStatus() {
   };
 
   const config = statusConfig[status] || statusConfig.pending;
-
-  // Format submission date
   const submittedDate = userSubmissionData.submittedAt
     ? new Date(userSubmissionData.submittedAt).toLocaleDateString("en-US", {
         year: "numeric",
@@ -261,27 +413,6 @@ function displaySubmissionStatus() {
   `;
 }
 
-// ==================== CHECK USER ENROLLMENT ====================
-async function checkUserEnrollment() {
-  try {
-    const response = await fetch(
-      `https://happy-bounty.onrender.com/submissions/user/${currentUser}`,
-    );
-    const data = await response.json();
-
-    if (data.submissions) {
-      userEnrolled = data.submissions.some(
-        (sub) => sub.bountyId === bountyData._id,
-      );
-    }
-
-    console.log("User enrolled:", userEnrolled);
-  } catch (error) {
-    console.error("Error checking enrollment:", error);
-    userEnrolled = false;
-  }
-}
-
 // ==================== CHECK CLAIMABLE REWARD ====================
 async function checkClaimableReward() {
   try {
@@ -297,17 +428,10 @@ async function checkClaimableReward() {
         `Claimable amount: ${claimableAmount}, Already claimed: ${hasUserClaimed}`,
       );
     } else {
-      if (bountyData.winners && bountyData.winners.assigned) {
-        const winner = bountyData.winners.assigned.find(
-          (w) => w.address === currentUser,
-        );
-        if (winner && !winner.claimed) {
-          claimableAmount = winner.amount;
-          hasUserClaimed = false;
-        } else if (winner && winner.claimed) {
-          hasUserClaimed = true;
-        }
-      }
+      claimableAmount = await getUserClaimableAmount(
+        bountyData._id,
+        currentUser,
+      );
     }
   } catch (error) {
     console.error("Error checking claimable reward:", error);
@@ -382,7 +506,6 @@ function updateButtonStates() {
   const isBountyCompleted = bountyData.status === "completed";
   const isBountyEnded = new Date(bountyData.deadline) < new Date();
 
-  // All buttons always clickable
   startTaskBtn.disabled = false;
   claimRewardBtn.disabled = false;
   submitBtn.disabled = false;
@@ -408,7 +531,7 @@ function updateButtonStates() {
     submitBtn.classList.remove("opacity-70");
   }
 
-  // Update button titles for tooltip info
+  // Update tooltips
   if (isCreator) {
     startTaskBtn.title = "You cannot start your own task";
     claimRewardBtn.title = "Creator cannot claim reward";
@@ -443,8 +566,8 @@ function updateButtonStates() {
     claimRewardBtn.title = "No reward assigned to you yet";
   }
 
-  // Distribute Reward Button (only creator, only after deadline)
-  if (isCreator && isBountyEnded && !bountyData.rewardsAssignedOnChain) {
+  // Distribute Reward Button
+  if (isCreator && isBountyEnded && !winnersData?.isDistributed) {
     distributeRewardBtn.disabled = false;
     distributeRewardBtn.title = "Distribute rewards to winners";
   } else {
@@ -455,7 +578,7 @@ function updateButtonStates() {
     else if (!isBountyEnded)
       distributeRewardBtn.title =
         "Cannot distribute until task deadline has passed";
-    else if (bountyData.rewardsAssignedOnChain)
+    else if (winnersData?.isDistributed)
       distributeRewardBtn.title = "Rewards already distributed";
   }
 }
@@ -481,26 +604,23 @@ startTaskBtn.addEventListener("click", async () => {
     startTaskBtn.textContent = "Enrolling...";
     startTaskBtn.disabled = true;
 
-    const submissionData = {
-      bountyId: bountyData._id,
-      user: currentUser,
-      description: "Started working on this task",
-      projectLink: "In progress",
-      image: "",
-    };
+    await fetch(`${API_BASE}/enroll`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        bountyId: bountyData._id,
+        user: currentUser,
+      }),
+    });
 
-    const result = await createSubmission(submissionData);
-
-    if (result && result._id) {
-      showToast("✅ Successfully enrolled in this task!", "success");
-      userEnrolled = true;
-      updateButtonStates();
-    } else {
-      throw new Error("Failed to enroll");
-    }
+    showToast("✅ Successfully enrolled!", "success");
+    userEnrolled = true;
+    updateButtonStates();
   } catch (error) {
-    console.error("Error starting task:", error);
-    showToast(error.message || "Failed to enroll in task", "error");
+    console.error("Enrollment error:", error);
+    showToast("Failed to enroll", "error");
   } finally {
     startTaskBtn.textContent = "🚀 Start Task";
     startTaskBtn.disabled = false;
@@ -540,9 +660,15 @@ claimRewardBtn.addEventListener("click", async () => {
 
     if (bountyData.blockchainId) {
       showToast("📝 Please confirm transaction in your wallet...", "info");
-      const result = await claimReward(bountyData.blockchainId);
+      const result = await claimRewardOnChain(bountyData.blockchainId);
 
       if (result.success) {
+        // Update off-chain database
+        await claimRewardOffChain(bountyData._id, {
+          winnerAddress: currentUser,
+          txHash: result.txHash,
+        });
+
         showToast(
           `✅ Reward claimed successfully! TX: ${result.txHash.slice(0, 10)}...`,
           "success",
@@ -550,16 +676,19 @@ claimRewardBtn.addEventListener("click", async () => {
         hasUserClaimed = true;
         claimableAmount = 0;
 
-        await updateBounty(bountyData._id, {
-          "winners.claimed": [
-            ...(bountyData.winners?.claimed || []),
-            currentUser,
-          ],
-        });
+        // Reload winners data
+        await loadWinnersData();
+        displayWinnersInfo();
       } else {
         throw new Error("Claim failed");
       }
     } else {
+      // Off-chain only claim
+      await claimRewardOffChain(bountyData._id, {
+        winnerAddress: currentUser,
+        txHash: null,
+      });
+
       showToast(
         `✅ Claimed ${claimableAmount} ${bountyData.token}!`,
         "success",
@@ -567,12 +696,8 @@ claimRewardBtn.addEventListener("click", async () => {
       hasUserClaimed = true;
       claimableAmount = 0;
 
-      await updateBounty(bountyData._id, {
-        "winners.claimed": [
-          ...(bountyData.winners?.claimed || []),
-          currentUser,
-        ],
-      });
+      await loadWinnersData();
+      displayWinnersInfo();
     }
 
     updateButtonStates();
@@ -588,6 +713,49 @@ claimRewardBtn.addEventListener("click", async () => {
     claimRewardBtn.disabled = false;
   }
 });
+
+// ==================== COMPRESS IMAGE FUNCTION ====================
+function compressImage(file, maxWidth = 1024, quality = 0.7) {
+  return new Promise((resolve, reject) => {
+    const reader = new FileReader();
+
+    reader.onload = (e) => {
+      const img = new Image();
+      img.onload = () => {
+        let width = img.width;
+        let height = img.height;
+
+        if (width > maxWidth) {
+          height = (height * maxWidth) / width;
+          width = maxWidth;
+        }
+
+        const canvas = document.createElement("canvas");
+        canvas.width = width;
+        canvas.height = height;
+
+        const ctx = canvas.getContext("2d");
+        ctx.drawImage(img, 0, 0, width, height);
+
+        canvas.toBlob(
+          (blob) => {
+            const compressedFile = new File([blob], file.name, {
+              type: file.type,
+              lastModified: Date.now(),
+            });
+            resolve(compressedFile);
+          },
+          file.type,
+          quality,
+        );
+      };
+      img.onerror = reject;
+      img.src = e.target.result;
+    };
+    reader.onerror = reject;
+    reader.readAsDataURL(file);
+  });
+}
 
 // ==================== SUBMIT BUTTON HANDLER ====================
 submitBtn.addEventListener("click", () => {
@@ -618,14 +786,14 @@ submitBtn.addEventListener("click", () => {
         "❌ Your submission was rejected. You can submit again.",
         "warning",
       );
-      // Allow resubmission for rejected submissions
       hasUserSubmitted = false;
       userSubmissionData = null;
       const statusDiv = document.getElementById("submissionStatus");
       if (statusDiv) statusDiv.remove();
       submitBtn.innerHTML = "📝 Submit";
       submitBtn.classList.remove("opacity-70");
-      // Open modal for resubmission
+      if (imagePreview) imagePreview.classList.add("hidden");
+      if (imageInput) imageInput.value = "";
       submitModal.classList.remove("hidden");
       submitModal.classList.add("flex");
       return;
@@ -640,7 +808,6 @@ submitBtn.addEventListener("click", () => {
     return;
   }
 
-  // Open modal
   submitModal.classList.remove("hidden");
   submitModal.classList.add("flex");
 });
@@ -668,7 +835,18 @@ submitForm.addEventListener("submit", async (e) => {
     return;
   }
 
+  if (imageFile.size > 5 * 1024 * 1024) {
+    showToast(
+      "Image too large! Maximum 5MB. Please compress your image.",
+      "warning",
+    );
+    return;
+  }
+
   try {
+    showToast("📸 Compressing image...", "info");
+    const compressedImage = await compressImage(imageFile, 1024, 0.7);
+
     const reader = new FileReader();
 
     reader.onload = async (event) => {
@@ -686,10 +864,9 @@ submitForm.addEventListener("submit", async (e) => {
           description: description,
           projectLink: link,
           image: imageBase64,
-          status: "pending", // Initial status
+          status: "pending",
+          isSubmitted: true, // 👈 important
         };
-
-        console.log("Submitting task...", submissionData);
 
         const result = await createSubmission(submissionData);
 
@@ -706,28 +883,32 @@ submitForm.addEventListener("submit", async (e) => {
             status: "pending",
           };
 
-          // Display submission status
           displaySubmissionStatus();
-
-          // Close modal
           submitModal.classList.add("hidden");
           submitForm.reset();
-
-          // Update button state
+          if (imagePreview) imagePreview.classList.add("hidden");
+          if (imageSizeWarning) imageSizeWarning.classList.add("hidden");
           updateButtonStates();
         } else {
           throw new Error("Failed to submit");
         }
       } catch (error) {
         console.error("Error submitting task:", error);
-        showToast(error.message || "Failed to submit task", "error");
+        if (error.message.includes("413")) {
+          showToast(
+            "Image too large! Please use a smaller image (under 2MB).",
+            "error",
+          );
+        } else {
+          showToast(error.message || "Failed to submit task", "error");
+        }
       } finally {
         submitButton.textContent = originalText;
         submitButton.disabled = false;
       }
     };
 
-    reader.readAsDataURL(imageFile);
+    reader.readAsDataURL(compressedImage);
   } catch (error) {
     console.error("Error processing image:", error);
     showToast("Failed to process image", "error");
@@ -737,15 +918,21 @@ submitForm.addEventListener("submit", async (e) => {
 // ==================== MODAL CLOSE HANDLERS ====================
 closeSubmitBtn.addEventListener("click", () => {
   submitModal.classList.add("hidden");
+  submitForm.reset();
+  if (imagePreview) imagePreview.classList.add("hidden");
+  if (imageSizeWarning) imageSizeWarning.classList.add("hidden");
 });
 
 submitModal.addEventListener("click", (e) => {
   if (e.target === submitModal) {
     submitModal.classList.add("hidden");
+    submitForm.reset();
+    if (imagePreview) imagePreview.classList.add("hidden");
+    if (imageSizeWarning) imageSizeWarning.classList.add("hidden");
   }
 });
 
-// ==================== DISTRIBUTE REWARD (keep existing) ====================
+// ==================== DISTRIBUTE REWARD ====================
 distributeRewardBtn.addEventListener("click", async () => {
   openDistributeModal();
 });
@@ -814,7 +1001,91 @@ window.viewSubmissionImage = (imageBase64) => {
   `);
 };
 
-// ==================== COMMENTS (keep existing) ====================
+// ==================== CONFIRM DISTRIBUTION ====================
+document
+  .getElementById("confirmDistributeBtn")
+  ?.addEventListener("click", async () => {
+    try {
+      const winnerInputs = document.querySelectorAll(".winner-address");
+      const winners = [];
+      for (let input of winnerInputs) {
+        const address = input.value.trim();
+        if (!address) {
+          showToast("Please fill in all winner addresses", "warning");
+          return;
+        }
+        if (!address.startsWith("0x") || address.length !== 42) {
+          showToast(`Invalid address: ${address}`, "warning");
+          return;
+        }
+        winners.push(address);
+      }
+      if (new Set(winners).size !== winners.length) {
+        showToast("Duplicate winner addresses found", "warning");
+        return;
+      }
+      if (
+        !confirm(
+          `Distribute ${bountyData.reward} ${bountyData.token} to ${winners.length} winner(s)?`,
+        )
+      ) {
+        return;
+      }
+      distributeModal.classList.add("hidden");
+      distributeRewardBtn.disabled = true;
+      distributeRewardBtn.textContent = "Distributing...";
+
+      let txHash = null;
+      let percentages = [];
+
+      if (bountyData.blockchainId) {
+        showToast("📝 Please confirm transaction in your wallet...", "info");
+        if (bountyData.payoutType === "percentage" && bountyData.percentages) {
+          percentages = bountyData.percentages;
+        }
+        showToast("⚠️ Blockchain distribution not yet implemented", "warning");
+      }
+
+      // Call the API to distribute rewards
+      const distributionResult = await distributeRewards(bountyData._id, {
+        winners: winners,
+        payoutType: bountyData.payoutType === "equal" ? "equal" : "percentage",
+        percentages: percentages,
+        txHash: txHash,
+      });
+
+      if (distributionResult) {
+        showToast("✅ Rewards distributed successfully!", "success");
+
+        // Reload winners data
+        await loadWinnersData();
+        displayWinnersInfo();
+        updateButtonStates();
+      } else {
+        throw new Error("Distribution failed");
+      }
+    } catch (error) {
+      console.error("Error distributing rewards:", error);
+      showToast(error.message || "Failed to distribute rewards", "error");
+    } finally {
+      distributeRewardBtn.disabled = false;
+      distributeRewardBtn.textContent = "🏆 Distribute Reward";
+    }
+  });
+
+document
+  .getElementById("closeDistributeModal")
+  ?.addEventListener("click", () => {
+    distributeModal.classList.add("hidden");
+  });
+
+document
+  .getElementById("cancelDistributeBtn")
+  ?.addEventListener("click", () => {
+    distributeModal.classList.add("hidden");
+  });
+
+// ==================== COMMENTS ====================
 async function loadComments() {
   try {
     const storedComments = localStorage.getItem(`comments_${bountyData._id}`);
@@ -927,78 +1198,3 @@ document.addEventListener("click", () => {
   document.querySelector(".plusmenu")?.classList.add("hidden");
   document.querySelector(".profilemenu")?.classList.add("hidden");
 });
-
-// Confirm distribution (keep existing)
-document
-  .getElementById("confirmDistributeBtn")
-  ?.addEventListener("click", async () => {
-    try {
-      const winnerInputs = document.querySelectorAll(".winner-address");
-      const winners = [];
-      for (let input of winnerInputs) {
-        const address = input.value.trim();
-        if (!address) {
-          showToast("Please fill in all winner addresses", "warning");
-          return;
-        }
-        if (!address.startsWith("0x") || address.length !== 42) {
-          showToast(`Invalid address: ${address}`, "warning");
-          return;
-        }
-        winners.push(address);
-      }
-      if (new Set(winners).size !== winners.length) {
-        showToast("Duplicate winner addresses found", "warning");
-        return;
-      }
-      if (
-        !confirm(
-          `Distribute ${bountyData.reward} ${bountyData.token} to ${winners.length} winner(s)?`,
-        )
-      ) {
-        return;
-      }
-      distributeModal.classList.add("hidden");
-      distributeRewardBtn.disabled = true;
-      distributeRewardBtn.textContent = "Distributing...";
-
-      if (bountyData.blockchainId) {
-        showToast("📝 Please confirm transaction in your wallet...", "info");
-        let percentages = [];
-        if (bountyData.payoutType === "percentage" && bountyData.percentages) {
-          percentages = bountyData.percentages;
-        }
-        showToast("⚠️ Blockchain distribution not yet implemented", "warning");
-        await updateBounty(bountyData._id, {
-          winners: { assigned: winners, claimed: [] },
-          rewardsAssignedOnChain: true,
-        });
-      } else {
-        await updateBounty(bountyData._id, {
-          winners: { assigned: winners, claimed: [] },
-          rewardsAssignedOnChain: true,
-        });
-      }
-      showToast("✅ Rewards distributed successfully!", "success");
-      bountyData.rewardsAssignedOnChain = true;
-      updateButtonStates();
-    } catch (error) {
-      console.error("Error distributing rewards:", error);
-      showToast(error.message || "Failed to distribute rewards", "error");
-    } finally {
-      distributeRewardBtn.disabled = false;
-      distributeRewardBtn.textContent = "🏆 Distribute Reward";
-    }
-  });
-
-document
-  .getElementById("closeDistributeModal")
-  ?.addEventListener("click", () => {
-    distributeModal.classList.add("hidden");
-  });
-
-document
-  .getElementById("cancelDistributeBtn")
-  ?.addEventListener("click", () => {
-    distributeModal.classList.add("hidden");
-  });
