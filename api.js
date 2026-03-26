@@ -506,7 +506,7 @@ export async function getComments(bountyId) {
 export async function checkEnrollment(bountyId, user) {
   try {
     const response = await fetch(
-      `${API_BASE}/task/${bountyId}/enrollment/${user}`,
+      `${API_BASE}/task/${bountyId}/enrollments/${user}`,
     );
     const data = await response.json();
 
