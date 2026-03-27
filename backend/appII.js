@@ -7,23 +7,23 @@ const cors = require("cors");
 // init app & midware
 const app = express();
 app.use(express.json());
-// app.use(cors());
+app.use(cors());
 const port = process.env.PORT;
 
-app.use(
-  cors({
-    origin: [
-      "http://127.0.0.1:5501",
-      "http://localhost:5501",
-      "http://127.0.0.1:5500",
-      "http://localhost:5500",
-      "https://happy-bounty.onrender.com",
-    ],
-    credentials: true,
-    methods: ["GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"],
-    allowedHeaders: ["Content-Type", "Authorization"],
-  }),
-);
+// app.use(
+//   cors({
+//     origin: [
+//       "http://127.0.0.1:5501",
+//       "http://localhost:5501",
+//       "http://127.0.0.1:5500",
+//       "http://localhost:5500",
+//       "https://happy-bounty.onrender.com",
+//     ],
+//     credentials: true,
+//     methods: ["GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"],
+//     allowedHeaders: ["Content-Type", "Authorization"],
+//   }),
+// );
 
 // Increase payload limit for large base64 images
 app.use(express.json({ limit: "50mb" }));
@@ -671,17 +671,24 @@ app.get("/task/:id/winners", async (req, res) => {
   const id = req.params.id;
 
   if (!ObjectId.isValid(id)) {
+    console.log(`invalid id ${id}`);
     return res.status(400).json({ error: "Invalid bounty ID" });
   }
 
   try {
+    console.log(`getting bounty id ${id}`);
+
     const bounty = await db
       .collection("bounty")
       .findOne({ _id: new ObjectId(id) });
 
+    console.log(`bounty found ${bounty}`);
+
     if (!bounty) {
       return res.status(404).json({ error: "Bounty not found" });
     }
+
+    // res.status(200).json({ stats: `bounty found ${bounty}` });
 
     res.status(200).json({
       winners: bounty.winners?.assigned || [],
@@ -944,7 +951,6 @@ app.get("/dashboard/:wallet", async (req, res) => {
     const user = await db
       .collection("users")
       .findOne({ walletAddress: wallet });
-
 
     // Get user's bounties
     const createdBounties = await db

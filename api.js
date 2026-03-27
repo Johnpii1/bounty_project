@@ -381,13 +381,19 @@ export async function claimRewardOffChain(bountyId, claimData) {
  */
 export async function getWinners(bountyId) {
   try {
+    console.log(`Trying to fetch winners with bounty id ${bountyId}`);
+
     const response = await fetch(`${API_BASE}/task/${bountyId}/winners`);
+    console.log(`${API_BASE}/task/${bountyId}/winners`);
     if (!response.ok) {
-      throw new Error(`HTTP ${response.status}`);
+      // throw new Error(`HTTP ${response.status}`);
+      console.log(response.status);
+      // console.log(`Response status text: ${response.statusText}`);
+      console.log("coundn't fetch winners");
     }
     const data = await response.json();
     try {
-      return JSON.parse(data);
+      return data;
     } catch {
       console.error("Non-JSON response:", data);
       return { winners: [], claimed: [], isDistributed: false };
@@ -405,15 +411,22 @@ export async function getWinners(bountyId) {
  */
 export async function hasUserClaimedReward(bountyId, userAddress) {
   try {
+    console.log(
+      `is this user a winner and has he claimed, id ${bountyId} user ${userAddress}`,
+    );
     const winnersData = await getWinners(bountyId);
 
     if (!winnersData.claimed || winnersData.claimed.length === 0) {
       return false;
     }
 
-    return winnersData.claimed.some(
+    const claimUpdate = winnersData.claimed.some(
       (claim) => claim.address.toLowerCase() === userAddress.toLowerCase(),
     );
+
+    console.log(`winner updated with user address ${claimUpdate}`);
+
+    return claimUpdate;
   } catch (error) {
     console.error("Error checking if user claimed:", error);
     return false;
@@ -430,6 +443,7 @@ export async function getUserClaimableAmount(bountyId, userAddress) {
     const winnersData = await getWinners(bountyId);
 
     if (!winnersData.winners || winnersData.winners.length === 0) {
+      console.log("no winner");
       return 0;
     }
 

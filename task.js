@@ -221,6 +221,7 @@ async function loadWinnersData() {
         bountyData._id,
         currentUser,
       );
+      console.log(hasClaimed);
       hasUserClaimed = hasClaimed;
 
       // Get claimable amount for current user
