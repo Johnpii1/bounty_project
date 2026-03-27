@@ -35,7 +35,7 @@ let db;
 connectToDb((err) => {
   if (!err) {
     app.listen(port, () => {
-      console.log(`App listening on port ${port}`);
+      // console.log(`App listening on port ${port}`);
     });
     db = getDb();
   }
@@ -140,7 +140,7 @@ app.post("/task", async (req, res) => {
 
 app.get("/task", async (req, res) => {
   try {
-    const { status, category, tags, page = 0, limit = 4 } = req.query;
+    const { status, category, tags, page = 0, limit = 6 } = req.query;
 
     // Build base filter
     let filter = {};

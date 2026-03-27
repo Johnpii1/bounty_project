@@ -7,7 +7,7 @@ import { initProfile } from "./initProfile.js";
 let currentPage = 0;
 let currentFilter = "all";
 let totalBounties = 0;
-const BOUNTIES_PER_PAGE = 4;
+const BOUNTIES_PER_PAGE = 6;
 
 // ==================== DOM ELEMENTS ====================
 const gridContainer = document.getElementById("gridContainer");
