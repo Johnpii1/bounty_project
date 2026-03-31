@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Happy Bounty Admin</title>
+<script src="https://cdn.tailwindcss.com"></script>
+</head>
+
+<body class="bg-gray-100 font-sans">
+
+<div class="flex h-screen overflow-hidden">
+
+<!-- SIDEBAR -->
+<aside id="sidebar" class="fixed md:relative z-20 w-64 bg-gray-900 text-white h-full transform -translate-x-full md:translate-x-0 transition-transform duration-300">
+
+<div class="flex items-center justify-between p-5 border-b border-gray-700">
+<h2 class="text-xl font-bold">Happy Bounty Admin</h2>
+<button id="closeBtn" class="md:hidden text-2xl">✕</button>
+</div>
+
+<nav class="p-4 space-y-2">
+<a href="#" class="block p-2 rounded hover:bg-gray-700">Dashboard</a>
+<a href="#" class="block p-2 rounded hover:bg-gray-700">Users</a>
+<a href="#" class="block p-2 rounded hover:bg-gray-700">Deposits</a>
+<a href="#" class="block p-2 rounded hover:bg-gray-700">Settings</a>
+</nav>
+
+</aside>
+
+<!-- MAIN CONTENT -->
+<div class="flex-1 flex flex-col">
+
+<!-- TOPBAR -->
+<header class="bg-white shadow p-4 flex justify-between items-center">
+<div class="flex items-center gap-4">
+<button id="menuBtn" class="md:hidden text-2xl">☰</button>
+<h1 class="text-xl font-semibold">Dashboard</h1>
+</div>
+
+<div class="flex items-center gap-4">
+<input type="text" placeholder="Search..." class="border px-3 py-1 rounded hidden sm:block">
+<img src="https://i.pravatar.cc/40" class="rounded-full">
+</div>
+</header>
+
+<!-- MAIN -->
+<main class="p-6 overflow-y-auto flex-1">
+
+<!-- STATS CARDS -->
+<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mb-6">
+
+<div class="bg-white p-5 rounded shadow">
+<h2 class="text-gray-500">Total Deposits</h2>
+<p id="totalDeposits" class="text-2xl font-bold">$0</p>
+</div>
+
+<div class="bg-white p-5 rounded shadow">
+<h2 class="text-gray-500">Happy Bounty Earn (10%)</h2>
+<p id="earnings" class="text-2xl font-bold">$0</p>
+</div>
+
+<div class="bg-white p-5 rounded shadow">
+<h2 class="text-gray-500">Total Users</h2>
+<p id="totalUsers" class="text-2xl font-bold">0</p>
+</div>
+
+</div>
+
+<!-- USERS TABLE -->
+<div class="bg-white p-5 rounded shadow overflow-x-auto">
+<h2 class="text-lg font-semibold mb-4">User Deposits</h2>
+
+<table class="w-full text-left min-w-[500px]">
+<thead>
+<tr class="border-b">
+<th class="py-2">Name</th>
+<th>Email</th>
+<th>Deposit ($)</th>
+<th>Our 10% Earn ($)</th>
+</tr>
+</thead>
+
+<tbody id="userTable">
+<!-- Rows populated dynamically -->
+</tbody>
+
+</table>
+</div>
+
+</main>
+
+</div>
+</div>
+
+</body>
+<script type="module" src="admin.js"></script>
+</html>
