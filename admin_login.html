@@ -143,6 +143,7 @@ adminLoginForm.addEventListener("submit", function(e){
 
     if(emailInput === adminEmail && passwordInput === adminPassword){
         window.location.href = "admin_page.html";
+        textContent = "Approved"
     } else {
         errorMessage.textContent = "Invalid admin login";
     }
