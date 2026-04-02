@@ -82,6 +82,73 @@
 
 
 
+<div class="bg-gray-900 flex items-center justify-center h-screen text-white">
+
+<div class="bg-gray-800 p-8 rounded-lg w-96 shadow-lg">
+
+<h2 class="text-2xl font-bold text-center mb-6">Admin Login</h2>
+
+<form id="adminLoginForm">
+
+<div class="mb-4">
+<label class="block mb-2">Email</label>
+<input 
+type="email" 
+id="adminEmail"
+class="w-full p-2 rounded bg-gray-700 border border-gray-600 focus:outline-none"
+placeholder="Enter admin email"
+required
+>
+</div>
+
+<div class="mb-6">
+<label class="block mb-2">Password</label>
+<input 
+type="password" 
+id="adminPassword"
+class="w-full p-2 rounded bg-gray-700 border border-gray-600 focus:outline-none"
+placeholder="Enter password"
+required
+>
+</div>
+
+<button 
+type="submit"
+class="w-full bg-blue-600 hover:bg-blue-700 p-2 rounded font-semibold"
+>
+Login
+</button>
+
+</form>
+
+<p id="errorMessage" class="text-red-400 text-center mt-4"></p>
+
+</div>
+</div>
+
+
+<script>
+const adminEmail = "admin232@gmail.com";
+const adminPassword = "admin123";
+
+const adminLoginForm = document.getElementById("adminLoginForm");
+const errorMessage = document.getElementById("errorMessage");
+
+adminLoginForm.addEventListener("submit", function(e){
+
+    e.preventDefault();
+
+    const emailInput = document.getElementById("adminEmail").value;
+    const passwordInput = document.getElementById("adminPassword").value;
+
+    if(emailInput === adminEmail && passwordInput === adminPassword){
+        window.location.href = "admin_page.html";
+    } else {
+        errorMessage.textContent = "Invalid admin login";
+    }
+
+});
+</script>
 
 </body>
 </html>
